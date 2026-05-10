@@ -163,10 +163,9 @@ function render() {
 
     html += `
     <div class="section" data-idx="${i}">
-      <!-- 大分类：标题 + ID + 按钮 同一行 -->
+      <!-- 大分类标题 + 按钮 一行 -->
       <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
         <h3 style="margin:0;">${bigTitle}</h3>
-        <span style="font-size:13px; color:#666; font-family:monospace;">${cat.id}</span>
         <div style="display:flex; gap:6px; flex-shrink:0; margin-left:auto;">
           <button class="btn" onclick="addCategoryBefore(${i})">↑ 插入分类</button>
           <button class="btn" onclick="addCategoryAfter(${i})">↓ 插入分类</button>
@@ -175,8 +174,12 @@ function render() {
         </div>
       </div>
 
-      <input placeholder="分类名" value="${cat.name}" oninput="navConfig.categories[${i}].name=this.value">
-      <input placeholder="图标" value="${cat.icon||''}" oninput="navConfig.categories[${i}].icon=this.value">
+      <!-- 大分类：ID + 分类名 + 图标 同一行（和子分类完全一样排版） -->
+      <div style="display:flex; gap:8px; margin-bottom:6px;">
+        <input value="${cat.id}" disabled style="background:#f5f5f5; flex:1;">
+        <input placeholder="分类名" value="${cat.name}" oninput="navConfig.categories[${i}].name=this.value" style="flex:2;">
+        <input placeholder="图标" value="${cat.icon||''}" oninput="navConfig.categories[${i}].icon=this.value" style="flex:1;">
+      </div>
 
       <div class="site-list" data-cat="${i}" data-sub="-1"></div>
 
@@ -198,7 +201,6 @@ function render() {
       const subTitle = `${k + 1}、${sub.name}`;
       html += `
       <div class="sub-section" data-idx="${k}">
-        <!-- 子分类标题 + 按钮 同一行，按钮不贴最右 -->
         <div style="display:flex; align-items:center; gap:12px; margin-bottom:6px;">
           <h4 style="margin:0;">${subTitle}</h4>
           <div style="display:flex; gap:6px;">
@@ -207,7 +209,6 @@ function render() {
           </div>
         </div>
 
-        <!-- ID + 名称 同一行 -->
         <div style="display:flex; gap:8px; margin-bottom:6px;">
           <input value="${sub.id}" disabled style="background:#f5f5f5; flex:1;">
           <input placeholder="子分类名" value="${sub.name}" oninput="navConfig.categories[${i}].subCategories[${k}].name=this.value" style="flex:2;">
