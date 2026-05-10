@@ -131,16 +131,19 @@ function render() {
   navConfig.categories.forEach((cat, i) => {
     html += `
     <div class="section" data-idx="${i}">
-      <h3>${cat.name}</h3>
+      <!-- 标题 + 按钮 横排同行显示 -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h3 style="margin:0;">${cat.name}</h3>
+        <div style="display:flex; gap:6px; flex-shrink:0;">
+          <button class="btn" onclick="addCategoryBefore(${i})">↑ 插入分类</button>
+          <button class="btn" onclick="addCategoryAfter(${i})">↓ 插入分类</button>
+          <button class="btn btn-primary" onclick="addSite(${i},-1)">➕ 添加网站</button>
+          <button class="btn" onclick="deleteCategory(${i})">🗑 删除</button>
+        </div>
+      </div>
+
       <input placeholder="分类名" value="${cat.name}" oninput="navConfig.categories[${i}].name=this.value">
       <input placeholder="图标" value="${cat.icon||''}" oninput="navConfig.categories[${i}].icon=this.value">
-
-      <div style="margin:8px 0">
-        <button class="btn" onclick="addCategoryBefore(${i})">↑ 插入分类</button>
-        <button class="btn" onclick="addCategoryAfter(${i})">↓ 插入分类</button>
-        <button class="btn btn-primary" onclick="addSite(${i},-1)">➕ 添加网站</button>
-        <button class="btn" onclick="deleteCategory(${i})">🗑 删除</button>
-      </div>
 
       <div class="site-list" data-cat="${i}" data-sub="-1"></div>
 
