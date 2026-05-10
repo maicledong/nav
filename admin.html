@@ -67,10 +67,11 @@
 
 <script>
 var GITHUB_CONFIG = {
-  APP_ID: "3661878",
+  APP_ID: "3663516",
   OWNER: "maicledong",
   REPO: "nav",
-  BRANCH: "master"
+  BRANCH: "master",
+  FILE_PATH: "nav-config.json"
 };
 
 var navConfig = {};
@@ -99,18 +100,30 @@ function getJwt() {
   return KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(payload), privateKey);
 }
 
+// 修复：改用 GitHub API 加载配置，和提交地址保持一致
 async function loadConfig() {
   try {
-    var res = await fetch('https://raw.githubusercontent.com/' + GITHUB_CONFIG.OWNER + '/' + GITHUB_CONFIG.REPO + '/' + GITHUB_CONFIG.BRANCH + '/nav-config.json');
-    navConfig = await res.json();
+    // 用 GitHub API 读取文件，避免 raw.githubusercontent.com 的跨域问题
+    const jwt = getJwt();
+    var res = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${GITHUB_CONFIG.FILE_PATH}?ref=${GITHUB_CONFIG.BRANCH}`, {
+      headers: {
+        "Authorization": "Bearer " + jwt,
+        "Accept": "application/vnd.github.v3+json"
+      }
+    });
+
+    if (!res.ok) throw new Error("读取配置失败，状态码: " + res.status);
+    var fileData = await res.json();
+    // 解码 base64 内容
+    navConfig = JSON.parse(atob(fileData.content));
     renderAdmin();
     setStatus("✅ 加载配置成功");
   } catch (e) {
-    setStatus("❌ 加载配置失败");
+    setStatus("❌ 加载配置失败: " + e.message);
+    console.error(e);
   }
 }
 
-// 修复后的渲染函数，修正了siteRow的拼接错误
 function renderAdmin() {
   var html = "";
   navConfig.categories.forEach(function(cat, i) {
@@ -164,7 +177,6 @@ function renderAdmin() {
   initSortable();
 }
 
-// 修复后的siteRow函数，修正了字符串拼接错误
 function siteRow(catIdx, subIdx, siteIdx, site) {
   return '<div class="site-row" data-cat="' + catIdx + '" data-sub="' + subIdx + '" data-site="' + siteIdx + '">' +
     '<input value="' + site.logo + '" oninput="updateSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ',\'logo\',this.value)">' +
@@ -283,22 +295,38 @@ async function saveToGitHub(){
     var jwt = getJwt();
     var owner = GITHUB_CONFIG.OWNER;
     var repo = GITHUB_CONFIG.REPO;
-    var path = "nav-config.json";
+    var path = GITHUB_CONFIG.FILE_PATH;
 
-    var getFile = await fetch("https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + path + "?ref=" + GITHUB_CONFIG.BRANCH,{
-      headers:{Authorization:"Bearer " + jwt}
+    // 读取文件信息（获取sha）
+    var getFile = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${GITHUB_CONFIG.BRANCH}`, {
+      headers: {
+        "Authorization": "Bearer " + jwt,
+        "Accept": "application/vnd.github.v3+json"
+      }
     });
-    if (!getFile.ok) throw new Error('获取文件信息失败');
+
+    if (!getFile.ok) {
+      const err = await getFile.json();
+      console.error("API Error:", err);
+      throw new Error("获取文件失败: " + err.message + " (状态码: " + getFile.status + ")");
+    }
+
     var resJson = await getFile.json();
     var sha = resJson.sha;
 
+    // 编码内容
     var content = btoa(unescape(encodeURIComponent(JSON.stringify(navConfig, null, 2))));
 
-    var upload = await fetch("https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + path,{
-      method:"PUT",
-      headers:{Authorization:"Bearer " + jwt, "Content-Type":"application/json"},
-      body:JSON.stringify({
-        message:"后台更新配置",
+    // 提交更新
+    var upload = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+      method: "PUT",
+      headers: {
+        "Authorization": "Bearer " + jwt,
+        "Content-Type": "application/json",
+        "Accept": "application/vnd.github.v3+json"
+      },
+      body: JSON.stringify({
+        message: "后台更新配置",
         content: content,
         sha: sha,
         branch: GITHUB_CONFIG.BRANCH
