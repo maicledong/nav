@@ -47,16 +47,16 @@
           "name": "影音工具",
           "sites": [
             {
-              "name": "即梦AI",
-              "url": "https://jimeng.jianying.com/ai-tool/home",
-              "logo": "assets/images/logos/jimeng.png",
-              "desc": "一站式多模态AI-让灵感即刻成片"
-            },
-            {
               "name": "OBS Studio",
               "url": "https://obsproject.com",
               "logo": "assets/images/logos/obs.jpg",
               "desc": "免费开源录屏与直播神器"
+            },
+            {
+              "name": "即梦AI",
+              "url": "https://jimeng.jianying.com/ai-tool/home",
+              "logo": "assets/images/logos/jimeng.png",
+              "desc": "一站式多模态AI-让灵感即刻成片"
             }
           ]
         }
@@ -72,16 +72,16 @@
           "name": "开发工具",
           "sites": [
             {
-              "name": "Cloudflare",
-              "url": "https://www.cloudflare.com/zh-cn",
-              "logo": "assets/images/logos/CloudFlare.jpg",
-              "desc": "全球网络安全加速平台"
-            },
-            {
               "name": "在线工具助手",
               "url": "https://tool.gitapp.cn",
               "logo": "assets/images/logos/mdx.png",
               "desc": "一些常见的开发工具"
+            },
+            {
+              "name": "Cloudflare",
+              "url": "https://www.cloudflare.com/zh-cn",
+              "logo": "assets/images/logos/CloudFlare.jpg",
+              "desc": "全球网络安全加速平台"
             }
           ]
         },
