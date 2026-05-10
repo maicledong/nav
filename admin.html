@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>导航后台｜GitHub App 安全版</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Microsoft Yahei", system-ui; background: #f4f6f8; padding: 20px; }
+    .wrap { max-width: 1100px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 12px #00000010; }
+    h2 { margin-bottom: 20px; color: #222; }
+    .hint { color: #666; font-size: 14px; margin-bottom: 15px; }
+    .btn-group { margin-bottom: 20px; }
+    button { padding: 5px 10px; border: none; border-radius: 5px; background: #167ffc; color: #fff; cursor: pointer; margin-right: 4px; font-size: 13px; }
+    .btn-danger { background: #f53f3f; }
+    .btn-sort { background: #67c23a; }
+    .btn-copy { background: #ff7d00; }
+    .btn-insert { background: #28a745; }
+    .section { border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; margin-bottom: 16px; cursor: move; }
+    .sub-section { border: 1px dashed #ccc; border-radius: 8px; padding: 14px; margin-top: 10px; background: #fefefe; cursor: move; }
+    input { width: 100%; padding: 7px 10px; margin: 5px 0; border: 1px solid #dcdfe6; border-radius: 5px; outline: none; }
+    .site-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 36px 36px 46px 50px; gap: 4px; margin: 6px 0; align-items: center; background: #fafafa; padding: 5px; border-radius: 6px; cursor: move; }
+    .ctrl-row { margin: 10px 0; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+    #status { margin: 16px 0; color: #167ffc; font-weight: bold; }
+    .dragging { opacity: 0.5; border: 1px dashed #167ffc; }
+    .drop-zone { min-height: 40px; padding: 4px; }
+    .big-drop-zone { padding: 8px; }
+    .sub-drop-zone { min-height: 50px; padding: 8px; }
+    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 999; }
+    .modal-box { background: #fff; padding: 20px; border-radius: 10px; min-width: 320px; max-height: 80vh; overflow: auto; }
+    .modal-box h4 { margin-bottom: 15px; }
+    .copy-item { padding: 8px 10px; border-bottom: 1px solid #eee; cursor: pointer; }
+    .copy-item:hover { background: #f0f7ff; }
+    #authContainer { margin-bottom: 16px; padding: 12px; background: #eefaff; border-radius: 8px; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h2>🧭 导航后台｜GitHub App 安全版</h2>
+  <div class="hint">提示：导入 .pem 私钥后即可一键提交</div>
+
+  <div id="authContainer">
+    <input type="file" id="pemFile" accept=".pem" style="margin-bottom:10px;">
+    <button onclick="importPEM()">🔑 导入私钥（pem）</button>
+  </div>
+
+  <div class="btn-group">
+    <button onclick="saveToGitHub()">💾 一键保存到 GitHub</button>
+  </div>
+
+  <div id="status"></div>
+  <div class="big-drop-zone" id="bigContainer"></div>
+</div>
+
+<div class="modal" id="copyModal">
+  <div class="modal-box">
+    <h4>选择复制目标位置</h4>
+    <div id="copyList"></div>
+    <div style="margin-top:15px;text-align:right;">
+      <button onclick="closeCopyModal()" class="btn-danger">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsrsasign@10.8.6/lib/jsrsasign-all-min.js"></script>
+
+<script>
+var GITHUB_CONFIG = {
+  APP_ID: "3661878",
+  OWNER: "maicledong",
+  REPO: "nav",
+  BRANCH: "master"
+};
+
+var navConfig = {};
+var currentCopySite = null;
+var privateKey = null;
+
+function importPEM() {
+  var input = document.getElementById('pemFile');
+  if (!input.files.length) return alert('请先选择 pem 私钥文件');
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    privateKey = e.target.result;
+    setStatus('✅ 私钥导入成功，现在可以提交');
+  };
+  reader.readAsText(input.files[0]);
+}
+
+function getJwt() {
+  if (!privateKey) throw new Error('请先导入 pem 私钥');
+  var header = { alg: 'RS256', typ: 'JWT' };
+  var payload = {
+    iss: GITHUB_CONFIG.APP_ID,
+    iat: Math.floor(Date.now() / 1000) - 60,
+    exp: Math.floor(Date.now() / 1000) + 600
+  };
+  return KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(payload), privateKey);
+}
+
+async function loadConfig() {
+  try {
+    var res = await fetch('https://raw.githubusercontent.com/' + GITHUB_CONFIG.OWNER + '/' + GITHUB_CONFIG.REPO + '/' + GITHUB_CONFIG.BRANCH + '/nav-config.json');
+    navConfig = await res.json();
+    renderAdmin();
+    setStatus("✅ 加载配置成功");
+  } catch (e) {
+    setStatus("❌ 加载配置失败");
+  }
+}
+
+// 修复后的渲染函数，修正了siteRow的拼接错误
+function renderAdmin() {
+  var html = "";
+  navConfig.categories.forEach(function(cat, i) {
+    html +=
+    '<div class="section" data-big-idx="' + i + '">' +
+      '<h4>📂 大分类：' + cat.name + '</h4>' +
+      '<input value="' + cat.name + '" oninput="navConfig.categories[' + i + '].name=this.value" placeholder="分类名称">' +
+      '<input value="' + (cat.icon||'') + '" oninput="navConfig.categories[' + i + '].icon=this.value" placeholder="图标class">' +
+      '<div class="ctrl-row">' +
+        '<button class="btn-insert" onclick="insertBigBefore(' + i + ')">在上方插入新大类</button>' +
+        '<button class="btn-insert" onclick="insertBigAfter(' + i + ')">在下方插入新大类</button>' +
+        '<button onclick="addSiteToBig(' + i + ')">➕ 直接添加网站</button>' +
+        '<button class="btn-sort" onclick="moveBigUp(' + i + ')">⬆️ 上移</button>' +
+        '<button class="btn-sort" onclick="moveBigDown(' + i + ')">⬇️ 下移</button>' +
+        '<button class="btn-danger" onclick="delBigCat(' + i + ')">🗑 删除</button>' +
+      '</div>' +
+      '<div class="drop-zone" id="drop-big-' + i + '" data-cat="' + i + '" data-sub="-1">';
+    if (cat.sites && cat.sites.length > 0) {
+      cat.sites.forEach(function(s, j) {
+        html += siteRow(i, -1, j, s);
+      });
+    }
+    html +=
+    '</div><div class="sub-drop-zone" id="sub-drop-zone-' + i + '" data-cat="' + i + '">';
+    if (cat.subCategories && cat.subCategories.length > 0) {
+      cat.subCategories.forEach(function(sub, k) {
+        html +=
+        '<div class="sub-section" data-sub-idx="' + k + '" data-parent-cat="' + i + '">' +
+          '<h5>📁 子分类：' + sub.name + '</h5>' +
+          '<input value="' + sub.name + '" oninput="navConfig.categories[' + i + '].subCategories[' + k + '].name=this.value" placeholder="子分类名称">' +
+          '<div class="ctrl-row">' +
+            '<button class="btn-insert" onclick="insertSubBefore(' + i + ',' + k + ')">在上方插入新子分类</button>' +
+            '<button class="btn-insert" onclick="insertSubAfter(' + i + ',' + k + ')">在下方插入新子分类</button>' +
+            '<button onclick="addSiteToSub(' + i + ',' + k + ')">➕ 新增网站</button>' +
+            '<button class="btn-sort" onclick="moveSubUp(' + i + ',' + k + ')">⬆️ 上移</button>' +
+            '<button class="btn-sort" onclick="moveSubDown(' + i + ',' + k + ')">⬇️ 下移</button>' +
+            '<button class="btn-danger" onclick="delSubCat(' + i + ',' + k + ')">🗑 删除子分类</button>' +
+          '</div>' +
+          '<div class="drop-zone" id="drop-sub-' + i + '-' + k + '" data-cat="' + i + '" data-sub="' + k + '">';
+        if (sub.sites && sub.sites.length > 0) {
+          sub.sites.forEach(function(s, j) {
+            html += siteRow(i, k, j, s);
+          });
+        }
+        html += '</div></div>';
+      });
+    }
+    html += '</div></div>';
+  });
+  document.getElementById("bigContainer").innerHTML = html;
+  initSortable();
+}
+
+// 修复后的siteRow函数，修正了字符串拼接错误
+function siteRow(catIdx, subIdx, siteIdx, site) {
+  return '<div class="site-row" data-cat="' + catIdx + '" data-sub="' + subIdx + '" data-site="' + siteIdx + '">' +
+    '<input value="' + site.logo + '" oninput="updateSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ',\'logo\',this.value)">' +
+    '<input value="' + site.name + '" oninput="updateSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ',\'name\',this.value)">' +
+    '<input value="' + site.url + '" oninput="updateSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ',\'url\',this.value)">' +
+    '<input value="' + site.desc + '" oninput="updateSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ',\'desc\',this.value)">' +
+    '<button class="btn-sort" onclick="moveSiteUp(' + catIdx + ',' + subIdx + ',' + siteIdx + ')">⬆️</button>' +
+    '<button class="btn-sort" onclick="moveSiteDown(' + catIdx + ',' + subIdx + ',' + siteIdx + ')">⬇️</button>' +
+    '<button class="btn-copy" onclick="openCopyModal(' + catIdx + ',' + subIdx + ',' + siteIdx + ')">复制</button>' +
+    '<button class="btn-danger" onclick="delSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ')">删除</button>' +
+  '</div>';
+}
+
+function insertBigBefore(idx){navConfig.categories.splice(idx,0,{id:"id"+Date.now(),name:"新大分类",icon:"fas fa-folder fa-lg",sites:[],subCategories:[]});renderAdmin();}
+function insertBigAfter(idx){navConfig.categories.splice(idx+1,0,{id:"id"+Date.now(),name:"新大分类",icon:"fas fa-folder fa-lg",sites:[],subCategories:[]});renderAdmin();}
+function insertSubBefore(catIdx,subIdx){navConfig.categories[catIdx].subCategories.splice(subIdx,0,{id:"id"+Date.now(),name:"新子分类",sites:[]});renderAdmin();}
+function insertSubAfter(catIdx,subIdx){navConfig.categories[catIdx].subCategories.splice(subIdx+1,0,{id:"id"+Date.now(),name:"新子分类",sites:[]});renderAdmin();}
+
+function initSortable() {
+  new Sortable(document.getElementById("bigContainer"), {
+    animation:150, ghostClass:"dragging",
+    onEnd:evt=>{
+      var oldIdx = evt.oldIndex;
+      var newIdx = evt.newIndex;
+      var temp = navConfig.categories[oldIdx];
+      navConfig.categories[oldIdx] = navConfig.categories[newIdx];
+      navConfig.categories[newIdx] = temp;
+      renderAdmin();
+      setStatus("✅ 大分类拖拽成功");
+    }
+  });
+
+  document.querySelectorAll('.drop-zone').forEach(function(zone){
+    new Sortable(zone,{group:'sites',animation:150,ghostClass:'dragging',
+      onEnd:evt=>{
+        var fC = parseInt(evt.from.dataset.cat);
+        var fS = parseInt(evt.from.dataset.sub);
+        var tC = parseInt(evt.to.dataset.cat);
+        var tS = parseInt(evt.to.dataset.sub);
+        var oI = evt.oldIndex;
+        var nI = evt.newIndex;
+        var fA = fS === -1 ? navConfig.categories[fC].sites : navConfig.categories[fC].subCategories[fS].sites;
+        var it = fA.splice(oI,1)[0];
+        var tA = tS === -1 ? navConfig.categories[tC].sites : navConfig.categories[tC].subCategories[tS].sites;
+        tA.splice(nI,0,it);
+        renderAdmin();
+        setStatus("✅ 网站移动成功");
+      }
+    });
+  });
+
+  document.querySelectorAll('.sub-drop-zone').forEach(function(zone){
+    new Sortable(zone,{group:'subcats',animation:150,ghostClass:'dragging',
+      onEnd:evt=>{
+        var fC = parseInt(evt.from.dataset.cat);
+        var tC = parseInt(evt.to.dataset.cat);
+        var oI = evt.oldIndex;
+        var nI = evt.newIndex;
+        var s = navConfig.categories[fC].subCategories.splice(oI,1)[0];
+        navConfig.categories[tC].subCategories.splice(nI,0,s);
+        renderAdmin();
+        setStatus("✅ 子分类移动成功");
+      }
+    });
+  });
+}
+
+function openCopyModal(catIdx,subIdx,siteIdx){
+  currentCopySite={catIdx,subIdx,siteIdx};
+  var h="";
+  navConfig.categories.forEach(function(c,i){
+    h += '<div class="copy-item" data-tc="' + i + '" data-ts="-1">📂 ' + c.name + ' 直属</div>';
+    if (c.subCategories) {
+      c.subCategories.forEach(function(s,k){
+        h += '<div class="copy-item" data-tc="' + i + '" data-ts="' + k + '">  📁 ' + s.name + '</div>';
+      });
+    }
+  });
+  document.getElementById("copyList").innerHTML=h;
+  document.getElementById("copyModal").style.display="flex";
+  document.querySelectorAll(".copy-item").forEach(function(i){
+    i.onclick=function(){
+      var tc=parseInt(this.dataset.tc);
+      var ts=parseInt(this.dataset.ts);
+      var src=currentCopySite;
+      var arr=src.subIdx===-1 ? navConfig.categories[src.catIdx].sites : navConfig.categories[src.catIdx].subCategories[src.subIdx].sites;
+      var cp=JSON.parse(JSON.stringify(arr[src.siteIdx]));
+      var tArr=ts===-1 ? (navConfig.categories[tc].sites || []) : (navConfig.categories[tc].subCategories[ts].sites || []);
+      tArr.push(cp);
+      closeCopyModal();
+      renderAdmin();
+      setStatus("✅ 复制成功");
+    };
+  });
+}
+function closeCopyModal(){document.getElementById("copyModal").style.display="none";}
+
+function moveBigUp(i){if(i===0)return;var temp=navConfig.categories[i];navConfig.categories[i]=navConfig.categories[i-1];navConfig.categories[i-1]=temp;renderAdmin();}
+function moveBigDown(i){if(i===navConfig.categories.length-1)return;var temp=navConfig[i];navConfig[i]=navConfig[i+1];navConfig[i+1]=temp;renderAdmin();}
+function moveSubUp(c,s){if(s===0)return;var arr=navConfig.categories[c].subCategories;var temp=arr[s];arr[s]=arr[s-1];arr[s-1]=temp;renderAdmin();}
+function moveSubDown(c,s){var arr=navConfig.categories[c].subCategories;if(s===arr.length-1)return;var temp=arr[s];arr[s]=arr[s+1];arr[s+1]=temp;renderAdmin();}
+function moveSiteUp(c,s,i){var arr=s===-1?navConfig.categories[c].sites:navConfig.categories[c].subCategories[s].sites;if(i===0)return;var temp=arr[i];arr[i]=arr[i-1];arr[i-1]=temp;renderAdmin();}
+function moveSiteDown(c,s,i){var arr=s===-1?navConfig.categories[c].sites:navConfig.categories[c].subCategories[s].sites;if(i===arr.length-1)return;var temp=arr[i];arr[i]=arr[i+1];arr[i+1]=temp;renderAdmin();}
+
+function addSiteToBig(c){if(!navConfig.categories[c].sites)navConfig.categories[c].sites=[];navConfig.categories[c].sites.push({name:"新网站",url:"",logo:"assets/default.png",desc:""});renderAdmin();}
+function addSiteToSub(c,s){if(!navConfig.categories[c].subCategories[s].sites)navConfig.categories[c].subCategories[s].sites=[];navConfig.categories[c].subCategories[s].sites.push({name:"新网站",url:"",logo:"assets/default.png",desc:""});renderAdmin();}
+function updateSite(c,s,i,k,v){if(s===-1)navConfig.categories[c].sites[i][k]=v;else navConfig.categories[c].subCategories[s].sites[i][k]=v;}
+function delSite(c,s,i){if(confirm("确定删除？")){if(s===-1)navConfig.categories[c].sites.splice(i,1);else navConfig.categories[c].subCategories[s].sites.splice(i,1);renderAdmin();}}
+function delBigCat(i){if(confirm("确定删除大类？")){navConfig.categories.splice(i,1);renderAdmin();}}
+function delSubCat(c,s){if(confirm("确定删除子分类？")){navConfig.categories[c].subCategories.splice(s,1);renderAdmin();}}
+
+async function saveToGitHub(){
+  try{
+    if(!privateKey) return alert("请先导入 pem 私钥！");
+    setStatus("⏳ 提交中...");
+    var jwt = getJwt();
+    var owner = GITHUB_CONFIG.OWNER;
+    var repo = GITHUB_CONFIG.REPO;
+    var path = "nav-config.json";
+
+    var getFile = await fetch("https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + path + "?ref=" + GITHUB_CONFIG.BRANCH,{
+      headers:{Authorization:"Bearer " + jwt}
+    });
+    if (!getFile.ok) throw new Error('获取文件信息失败');
+    var resJson = await getFile.json();
+    var sha = resJson.sha;
+
+    var content = btoa(unescape(encodeURIComponent(JSON.stringify(navConfig, null, 2))));
+
+    var upload = await fetch("https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + path,{
+      method:"PUT",
+      headers:{Authorization:"Bearer " + jwt, "Content-Type":"application/json"},
+      body:JSON.stringify({
+        message:"后台更新配置",
+        content: content,
+        sha: sha,
+        branch: GITHUB_CONFIG.BRANCH
+      })
+    });
+
+    if (upload.ok) {
+      setStatus("✅ 提交成功！等待部署");
+      alert("提交成功！导航会在几分钟内更新");
+    } else {
+      throw new Error("提交失败，状态码：" + upload.status);
+    }
+  }catch(e){
+    setStatus("❌ 错误：" + e.message);
+    console.error(e);
+  }
+}
+
+function setStatus(t){document.getElementById("status").innerText=t;}
+
+window.onload = loadConfig;
+</script>
+</body>
+</html>

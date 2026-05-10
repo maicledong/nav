@@ -1,0 +1,311 @@
+{
+  "categories": [
+    {
+      "id": "3e90c5117dc0fe9d71410e448d766e52",
+      "name": "常用工具",
+      "icon": "far fa-star fa-lg",
+      "sites": [
+        {
+          "name": "豆包",
+          "url": "https://www.doubao.com",
+          "logo": "assets/images/logos/%E8%B1%86%E5%8C%85.png",
+          "desc": "字节跳动-豆包。"
+        },
+        {
+          "name": "FreeConvert",
+          "url": "https://www.freeconvert.com/zh",
+          "logo": "assets/images/logos/FreeConvert.png",
+          "desc": "音视图文免费在线转换与压缩工具"
+        }
+      ]
+    },
+    {
+      "id": "a4d417d7850fde0cd00e4af576621a63",
+      "name": "音影图像",
+      "icon": "fas fa-film fa-lg",
+      "subCategories": [
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a63",
+          "name": "影音娱乐",
+          "sites": [
+            {
+              "name": "私人影视",
+              "url": "https://avi.ccwu.cc",
+              "logo": "assets/images/logos/kvideo.jpg",
+              "desc": "聚合全网影视随性搜"
+            },
+            {
+              "name": "洛雪音乐",
+              "url": "https://lxmusic.toside.cn",
+              "logo": "assets/images/logos/rxyy.png",
+              "desc": "聚合全网音源-免费音乐查找与播放"
+            }
+          ]
+        },
+        {
+          "id": "e15122403d5aca361a6b63ddea292464",
+          "name": "影音工具",
+          "sites": [
+            {
+              "name": "即梦AI",
+              "url": "https://jimeng.jianying.com/ai-tool/home",
+              "logo": "assets/images/logos/jimeng.png",
+              "desc": "一站式多模态AI-让灵感即刻成片"
+            },
+            {
+              "name": "OBS Studio",
+              "url": "https://obsproject.com",
+              "logo": "assets/images/logos/obs.jpg",
+              "desc": "免费开源录屏与直播神器"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4fbc8ba07df90bae306d8e3b83fc5a21",
+      "name": "开发者资源",
+      "icon": "fas fa-code fa-lg",
+      "subCategories": [
+        {
+          "id": "4fbc8ba07df90bae306d8e3b83fc5a21",
+          "name": "开发工具",
+          "sites": [
+            {
+              "name": "Cloudflare",
+              "url": "https://www.cloudflare.com/zh-cn",
+              "logo": "assets/images/logos/CloudFlare.jpg",
+              "desc": "全球网络安全加速平台"
+            },
+            {
+              "name": "在线工具助手",
+              "url": "https://tool.gitapp.cn",
+              "logo": "assets/images/logos/mdx.png",
+              "desc": "一些常见的开发工具"
+            }
+          ]
+        },
+        {
+          "id": "542c016a714d85715d206c8892fba01f",
+          "name": "云服务器",
+          "sites": [
+            {
+              "name": "阿里云",
+              "url": "https://www.aliyun.com/",
+              "logo": "assets/images/logos/阿里云.jpg",
+              "desc": "上云就上阿里云"
+            },
+            {
+              "name": "VULTR",
+              "url": "https://www.vultr.com",
+              "logo": "assets/images/logos/vultr.png",
+              "desc": "开发者的云服务"
+            }
+          ]
+        },
+        {
+          "id": "31e51a60697ff3fb1d1c4934cce67921",
+          "name": "域名DNS",
+          "sites": [
+            {
+              "name": "DNSHE",
+              "url": "https://my.dnshe.com",
+              "logo": "assets/images/logos/DNSHE.jpg",
+              "desc": "永久免费的二级域名与DNS服务平台"
+            },
+            {
+              "name": "ClouDNS",
+              "url": "https://www.cloudns.net",
+              "logo": "assets/images/logos/cloudns.png",
+              "desc": "全球托管DNS与域名服务提供商"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5e6e1089ffbc5d7819c0d0f1f7b31ebc",
+      "name": "办公学习",
+      "icon": "fas fa-pencil-alt fa-lg",
+      "subCategories": [
+        {
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31ebc",
+          "name": "翻译词典",
+          "sites": [
+            {
+              "name": "有道翻译",
+              "url": "http://fanyi.youdao.com/",
+              "logo": "assets/images/logos/有道翻译.png",
+              "desc": "有道翻译"
+            },
+            {
+              "name": "谷歌翻译",
+              "url": "https://translate.google.cn/",
+              "logo": "assets/images/logos/gugefanyi.png",
+              "desc": "全球普及度最高的多语种翻译"
+            }
+          ]
+        },
+        {
+          "id": "7866a35b09d466b9cf0295af54d30d53",
+          "name": "文档办公",
+          "sites": [
+            {
+              "name": "WPS在线",
+              "url": "https://www.wps.cn",
+              "logo": "assets/images/logos/WPSzx.jpg",
+              "desc": "全能Office/AI强兼容"
+            },
+            {
+              "name": "印象笔记",
+              "url": "https://www.yinxiang.com",
+              "logo": "assets/images/logos/yxbj.jpg",
+              "desc": "经典笔记/知识沉淀"
+            }
+          ]
+        },
+        {
+          "id": "779477bcccdd4ecb1d852c8d4a67caca",
+          "name": "网盘资源",
+          "sites": [
+            {
+              "name": "百度网盘",
+              "url": "http://pan.baidu.com/",
+              "logo": "assets/images/logos/百度网盘.jpg",
+              "desc": "国内最大网盘，资源库最全"
+            },
+            {
+              "name": "天翼云盘",
+              "url": "https://cloud.189.cn/",
+              "logo": "assets/images/logos/天翼云盘.jpg",
+              "desc": "电信官方网盘，高速稳定"
+            }
+          ]
+        },
+        {
+          "id": "113a0a745b4169af0f7646269c12ae66",
+          "name": "电子邮箱",
+          "sites": [
+            {
+              "name": "Gmail",
+              "url": "https://mail.google.com",
+              "logo": "assets/images/logos/gmail.png",
+              "desc": "https://mail.google.com"
+            },
+            {
+              "name": "Proton Mail",
+              "url": "https://mail.proton.me",
+              "logo": "assets/images/logos/proton.jpg",
+              "desc": "https://mail.proton.me"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9c2232288caaa8ec40948cef6a786ac2",
+      "name": "生活社交",
+      "icon": "fas fa-users fa-lg",
+      "subCategories": [
+        {
+          "id": "9c2232288caaa8ec40948cef6a786ac2",
+          "name": "社交社区",
+          "sites": [
+            {
+              "name": "QQ",
+              "url": "https://im.qq.com/index",
+              "logo": "assets/images/logos/QQ.jpg",
+              "desc": ""
+            },
+            {
+              "name": "百度贴吧",
+              "url": "https://tieba.baidu.com",
+              "logo": "assets/images/logos/bdtb.jpg",
+              "desc": ""
+            }
+          ]
+        },
+        {
+          "id": "13a0e1cc22ccc31b31242a6046230729",
+          "name": "新闻资讯",
+          "sites": [
+            {
+              "name": "新华网",
+              "url": "https://www.xinhuanet.com",
+              "logo": "assets/images/logos/xhw.jpg",
+              "desc": "国家通讯社新华社旗下官网"
+            },
+            {
+              "name": "凤凰网",
+              "url": "https://www.ifeng.com",
+              "logo": "assets/images/logos/fenghuang.png",
+              "desc": "凤凰卫视旗下的全球华人资讯平台"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "19cb9b648dba4efc58a205ea413b6b5d",
+      "name": "人工智能",
+      "icon": "fas fa-brain fa-lg",
+      "subCategories": [
+        {
+          "id": "19cb9b648dba4efc58a205ea413b6b5d",
+          "name": "AI大模型",
+          "sites": [
+            {
+              "name": "豆包",
+              "url": "https://www.doubao.com",
+              "logo": "assets/images/logos/%E8%B1%86%E5%8C%85.png",
+              "desc": "字节跳动-豆包。"
+            },
+            {
+              "name": "Grok",
+              "url": "https://grok.x.ai",
+              "logo": "assets/images/logos/Grok.png",
+              "desc": "xAI马斯克旗下大模型"
+            }
+          ]
+        },
+        {
+          "id": "c7a9a750a4a636f0bb3e982b5ea9141c",
+          "name": "AI智能体",
+          "sites": [
+            {
+              "name": "文心",
+              "url": "https://agents.baidu.com",
+              "logo": "assets/images/logos/wxyy.jpg",
+              "desc": "百度文心智能体平台"
+            },
+            {
+              "name": "ComfyUI",
+              "url": "https://comfyui.org",
+              "logo": "assets/images/logos/confyui.png",
+              "desc": "可视化搭建复杂的图像、视频生成智能体"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "13a0e1cc22ccc31b31242a6046230881",
+      "name": "金融理财",
+      "icon": "fas fa-chart-line fa-lg",
+      "sites": [
+        {
+          "name": "通达信",
+          "url": "https://www.tdx.com.cn",
+          "logo": "assets/images/logos/tdx.png",
+          "desc": ""
+        },
+        {
+          "name": "乌龟量化",
+          "url": "https://wglh.com",
+          "logo": "assets/images/logos/wglh.jpg",
+          "desc": ""
+        }
+      ]
+    }
+  ]
+}
