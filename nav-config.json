@@ -7,7 +7,14 @@
       "subCategories": [
         {
           "name": "大海",
-          "sites": []
+          "sites": [
+            {
+              "logo": "assets/images/logos/a12.png",
+              "name": "沃德",
+              "url": "http://baidu.com",
+              "desc": "baidukdjfkdsgkdjgklgkllkdsjglkdjsgksdk"
+            }
+          ]
         }
       ]
     },
