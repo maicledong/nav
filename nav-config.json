@@ -6,6 +6,12 @@
       "icon": "far fa-star fa-lg",
       "sites": [
         {
+          "name": "私人影视",
+          "url": "https://avi.ccwu.cc",
+          "logo": "assets/images/logos/kvideo.jpg",
+          "desc": "聚合全网影视随性搜"
+        },
+        {
           "name": "豆包",
           "url": "https://www.doubao.com",
           "logo": "assets/images/logos/%E8%B1%86%E5%8C%85.png",
