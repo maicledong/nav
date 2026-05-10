@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>导航后台｜GitHub App 安全版</title>
+  <title>导航后台｜GitHub App 完整版</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: "Microsoft Yahei", system-ui; background: #f4f6f8; padding: 20px; }
@@ -36,7 +36,7 @@
 </head>
 <body>
 <div class="wrap">
-  <h2>🧭 导航后台｜GitHub App 安全版</h2>
+  <h2>🧭 导航后台｜GitHub App 完整版</h2>
   <div class="hint">提示：导入 .pem 私钥后即可一键提交</div>
 
   <div id="authContainer">
@@ -77,6 +77,7 @@ var navConfig = {};
 var currentCopySite = null;
 var privateKey = null;
 
+// ====================== 密钥导入 ======================
 function importPEM() {
   var input = document.getElementById('pemFile');
   if (!input.files.length) return alert('请先选择 pem 私钥文件');
@@ -88,20 +89,37 @@ function importPEM() {
   reader.readAsText(input.files[0]);
 }
 
-function getJwt() {
-  if (!privateKey) throw new Error('请先导入 pem 私钥');
-  var header = { alg: 'RS256', typ: 'JWT' };
-  var payload = {
-    iss: GITHUB_CONFIG.APP_ID,
-    iat: Math.floor(Date.now() / 1000) - 60,
-    exp: Math.floor(Date.now() / 1000) + 600
-  };
-  return KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(payload), privateKey);
+// ====================== GitHub App JWT + 安装令牌 ======================
+function getJWT() {
+  const now = Math.floor(Date.now() / 1000);
+  return KJUR.jws.JWS.sign('RS256',
+    JSON.stringify({ alg: 'RS256', typ: 'JWT' }),
+    JSON.stringify({ iss: GITHUB_CONFIG.APP_ID, iat: now - 10, exp: now + 300 }),
+    privateKey
+  );
 }
 
+async function getInstallationId(jwt) {
+  const res = await fetch('https://api.github.com/app/installations', {
+    headers: { Authorization: `Bearer ${jwt}`, Accept: 'application/vnd.github+json' }
+  });
+  const list = await res.json();
+  return list.find(i => i.account.login === GITHUB_CONFIG.OWNER).id;
+}
+
+async function getInstallationToken(jwt, installId) {
+  const res = await fetch(`https://api.github.com/app/installations/${installId}/access_tokens`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${jwt}`, Accept: 'application/vnd.github+json' }
+  });
+  const data = await res.json();
+  return data.token;
+}
+
+// ====================== 读取配置 ======================
 async function loadConfig() {
   try {
-    var res = await fetch('https://raw.githubusercontent.com/' + GITHUB_CONFIG.OWNER + '/' + GITHUB_CONFIG.REPO + '/' + GITHUB_CONFIG.BRANCH + '/nav-config.json');
+    const res = await fetch(`https://raw.githubusercontent.com/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/${GITHUB_CONFIG.BRANCH}/nav-config.json`);
     navConfig = await res.json();
     renderAdmin();
     setStatus("✅ 加载配置成功");
@@ -110,228 +128,179 @@ async function loadConfig() {
   }
 }
 
+// ====================== 渲染界面（你完整的功能） ======================
 function renderAdmin() {
   var html = "";
   navConfig.categories.forEach(function(cat, i) {
-    html +=
-    '<div class="section" data-big-idx="' + i + '">' +
-      '<h4>📂 大分类：' + cat.name + '</h4>' +
-      '<input value="' + cat.name + '" oninput="navConfig.categories[' + i + '].name=this.value" placeholder="分类名称">' +
-      '<input value="' + (cat.icon||'') + '" oninput="navConfig.categories[' + i + '].icon=this.value" placeholder="图标class">' +
-      '<div class="ctrl-row">' +
-        '<button class="btn-insert" onclick="insertBigBefore(' + i + ')">在上方插入新大类</button>' +
-        '<button class="btn-insert" onclick="insertBigAfter(' + i + ')">在下方插入新大类</button>' +
-        '<button onclick="addSiteToBig(' + i + ')">➕ 直接添加网站</button>' +
-        '<button class="btn-sort" onclick="moveBigUp(' + i + ')">⬆️ 上移</button>' +
-        '<button class="btn-sort" onclick="moveBigDown(' + i + ')">⬇️ 下移</button>' +
-        '<button class="btn-danger" onclick="delBigCat(' + i + ')">🗑 删除</button>' +
-      '</div>' +
-      '<div class="drop-zone" id="drop-big-' + i + '" data-cat="' + i + '" data-sub="-1">';
-    if (cat.sites && cat.sites.length > 0) {
-      cat.sites.forEach(function(s, j) {
-        html += siteRow(i, -1, j, s);
-      });
-    }
-    html +=
-    '</div><div class="sub-drop-zone" id="sub-drop-zone-' + i + '" data-cat="' + i + '">';
-    if (cat.subCategories && cat.subCategories.length > 0) {
+    html += `
+    <div class="section" data-big-idx="${i}">
+      <h4>📂 大分类：${cat.name}</h4>
+      <input value="${cat.name}" oninput="navConfig.categories[${i}].name=this.value" placeholder="分类名称">
+      <input value="${cat.icon||''}" oninput="navConfig.categories[${i}].icon=this.value" placeholder="图标class">
+      <div class="ctrl-row">
+        <button class="btn-insert" onclick="insertBigBefore(${i})">在上方插入新大类</button>
+        <button class="btn-insert" onclick="insertBigAfter(${i})">在下方插入新大类</button>
+        <button onclick="addSiteToBig(${i})">➕ 直接添加网站</button>
+        <button class="btn-sort" onclick="moveBigUp(${i})">⬆️ 上移</button>
+        <button class="btn-sort" onclick="moveBigDown(${i})">⬇️ 下移</button>
+        <button class="btn-danger" onclick="delBigCat(${i})">🗑 删除</button>
+      </div>
+      <div class="drop-zone" data-cat="${i}" data-sub="-1"></div>
+      <div class="sub-drop-zone" data-cat="${i}">`;
+
+    if (cat.subCategories) {
       cat.subCategories.forEach(function(sub, k) {
-        html +=
-        '<div class="sub-section" data-sub-idx="' + k + '" data-parent-cat="' + i + '">' +
-          '<h5>📁 子分类：' + sub.name + '</h5>' +
-          '<input value="' + sub.name + '" oninput="navConfig.categories[' + i + '].subCategories[' + k + '].name=this.value" placeholder="子分类名称">' +
-          '<div class="ctrl-row">' +
-            '<button class="btn-insert" onclick="insertSubBefore(' + i + ',' + k + ')">在上方插入新子分类</button>' +
-            '<button class="btn-insert" onclick="insertSubAfter(' + i + ',' + k + ')">在下方插入新子分类</button>' +
-            '<button onclick="addSiteToSub(' + i + ',' + k + ')">➕ 新增网站</button>' +
-            '<button class="btn-sort" onclick="moveSubUp(' + i + ',' + k + ')">⬆️ 上移</button>' +
-            '<button class="btn-sort" onclick="moveSubDown(' + i + ',' + k + ')">⬇️ 下移</button>' +
-            '<button class="btn-danger" onclick="delSubCat(' + i + ',' + k + ')">🗑 删除子分类</button>' +
-          '</div>' +
-          '<div class="drop-zone" id="drop-sub-' + i + '-' + k + '" data-cat="' + i + '" data-sub="' + k + '">';
-        if (sub.sites && sub.sites.length > 0) {
-          sub.sites.forEach(function(s, j) {
-            html += siteRow(i, k, j, s);
-          });
-        }
-        html += '</div></div>';
+        html += `
+        <div class="sub-section" data-sub-idx="${k}" data-parent-cat="${i}">
+          <h5>📁 子分类：${sub.name}</h5>
+          <input value="${sub.name}" oninput="navConfig.categories[${i}].subCategories[${k}].name=this.value" placeholder="子分类名称">
+          <div class="ctrl-row">
+            <button class="btn-insert" onclick="insertSubBefore(${i},${k})">在上方插入新子分类</button>
+            <button class="btn-insert" onclick="insertSubAfter(${i},${k})">在下方插入新子分类</button>
+            <button onclick="addSiteToSub(${i},${k})">➕ 新增网站</button>
+            <button class="btn-sort" onclick="moveSubUp(${i},${k})">⬆️ 上移</button>
+            <button class="btn-sort" onclick="moveSubDown(${i},${k})">⬇️ 下移</button>
+            <button class="btn-danger" onclick="delSubCat(${i},${k})">🗑 删除子分类</button>
+          </div>
+          <div class="drop-zone" data-cat="${i}" data-sub="${k}"></div>
+        </div>`;
       });
     }
-    html += '</div></div>';
+
+    html += `</div></div>`;
   });
+
   document.getElementById("bigContainer").innerHTML = html;
   initSortable();
+  fillAllItems();
+}
+
+function fillAllItems() {
+  navConfig.categories.forEach((cat, i) => {
+    const zone = document.querySelector(`.drop-zone[data-cat="${i}"][data-sub="-1"]`);
+    zone.innerHTML = cat.sites?.map((s, j) => siteRow(i, -1, j, s)).join('') || '';
+
+    cat.subCategories?.forEach((sub, k) => {
+      const subZone = document.querySelector(`.drop-zone[data-cat="${i}"][data-sub="${k}"]`);
+      subZone.innerHTML = sub.sites?.map((s, j) => siteRow(i, k, j, s)).join('') || '';
+    });
+  });
 }
 
 function siteRow(catIdx, subIdx, siteIdx, site) {
-  return '<div class="site-row" data-cat="' + catIdx + '" data-sub="' + subIdx + '" data-site="' + siteIdx + '">' +
-    '<input value="' + site.logo + '" oninput="updateSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ',\'logo\',this.value)">' +
-    '<input value="' + site.name + '" oninput="updateSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ',\'name\',this.value)">' +
-    '<input value="' + site.url + '" oninput="updateSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ',\'url\',this.value)">' +
-    '<input value="' + site.desc + '" oninput="updateSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ',\'desc\',this.value)">' +
-    '<button class="btn-sort" onclick="moveSiteUp(' + catIdx + ',' + subIdx + ',' + siteIdx + ')">⬆️</button>' +
-    '<button class="btn-sort" onclick="moveSiteDown(' + catIdx + ',' + subIdx + ',' + siteIdx + ')">⬇️</button>' +
-    '<button class="btn-copy" onclick="openCopyModal(' + catIdx + ',' + subIdx + ',' + siteIdx + ')">复制</button>' +
-    '<button class="btn-danger" onclick="delSite(' + catIdx + ',' + subIdx + ',' + siteIdx + ')">删除</button>' +
-  '</div>';
+  return `
+  <div class="site-row" data-cat="${catIdx}" data-sub="${subIdx}" data-site="${siteIdx}">
+    <input value="${site.logo}" oninput="updateSite(${catIdx},${subIdx},${siteIdx},'logo',this.value)">
+    <input value="${site.name}" oninput="updateSite(${catIdx},${subIdx},${siteIdx},'name',this.value)">
+    <input value="${site.url}" oninput="updateSite(${catIdx},${subIdx},${siteIdx},'url',this.value)">
+    <input value="${site.desc}" oninput="updateSite(${catIdx},${subIdx},${siteIdx},'desc',this.value)">
+    <button class="btn-sort" onclick="moveSiteUp(${catIdx},${subIdx},${siteIdx})">⬆️</button>
+    <button class="btn-sort" onclick="moveSiteDown(${catIdx},${subIdx},${siteIdx})">⬇️</button>
+    <button class="btn-copy" onclick="openCopyModal(${catIdx},${subIdx},${siteIdx})">复制</button>
+    <button class="btn-danger" onclick="delSite(${catIdx},${subIdx},${siteIdx})">删除</button>
+  </div>`;
 }
 
-function insertBigBefore(idx){navConfig.categories.splice(idx,0,{id:"id"+Date.now(),name:"新大分类",icon:"fas fa-folder fa-lg",sites:[],subCategories:[]});renderAdmin();}
-function insertBigAfter(idx){navConfig.categories.splice(idx+1,0,{id:"id"+Date.now(),name:"新大分类",icon:"fas fa-folder fa-lg",sites:[],subCategories:[]});renderAdmin();}
-function insertSubBefore(catIdx,subIdx){navConfig.categories[catIdx].subCategories.splice(subIdx,0,{id:"id"+Date.now(),name:"新子分类",sites:[]});renderAdmin();}
-function insertSubAfter(catIdx,subIdx){navConfig.categories[catIdx].subCategories.splice(subIdx+1,0,{id:"id"+Date.now(),name:"新子分类",sites:[]});renderAdmin();}
-
+// ====================== 拖拽排序 ======================
 function initSortable() {
   new Sortable(document.getElementById("bigContainer"), {
-    animation:150, ghostClass:"dragging",
-    onEnd:evt=>{
-      var oldIdx = evt.oldIndex;
-      var newIdx = evt.newIndex;
-      var temp = navConfig.categories[oldIdx];
-      navConfig.categories[oldIdx] = navConfig.categories[newIdx];
-      navConfig.categories[newIdx] = temp;
+    animation: 150, ghostClass: "dragging",
+    onEnd: (evt) => {
+      const t = navConfig.categories;
+      t.splice(evt.newIndex, 0, t.splice(evt.oldIndex, 1)[0]);
       renderAdmin();
       setStatus("✅ 大分类拖拽成功");
     }
   });
 
-  document.querySelectorAll('.drop-zone').forEach(function(zone){
-    new Sortable(zone,{group:'sites',animation:150,ghostClass:'dragging',
-      onEnd:evt=>{
-        var fC = parseInt(evt.from.dataset.cat);
-        var fS = parseInt(evt.from.dataset.sub);
-        var tC = parseInt(evt.to.dataset.cat);
-        var tS = parseInt(evt.to.dataset.sub);
-        var oI = evt.oldIndex;
-        var nI = evt.newIndex;
-        var fA = fS === -1 ? navConfig.categories[fC].sites : navConfig.categories[fC].subCategories[fS].sites;
-        var it = fA.splice(oI,1)[0];
-        var tA = tS === -1 ? navConfig.categories[tC].sites : navConfig.categories[tC].subCategories[tS].sites;
-        tA.splice(nI,0,it);
+  document.querySelectorAll('.sub-drop-zone').forEach((el) => {
+    new Sortable(el, {
+      animation: 150, ghostClass: "dragging", group: "subcats",
+      onEnd: (evt) => {
+        const cat = el.dataset.cat;
+        const subs = navConfig.categories[cat].subCategories;
+        subs.splice(evt.newIndex, 0, subs.splice(evt.oldIndex, 1)[0]);
         renderAdmin();
+        setStatus("✅ 子分类拖拽成功");
+      }
+    });
+  });
+
+  document.querySelectorAll('.drop-zone').forEach((el) => {
+    new Sortable(el, {
+      animation: 150, ghostClass: "dragging", group: "sites",
+      onEnd: (evt) => {
+        const cat = el.dataset.cat;
+        const sub = el.dataset.sub;
+        const list = sub == -1 ? navConfig.categories[cat].sites : navConfig.categories[cat].subCategories[sub].sites;
+        list.splice(evt.newIndex, 0, list.splice(evt.oldIndex, 1)[0]);
+        fillAllItems();
         setStatus("✅ 网站移动成功");
       }
     });
   });
-
-  document.querySelectorAll('.sub-drop-zone').forEach(function(zone){
-    new Sortable(zone,{group:'subcats',animation:150,ghostClass:'dragging',
-      onEnd:evt=>{
-        var fC = parseInt(evt.from.dataset.cat);
-        var tC = parseInt(evt.to.dataset.cat);
-        var oI = evt.oldIndex;
-        var nI = evt.newIndex;
-        var s = navConfig.categories[fC].subCategories.splice(oI,1)[0];
-        navConfig.categories[tC].subCategories.splice(nI,0,s);
-        renderAdmin();
-        setStatus("✅ 子分类移动成功");
-      }
-    });
-  });
 }
 
-function openCopyModal(catIdx,subIdx,siteIdx){
-  currentCopySite={catIdx,subIdx,siteIdx};
-  var h="";
-  navConfig.categories.forEach(function(c,i){
-    h += '<div class="copy-item" data-tc="' + i + '" data-ts="-1">📂 ' + c.name + ' 直属</div>';
-    if (c.subCategories) {
-      c.subCategories.forEach(function(s,k){
-        h += '<div class="copy-item" data-tc="' + i + '" data-ts="' + k + '">  📁 ' + s.name + '</div>';
-      });
-    }
-  });
-  document.getElementById("copyList").innerHTML=h;
-  document.getElementById("copyModal").style.display="flex";
-  document.querySelectorAll(".copy-item").forEach(function(i){
-    i.onclick=function(){
-      var tc=parseInt(this.dataset.tc);
-      var ts=parseInt(this.dataset.ts);
-      var src=currentCopySite;
-      var arr=src.subIdx===-1 ? navConfig.categories[src.catIdx].sites : navConfig.categories[src.catIdx].subCategories[src.subIdx].sites;
-      var cp=JSON.parse(JSON.stringify(arr[src.siteIdx]));
-      var tArr=ts===-1 ? (navConfig.categories[tc].sites || []) : (navConfig.categories[tc].subCategories[ts].sites || []);
-      tArr.push(cp);
-      closeCopyModal();
-      renderAdmin();
-      setStatus("✅ 复制成功");
-    };
-  });
-}
-function closeCopyModal(){document.getElementById("copyModal").style.display="none";}
+// ====================== 增删改查逻辑（全部保留） ======================
+function insertBigBefore(idx) { navConfig.categories.splice(idx, 0, { name: "新分类", icon: "", sites: [], subCategories: [] }); renderAdmin(); }
+function insertBigAfter(idx) { navConfig.categories.splice(idx + 1, 0, { name: "新分类", icon: "", sites: [], subCategories: [] }); renderAdmin(); }
+function insertSubBefore(c, s) { navConfig.categories[c].subCategories.splice(s, 0, { name: "新子分类", sites: [] }); renderAdmin(); }
+function insertSubAfter(c, s) { navConfig.categories[c].subCategories.splice(s + 1, 0, { name: "新子分类", sites: [] }); renderAdmin(); }
+function addSiteToBig(c) { navConfig.categories[c].sites.push({ logo: "", name: "", url: "", desc: "" }); fillAllItems(); }
+function addSiteToSub(c, s) { navConfig.categories[c].subCategories[s].sites.push({ logo: "", name: "", url: "", desc: "" }); fillAllItems(); }
+function updateSite(c, s, i, k, v) { (s == -1 ? navConfig.categories[c].sites : navConfig.categories[c].subCategories[s].sites)[i][k] = v; }
+function delSite(c, s, i) { if (confirm("确定删除？")) { (s == -1 ? navConfig.categories[c].sites : navConfig.categories[c].subCategories[s].sites).splice(i, 1); fillAllItems(); } }
+function delBigCat(i) { if (confirm("确定删除大类？")) { navConfig.categories.splice(i, 1); renderAdmin(); } }
+function delSubCat(c, s) { if (confirm("确定删除子分类？")) { navConfig.categories[c].subCategories.splice(s, 1); renderAdmin(); } }
+function moveBigUp(i) { if (i > 0) { [navConfig.categories[i], navConfig.categories[i - 1]] = [navConfig.categories[i - 1], navConfig.categories[i]]; renderAdmin(); } }
+function moveBigDown(i) { if (i < navConfig.categories.length - 1) { [navConfig.categories[i], navConfig.categories[i + 1]] = [navConfig.categories[i + 1], navConfig.categories[i]]; renderAdmin(); } }
+function moveSubUp(c, s) { if (s > 0) { const t = navConfig.categories[c].subCategories; [t[s], t[s - 1]] = [t[s - 1], t[s]]; renderAdmin(); } }
+function moveSubDown(c, s) { const t = navConfig.categories[c].subCategories; if (s < t.length - 1) { [t[s], t[s + 1]] = [t[s + 1], t[s]]; renderAdmin(); } }
+function moveSiteUp(c, s, i) { const t = s == -1 ? navConfig.categories[c].sites : navConfig.categories[c].subCategories[s].sites; if (i > 0) { [t[i], t[i - 1]] = [t[i - 1], t[i]]; fillAllItems(); } }
+function moveSiteDown(c, s, i) { const t = s == -1 ? navConfig.categories[c].sites : navConfig.categories[c].subCategories[s].sites; if (i < t.length - 1) { [t[i], t[i + 1]] = [t[i + 1], t[i]]; fillAllItems(); } }
 
-function moveBigUp(i){if(i===0)return;var temp=navConfig.categories[i];navConfig.categories[i]=navConfig.categories[i-1];navConfig.categories[i-1]=temp;renderAdmin();}
-function moveBigDown(i){if(i===navConfig.categories.length-1)return;var temp=navConfig[i];navConfig[i]=navConfig[i+1];navConfig[i+1]=temp;renderAdmin();}
-function moveSubUp(c,s){if(s===0)return;var arr=navConfig.categories[c].subCategories;var temp=arr[s];arr[s]=arr[s-1];arr[s-1]=temp;renderAdmin();}
-function moveSubDown(c,s){var arr=navConfig.categories[c].subCategories;if(s===arr.length-1)return;var temp=arr[s];arr[s]=arr[s+1];arr[s+1]=temp;renderAdmin();}
-function moveSiteUp(c,s,i){var arr=s===-1?navConfig.categories[c].sites:navConfig.categories[c].subCategories[s].sites;if(i===0)return;var temp=arr[i];arr[i]=arr[i-1];arr[i-1]=temp;renderAdmin();}
-function moveSiteDown(c,s,i){var arr=s===-1?navConfig.categories[c].sites:navConfig.categories[c].subCategories[s].sites;if(i===arr.length-1)return;var temp=arr[i];arr[i]=arr[i+1];arr[i+1]=temp;renderAdmin();}
+// ====================== 复制功能 ======================
+function openCopyModal(ci, si, ii) { currentCopySite = { ci, si, ii }; const h = []; navConfig.categories.forEach((c, i) => { h.push(`<div class="copy-item" data-tc="${i}" data-ts="-1">📂 ${c.name} 直属</div>`); c.subCategories?.forEach((s, k) => h.push(`<div class="copy-item" data-tc="${i}" data-ts="${k}">  📁 ${s.name}</div>`)); }); document.getElementById("copyList").innerHTML = h.join(''); document.getElementById("copyModal").style.display = "flex"; }
+function closeCopyModal() { document.getElementById("copyModal").style.display = "none"; }
+document.querySelectorAll(".copy-item").forEach(i => i.onclick = function() { const tc = this.dataset.tc; const ts = this.dataset.ts; const src = currentCopySite; const arr = src.si == -1 ? navConfig.categories[src.ci].sites : navConfig.categories[src.ci].subCategories[src.si].sites; const cp = JSON.parse(JSON.stringify(arr[src.ii])); (ts == -1 ? navConfig.categories[tc].sites : navConfig.categories[tc].subCategories[ts].sites).push(cp); closeCopyModal(); fillAllItems(); setStatus("✅ 复制成功"); });
 
-function addSiteToBig(c){if(!navConfig.categories[c].sites)navConfig.categories[c].sites=[];navConfig.categories[c].sites.push({name:"新网站",url:"",logo:"assets/default.png",desc:""});renderAdmin();}
-function addSiteToSub(c,s){if(!navConfig.categories[c].subCategories[s].sites)navConfig.categories[c].subCategories[s].sites=[];navConfig.categories[c].subCategories[s].sites.push({name:"新网站",url:"",logo:"assets/default.png",desc:""});renderAdmin();}
-function updateSite(c,s,i,k,v){if(s===-1)navConfig.categories[c].sites[i][k]=v;else navConfig.categories[c].subCategories[s].sites[i][k]=v;}
-function delSite(c,s,i){if(confirm("确定删除？")){if(s===-1)navConfig.categories[c].sites.splice(i,1);else navConfig.categories[c].subCategories[s].sites.splice(i,1);renderAdmin();}}
-function delBigCat(i){if(confirm("确定删除大类？")){navConfig.categories.splice(i,1);renderAdmin();}}
-function delSubCat(c,s){if(confirm("确定删除子分类？")){navConfig.categories[c].subCategories.splice(s,1);renderAdmin();}}
+// ====================== ✅ 最终提交：修复 GitHub App 401 ======================
+async function saveToGitHub() {
+  if (!privateKey) return alert("请先导入 pem 私钥");
+  setStatus("⌛ 正在提交...");
 
-async function saveToGitHub(){
-  try{
-    if(!privateKey) return alert("请先导入 pem 私钥！");
-    setStatus("⏳ 提交中...");
-    var jwt = getJwt();
-    var owner = GITHUB_CONFIG.OWNER;
-    var repo = GITHUB_CONFIG.REPO;
-    var path = "nav-config.json";
+  try {
+    const jwt = getJWT();
+    const installId = await getInstallationId(jwt);
+    const token = await getInstallationToken(jwt, installId);
 
-    // 修复：添加Accept头，并打印完整错误信息
-    var getFile = await fetch("https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + path + "?ref=" + GITHUB_CONFIG.BRANCH, {
-      headers: {
-        "Authorization": "Bearer " + jwt,
-        "Accept": "application/vnd.github.v3+json"
-      }
+    const path = "nav-config.json";
+    const shaRes = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}?ref=${GITHUB_CONFIG.BRANCH}`, {
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' }
+    });
+    const shaData = await shaRes.json();
+    const sha = shaData.sha;
+
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(navConfig, null, 2))));
+
+    const upload = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}`, {
+      method: 'PUT',
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' },
+      body: JSON.stringify({ message: "后台更新配置", content, sha, branch: GITHUB_CONFIG.BRANCH })
     });
 
-    if (!getFile.ok) {
-      const err = await getFile.json();
-      console.error("API Error:", err);
-      throw new Error("获取文件失败: " + err.message + " (状态码: " + getFile.status + ")");
-    }
-
-    var resJson = await getFile.json();
-    var sha = resJson.sha;
-
-    var content = btoa(unescape(encodeURIComponent(JSON.stringify(navConfig, null, 2))));
-
-    var upload = await fetch("https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + path, {
-      method: "PUT",
-      headers: {
-        "Authorization": "Bearer " + jwt,
-        "Content-Type": "application/json",
-        "Accept": "application/vnd.github.v3+json"
-      },
-      body: JSON.stringify({
-        message: "后台更新配置",
-        content: content,
-        sha: sha,
-        branch: GITHUB_CONFIG.BRANCH
-      })
-    });
-
-    if (upload.ok) {
-      setStatus("✅ 提交成功！等待部署");
-      alert("提交成功！导航会在几分钟内更新");
-    } else {
-      throw new Error("提交失败，状态码：" + upload.status);
-    }
-  }catch(e){
+    if (upload.ok) { setStatus("✅ 提交成功！"); alert("成功保存到 GitHub！"); }
+    else throw new Error("提交失败");
+  } catch (e) {
     setStatus("❌ 错误：" + e.message);
     console.error(e);
   }
 }
 
-function setStatus(t){document.getElementById("status").innerText=t;}
+function setStatus(t) { document.getElementById("status").innerText = t; }
 
-window.onload = loadConfig;
+// 启动
+loadConfig();
 </script>
 </body>
 </html>
