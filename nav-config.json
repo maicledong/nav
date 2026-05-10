@@ -6,8 +6,8 @@
       "icon": "far fa-star fa-lg",
       "sites": [
         {
-          "name": "私人影视",
-          "url": "https://avi.ccwu.cc",
+          "name": "私人",
+          "url": "https://inav.ccwu.cc",
           "logo": "assets/images/logos/kvideo.jpg",
           "desc": "聚合全网影视随性搜"
         },
@@ -295,7 +295,7 @@
       ]
     },
     {
-      "id": "19cb9b648dba4efc58a205ea413b6b01",
+      "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
       "name": "金融理财",
       "icon": "fas fa-chart-line fa-lg",
       "sites": [
