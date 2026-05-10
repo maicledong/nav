@@ -259,29 +259,44 @@ function renderAllSites() {
 // 拖拽功能
 // =============================================
 function initDrag() {
-  new Sortable(document.getElementById('categories'), {
+  // 大分类拖拽
+  const bigContainer = document.getElementById('categories');
+  new Sortable(bigContainer, {
     animation: 150,
     ghostClass: 'dragging',
+    onStart: () => {
+      // 拖拽开始：收起所有子分类、网站列表，只保留大分类头部
+      document.querySelectorAll('.sub-list, .site-list, .sub-section').forEach(el => {
+        el.style.display = 'none';
+      });
+    },
     onEnd: (e) => {
-      const t = navConfig.categories;
-      t.splice(e.newIndex, 0, t.splice(e.oldIndex, 1)[0]);
+      // 拖拽结束：恢复所有内容显示
+      document.querySelectorAll('.sub-list, .site-list, .sub-section').forEach(el => {
+        el.style.display = '';
+      });
+      // 重新排序大分类
+      const list = navConfig.categories;
+      list.splice(e.newIndex, 0, list.splice(e.oldIndex, 1)[0]);
       render();
     }
   });
 
+  // 子分类拖拽
   document.querySelectorAll('.sub-list').forEach(el => {
     const cat = el.dataset.cat;
     new Sortable(el, {
       animation: 150,
       ghostClass: 'dragging',
       onEnd: (e) => {
-        const t = navConfig.categories[cat].subCategories;
-        t.splice(e.newIndex, 0, t.splice(e.oldIndex, 1)[0]);
+        const list = navConfig.categories[cat].subCategories || [];
+        list.splice(e.newIndex, 0, list.splice(e.oldIndex, 1)[0]);
         render();
       }
     });
   });
 
+  // 网站拖拽
   document.querySelectorAll('.site-list').forEach(el => {
     new Sortable(el, {
       animation: 150,
