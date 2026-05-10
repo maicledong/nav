@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>导航后台｜完整版</title>
+  <title>导航后台｜完整版（含图片上传）</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: "Microsoft Yahei", system-ui; background: #f4f6f8; padding: 20px; }
@@ -17,6 +17,7 @@
     .btn-primary { background: #3b82f6; color: white; }
     .btn-danger { background: #ef4444; color: white; }
     .btn-copy { background: #f59e0b; color: white; }
+    .btn-upload { background: #10b981; color: white; }
     .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 999; }
     .modal-box { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
     .copy-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; }
@@ -36,6 +37,19 @@
   <div id="categories"></div>
 </div>
 
+<!-- 图片上传弹窗 -->
+<div class="modal" id="uploadModal">
+  <div class="modal-box">
+    <h3>上传网站 Logo</h3>
+    <input type="file" id="logoFileInput" accept="image/*">
+    <div style="margin-top:12px">
+      <button class="btn btn-upload" onclick="uploadLogo()">上传并填充路径</button>
+      <button class="btn" onclick="closeUploadModal()">取消</button>
+    </div>
+  </div>
+</div>
+
+<!-- 复制目标弹窗 -->
 <div class="modal" id="copyModal">
   <div class="modal-box">
     <h3>选择目标位置</h3>
@@ -52,12 +66,14 @@ var GITHUB_CONFIG = {
   APP_ID: "3663516",
   OWNER: "maicledong",
   REPO: "nav",
-  BRANCH: "master"
+  BRANCH: "master",
+  LOGO_DIR: "assets/images/logos/"
 };
 
 var navConfig = { categories: [] };
 var privateKey = null;
 var copySite = null;
+var pendingLogoInputEl = null; // 用于存储等待填充路径的输入框
 
 // =============================================
 // 私钥 & JWT & 安装令牌
@@ -100,7 +116,7 @@ async function getInstallToken(jwt, id) {
 }
 
 // =============================================
-// 渲染
+// 渲染界面
 // =============================================
 async function load() {
   showStatus('⌛ 加载中...');
@@ -166,7 +182,8 @@ function renderAllSites() {
     list.forEach((s, j) => {
       h += `
       <div class="site-row" data-idx="${j}">
-        <input value="${s.logo}" oninput="updateSite(${cat},${sub},${j},'logo',this.value)">
+        <input value="${s.logo}" oninput="updateSite(${cat},${sub},${j},'logo',this.value)" id="logo-${cat}-${sub}-${j}">
+        <button class="btn btn-upload" onclick="openUploadModal('logo-${cat}-${sub}-${j}')">上传</button>
         <input value="${s.name}" oninput="updateSite(${cat},${sub},${j},'name',this.value)">
         <input value="${s.url}" oninput="updateSite(${cat},${sub},${j},'url',this.value)">
         <input value="${s.desc}" oninput="updateSite(${cat},${sub},${j},'desc',this.value)">
@@ -179,7 +196,7 @@ function renderAllSites() {
 }
 
 // =============================================
-// 拖拽
+// 拖拽功能
 // =============================================
 function initDrag() {
   new Sortable(document.getElementById('categories'), {
@@ -223,7 +240,7 @@ function initDrag() {
 }
 
 // =============================================
-// 增删改
+// 增删改功能
 // =============================================
 function addCategoryBefore(i) {
   navConfig.categories.splice(i, 0, { name: '新分类', icon: '', sites: [], subCategories: [] });
@@ -275,15 +292,86 @@ function deleteSite(cat, sub, idx) {
 }
 
 // =============================================
+// 图片上传功能（核心）
+// =============================================
+function openUploadModal(inputId) {
+  pendingLogoInputEl = document.getElementById(inputId);
+  document.getElementById('logoFileInput').value = '';
+  document.getElementById('uploadModal').style.display = 'flex';
+}
+
+function closeUploadModal() {
+  document.getElementById('uploadModal').style.display = 'none';
+  pendingLogoInputEl = null;
+}
+
+async function uploadLogo() {
+  const file = document.getElementById('logoFileInput').files[0];
+  if (!file) return alert('请选择图片文件');
+  if (!privateKey) return alert('请先导入私钥！');
+
+  const fileName = file.name;
+  const filePath = GITHUB_CONFIG.LOGO_DIR + fileName;
+
+  showStatus(`⌛ 正在上传 ${fileName}...`);
+
+  try {
+    // 读取文件为base64
+    const reader = new FileReader();
+    const fileBase64 = await new Promise((resolve, reject) => {
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+    // 获取令牌
+    const jwt = getJWT();
+    const installId = await getInstallationId(jwt);
+    const token = await getInstallToken(jwt, installId);
+
+    // 获取文件SHA（如果已存在）
+    let sha = null;
+    try {
+      const shaRes = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${filePath}?ref=${GITHUB_CONFIG.BRANCH}`, {
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' }
+      });
+      if (shaRes.ok) {
+        const shaData = await shaRes.json();
+        sha = shaData.sha;
+      }
+    } catch (e) { /* 文件不存在，新建 */ }
+
+    // 上传文件
+    await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${filePath}`, {
+      method: 'PUT',
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' },
+      body: JSON.stringify({
+        message: `Add logo: ${fileName}`,
+        content: fileBase64,
+        sha: sha,
+        branch: GITHUB_CONFIG.BRANCH
+      })
+    });
+
+    // 自动填充路径到输入框
+    if (pendingLogoInputEl) {
+      pendingLogoInputEl.value = filePath;
+      pendingLogoInputEl.dispatchEvent(new Event('input'));
+    }
+
+    showStatus(`✅ ${fileName} 上传成功，路径已自动填充！`);
+    closeUploadModal();
+  } catch (e) {
+    showStatus(`❌ 上传失败: ${e.message}`);
+    console.error(e);
+  }
+}
+
+// =============================================
 // 复制功能
 // =============================================
 function openCopy(cat, sub, idx) {
   copySite = { cat, sub, idx };
-  const list = sub == -1
-    ? navConfig.categories[cat].sites
-    : navConfig.categories[cat].subCategories[sub].sites;
-  const data = JSON.parse(JSON.stringify(list[idx]));
-
   const targets = [];
   navConfig.categories.forEach((c, i) => {
     targets.push({ type: 'main', cat: i, name: c.name });
@@ -366,6 +454,7 @@ function showStatus(text) {
   document.getElementById('status').innerText = text;
 }
 
+// 启动
 load();
 </script>
 </body>
