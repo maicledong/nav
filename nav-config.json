@@ -1,7 +1,7 @@
 {
   "categories": [
     {
-      "id": "3e90c5117dc0fe9d71410e448d766e00",
+      "id": "3e90c5117dc0fe9d71410e448d766e01",
       "name": "常用工具",
       "icon": "far fa-star fa-lg",
       "sites": [
@@ -26,12 +26,12 @@
       ]
     },
     {
-      "id": "a4d417d7850fde0cd00e4af576621a00",
+      "id": "a4d417d7850fde0cd00e4af576621a01",
       "name": "音影图像",
       "icon": "fas fa-film fa-lg",
       "subCategories": [
         {
-          "id": "a4d417d7850fde0cd00e4af576621a00",
+          "id": "a4d417d7850fde0cd00e4af576621a01",
           "name": "影音娱乐",
           "sites": [
             {
@@ -49,7 +49,7 @@
           ]
         },
         {
-          "id": "a4d417d7850fde0cd00e4af576621a01",
+          "id": "a4d417d7850fde0cd00e4af576621a02",
           "name": "影音工具",
           "sites": [
             {
@@ -69,12 +69,12 @@
       ]
     },
     {
-      "id": "4fbc8ba07df90bae306d8e3b83fc5a00",
+      "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
       "name": "开发者资源",
       "icon": "fas fa-code fa-lg",
       "subCategories": [
         {
-          "id": "4fbc8ba07df90bae306d8e3b83fc5a00",
+          "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
           "name": "开发工具",
           "sites": [
             {
@@ -92,7 +92,7 @@
           ]
         },
         {
-          "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
+          "id": "4fbc8ba07df90bae306d8e3b83fc5a02",
           "name": "云服务器",
           "sites": [
             {
@@ -110,7 +110,7 @@
           ]
         },
         {
-          "id": "4fbc8ba07df90bae306d8e3b83fc5a02",
+          "id": "4fbc8ba07df90bae306d8e3b83fc5a03",
           "name": "域名DNS",
           "sites": [
             {
@@ -130,12 +130,12 @@
       ]
     },
     {
-      "id": "5e6e1089ffbc5d7819c0d0f1f7b31e00",
+      "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
       "name": "办公学习",
       "icon": "fas fa-pencil-alt fa-lg",
       "subCategories": [
         {
-          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e00",
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
           "name": "翻译词典",
           "sites": [
             {
@@ -153,7 +153,7 @@
           ]
         },
         {
-          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e02",
           "name": "文档办公",
           "sites": [
             {
@@ -171,7 +171,7 @@
           ]
         },
         {
-          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e02",
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e03",
           "name": "网盘资源",
           "sites": [
             {
@@ -189,7 +189,7 @@
           ]
         },
         {
-          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e03",
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e04",
           "name": "电子邮箱",
           "sites": [
             {
@@ -209,12 +209,12 @@
       ]
     },
     {
-      "id": "9c2232288caaa8ec40948cef6a786a00",
+      "id": "9c2232288caaa8ec40948cef6a786a01",
       "name": "生活社交",
       "icon": "fas fa-users fa-lg",
       "subCategories": [
         {
-          "id": "9c2232288caaa8ec40948cef6a786a00",
+          "id": "9c2232288caaa8ec40948cef6a786a01",
           "name": "社交社区",
           "sites": [
             {
@@ -232,7 +232,7 @@
           ]
         },
         {
-          "id": "9c2232288caaa8ec40948cef6a786a01",
+          "id": "9c2232288caaa8ec40948cef6a786a02",
           "name": "新闻资讯",
           "sites": [
             {
@@ -252,12 +252,12 @@
       ]
     },
     {
-      "id": "19cb9b648dba4efc58a205ea413b6b00",
+      "id": "19cb9b648dba4efc58a205ea413b6b01",
       "name": "人工智能",
       "icon": "fas fa-brain fa-lg",
       "subCategories": [
         {
-          "id": "19cb9b648dba4efc58a205ea413b6b00",
+          "id": "19cb9b648dba4efc58a205ea413b6b01",
           "name": "AI大模型",
           "sites": [
             {
@@ -275,7 +275,7 @@
           ]
         },
         {
-          "id": "19cb9b648dba4efc58a205ea413b6b01",
+          "id": "19cb9b648dba4efc58a205ea413b6b02",
           "name": "AI智能体",
           "sites": [
             {
@@ -295,7 +295,7 @@
       ]
     },
     {
-      "id": "19cb9b648dba4efc58a205ea413b6b00",
+      "id": "19cb9b648dba4efc58a205ea413b6b01",
       "name": "金融理财",
       "icon": "fas fa-chart-line fa-lg",
       "sites": [
