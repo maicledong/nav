@@ -16,6 +16,12 @@
           "url": "https://www.freeconvert.com/zh",
           "logo": "assets/images/logos/FreeConvert.png",
           "desc": "音视图文免费在线转换与压缩工具"
+        },
+        {
+          "name": "即梦AI",
+          "url": "https://jimeng.jianying.com/ai-tool/home",
+          "logo": "assets/images/logos/jimeng.png",
+          "desc": "一站式多模态AI-让灵感即刻成片"
         }
       ],
       "expanded": true
@@ -67,23 +73,23 @@
     {
       "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
       "name": "开发者资源",
-      "icon": "fas fa-globe fa-lg",
+      "icon": "fas fa-cog fa-lg",
       "subCategories": [
         {
           "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
           "name": "开发工具",
           "sites": [
             {
-              "name": "在线工具助手",
-              "url": "https://tool.gitapp.cn",
-              "logo": "assets/images/logos/mdx.png",
-              "desc": "一些常见的开发工具"
-            },
-            {
               "name": "Cloudflare",
               "url": "https://www.cloudflare.com/zh-cn",
               "logo": "assets/images/logos/CloudFlare.jpg",
               "desc": "全球网络安全加速平台"
+            },
+            {
+              "name": "在线工具助手",
+              "url": "https://tool.gitapp.cn",
+              "logo": "assets/images/logos/mdx.png",
+              "desc": "一些常见的开发工具"
             }
           ]
         },
@@ -297,7 +303,7 @@
     {
       "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
       "name": "金融理财",
-      "icon": "fas fa-chart-line fa-lg",
+      "icon": "fas fa-coins fa-lg",
       "sites": [
         {
           "name": "乌龟量化",
