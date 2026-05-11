@@ -9,7 +9,7 @@
           "name": "私人影视",
           "url": "https://avi.ccwu.cc",
           "logo": "assets/images/logos/kvideo.jpg",
-          "desc": "聚合全网影视随性搜"
+          "desc": "聚合全网影视"
         },
         {
           "name": "豆包",
@@ -46,6 +46,12 @@
               "url": "https://avi.ccwu.cc",
               "logo": "assets/images/logos/kvideo.jpg",
               "desc": "聚合全网影视随性sou"
+            },
+            {
+              "name": "通达信",
+              "url": "https://www.tdx.com.cn",
+              "logo": "assets/images/logos/tdx.png",
+              "desc": ""
             }
           ]
         },
@@ -73,7 +79,7 @@
     {
       "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
       "name": "开发者资源",
-      "icon": "fas fa-cog fa-lg",
+      "icon": "fas fa-globe fa-lg",
       "subCategories": [
         {
           "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
@@ -284,16 +290,16 @@
           "name": "AI智能体",
           "sites": [
             {
-              "name": "文心",
-              "url": "https://agents.baidu.com",
-              "logo": "assets/images/logos/wxyy.jpg",
-              "desc": "百度文心智能体平台"
-            },
-            {
               "name": "ComfyUI",
               "url": "https://comfyui.org",
               "logo": "assets/images/logos/confyui.png",
               "desc": "可视化搭建复杂的图像、视频生成智能体"
+            },
+            {
+              "name": "文心",
+              "url": "https://agents.baidu.com",
+              "logo": "assets/images/logos/wxyy.jpg",
+              "desc": "百度文心智能体平台"
             }
           ]
         }
@@ -309,12 +315,6 @@
           "name": "乌龟量化",
           "url": "https://wglh.com",
           "logo": "assets/images/logos/wglh.jpg",
-          "desc": ""
-        },
-        {
-          "name": "通达信",
-          "url": "https://www.tdx.com.cn",
-          "logo": "assets/images/logos/tdx.png",
           "desc": ""
         }
       ],
