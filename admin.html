@@ -41,6 +41,8 @@
     .btn-danger { background: #ef4444; color: white; }
     .btn-copy { background: #f59e0b; color: white; }
     .btn-move { background: #6366f1; color: white; }
+    .btn-pink { background: #ec4899; color: white; }
+    .btn-gray { background: #9ca3af; color: white; }
     .btn-upload { 
       background: #10b981; 
       color: white;
@@ -219,6 +221,8 @@ function render() {
     const isExpanded = cat.expanded !== false;
     const toggleIcon = isExpanded ? '▼' : '▶';
     const contentDisplay = isExpanded ? '' : 'display: none;';
+    const hasSub = (cat.subCategories && cat.subCategories.length > 0);
+    const bigAddBtnClass = hasSub ? 'btn-gray' : 'btn-pink';
 
     html += `
     <div class="section" data-idx="${i}">
@@ -230,7 +234,7 @@ function render() {
         
         <div style="display:flex; gap:6px;">
           <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSubCategory(${i})">➕ 新增子分类</button>
-          <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSite(${i},-1)">➕ 添加网站</button>
+          <button class="btn ${bigAddBtnClass}" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSite(${i},-1)">➕ 添加网站</button>
           <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="deleteCategory(${i})">🗑 删除</button>
         </div>
 
@@ -267,7 +271,7 @@ function render() {
           <h4 style="margin:0;">${subTitle}</h4>
           <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="openMoveSubCategory(${i},${k})">📋 移动</button>
           <div style="display:flex; gap:6px;">
-            <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSite(${i},${k})">➕ 添加网站</button>
+            <button class="btn btn-pink" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSite(${i},${k})">➕ 添加网站</button>
             <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="deleteSubCategory(${i},${k})">🗑 删除</button>
           </div>
         </div>
