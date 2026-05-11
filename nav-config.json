@@ -22,8 +22,15 @@
           "url": "https://www.freeconvert.com/zh",
           "logo": "assets/images/logos/FreeConvert.png",
           "desc": "音视图文免费在线转换与压缩工具"
+        },
+        {
+          "name": "通达信",
+          "url": "https://www.tdx.com.cn",
+          "logo": "assets/images/logos/tdx.png",
+          "desc": ""
         }
-      ]
+      ],
+      "expanded": true
     },
     {
       "id": "a4d417d7850fde0cd00e4af576621a01",
@@ -66,7 +73,8 @@
             }
           ]
         }
-      ]
+      ],
+      "expanded": true
     },
     {
       "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
@@ -127,7 +135,8 @@
             }
           ]
         }
-      ]
+      ],
+      "expanded": true
     },
     {
       "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
@@ -206,7 +215,8 @@
             }
           ]
         }
-      ]
+      ],
+      "expanded": true
     },
     {
       "id": "9c2232288caaa8ec40948cef6a786a01",
@@ -249,7 +259,8 @@
             }
           ]
         }
-      ]
+      ],
+      "expanded": true
     },
     {
       "id": "19cb9b648dba4efc58a205ea413b6b01",
@@ -292,7 +303,8 @@
             }
           ]
         }
-      ]
+      ],
+      "expanded": true
     },
     {
       "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
@@ -300,18 +312,13 @@
       "icon": "fas fa-chart-line fa-lg",
       "sites": [
         {
-          "name": "通达信",
-          "url": "https://www.tdx.com.cn",
-          "logo": "assets/images/logos/tdx.png",
-          "desc": ""
-        },
-        {
           "name": "乌龟量化",
           "url": "https://wglh.com",
           "logo": "assets/images/logos/wglh.jpg",
           "desc": ""
         }
-      ]
+      ],
+      "expanded": true
     }
   ]
 }
