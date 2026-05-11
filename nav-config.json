@@ -6,12 +6,6 @@
       "icon": "far fa-star fa-lg",
       "sites": [
         {
-          "name": "私人",
-          "url": "https://inav.ccwu.cc",
-          "logo": "assets/images/logos/kvideo.jpg",
-          "desc": "聚合全网影视随性搜"
-        },
-        {
           "name": "豆包",
           "url": "https://www.doubao.com",
           "logo": "assets/images/logos/%E8%B1%86%E5%8C%85.png",
@@ -22,12 +16,6 @@
           "url": "https://www.freeconvert.com/zh",
           "logo": "assets/images/logos/FreeConvert.png",
           "desc": "音视图文免费在线转换与压缩工具"
-        },
-        {
-          "name": "通达信",
-          "url": "https://www.tdx.com.cn",
-          "logo": "assets/images/logos/tdx.png",
-          "desc": ""
         }
       ],
       "expanded": true
@@ -315,6 +303,12 @@
           "name": "乌龟量化",
           "url": "https://wglh.com",
           "logo": "assets/images/logos/wglh.jpg",
+          "desc": ""
+        },
+        {
+          "name": "通达信",
+          "url": "https://www.tdx.com.cn",
+          "logo": "assets/images/logos/tdx.png",
           "desc": ""
         }
       ],
