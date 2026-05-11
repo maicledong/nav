@@ -12,6 +12,96 @@
           "desc": "字节跳动-豆包。"
         },
         {
+          "name": "DeepSeek",
+          "url": "https://chat.deepseek.com",
+          "logo": "assets/images/logos/DeepSeek.jpg",
+          "desc": "DeepSeek-深度求索"
+        },
+        {
+          "name": "ChatGPT",
+          "url": "https://chatgpt.com",
+          "logo": "assets/images/logos/chatgpt.jpg",
+          "desc": "OpenAI-ChatGPT"
+        },
+        {
+          "name": "即梦AI",
+          "url": "https://jimeng.jianying.com/ai-tool/home",
+          "logo": "assets/images/logos/jimeng.png",
+          "desc": "一站式多模态AI-让灵感即刻成片"
+        },
+        {
+          "name": "Gmail",
+          "url": "https://mail.google.com",
+          "logo": "assets/images/logos/gmail.png",
+          "desc": "Gmail-谷歌邮箱。"
+        },
+        {
+          "name": "GitHub",
+          "url": "https://github.com/",
+          "logo": "assets/images/logos/github.jpg",
+          "desc": "GitHub开源社区"
+        },
+        {
+          "name": "Cloudflare",
+          "url": "https://www.cloudflare.com/zh-cn",
+          "logo": "assets/images/logos/CloudFlare.jpg",
+          "desc": "全球网络安全加速平台"
+        },
+        {
+          "name": "Vercel",
+          "url": "https://vercel.com/maiclezxds-projects",
+          "logo": "assets/images/logos/vercel.png",
+          "desc": "全球领先的前端云平台"
+        },
+        {
+          "name": "YouTube",
+          "url": "https://www.youtube.com",
+          "logo": "assets/images/logos/YouTube.png",
+          "desc": "YouTube-油管"
+        },
+        {
+          "name": "SMALL.IM",
+          "url": "https://small.im/zh-hans",
+          "logo": "assets/images/logos/small.jpg",
+          "desc": "批量压缩/裁剪/转换|添加水印|移除背景等图片处理"
+        },
+        {
+          "name": "DeepConvert",
+          "url": "https://deepconvert.net",
+          "logo": "assets/images/logos/deepconvert.jpg",
+          "desc": "超好用全格式图片互转神器，一键快速转换"
+        },
+        {
+          "name": "百度文心助手",
+          "url": "https://chat.baidu.com",
+          "logo": "assets/images/logos/wenxin.png",
+          "desc": "全能 AI 助手，覆盖视频图片、办公学习、代码编程、语音交互等多元场景"
+        },
+        {
+          "name": "PhotoKit",
+          "url": "https://photokit.com/?lang=zh",
+          "logo": "assets/images/logos/photokit.png",
+          "desc": "AI免费在线图片编辑器及批处理"
+        },
+        {
+          "name": "MYIP.COM",
+          "url": "https://www.myip.com",
+          "logo": "assets/images/logos/myip.jpg",
+          "desc": "查看您的IP地址"
+        },
+        {
+          "name": "Tcptest",
+          "url": "https://tcptest.cn",
+          "logo": "assets/images/logos/tcptest.png",
+          "desc": "免费在线网络拨测工具"
+        },
+        {
+          "name": "剪映AI图片设计",
+          "url": "https://www.jianying.com/editor-graphic",
+          "logo": "assets/images/logos/JianYing.png",
+          "desc": "剪映网页版AI图形编辑"
+        },  
+        {
           "name": "FreeConvert",
           "url": "https://www.freeconvert.com/zh",
           "logo": "assets/images/logos/FreeConvert.png",
@@ -20,6 +110,7 @@
       ],
       "expanded": true
     },
+   
     {
       "id": "a4d417d7850fde0cd00e4af576621a01",
       "name": "音影图像",
@@ -30,40 +121,599 @@
           "name": "影音娱乐",
           "sites": [
             {
-              "name": "洛雪音乐",
-              "url": "https://lxmusic.toside.cn",
-              "logo": "assets/images/logos/rxyy.png",
-              "desc": "聚合全网音源-免费音乐查找与播放"
-            },
-            {
               "name": "私人影视",
               "url": "https://avi.ccwu.cc",
               "logo": "assets/images/logos/kvideo.jpg",
               "desc": "聚合全网影视随性搜"
+            },
+            {
+              "name": "电影天堂",
+              "url": "https://www.dygod.net/",
+              "logo": "assets/images/logos/%e7%94%b5%e5%bd%b1%e5%a4%a9%e5%a0%82.png",
+              "desc": "高清电影下载"
+            },
+            {
+              "name": "YouTube",
+              "url": "https://www.youtube.com",
+              "logo": "assets/images/logos/YouTube.png",
+              "desc": "YouTube-油管"
+            },
+            {
+              "name": "B站",
+              "url": "https://www.bilibili.com/",
+              "logo": "assets/images/logos/%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9.png",
+              "desc": "Bilibili视频弹幕网站"
+            },
+            {
+              "name": "抖音",
+              "url": "https://www.douyin.com",
+              "logo": "assets/images/logos/douyin.jpg",
+              "desc": "抖音短视频与生活娱乐平台"
+            },
+            {
+              "name": "TikTok",
+              "url": "https://www.tiktok.com",
+              "logo": "assets/images/logos/TikTok.jpg",
+              "desc": "抖音国际版-全球热门短视频社交平台"
+            },
+            {
+              "name": "快手",
+              "url": "https://www.kuaishou.com/new-reco",
+              "logo": "assets/images/logos/kuaishou.png",
+              "desc": "快手拥抱每一种生活"
+            },
+            {
+              "name": "小红书",
+              "url": "https://www.xiaohongshu.com/explore",
+              "logo": "assets/images/logos/xhs.png",
+              "desc": "分享和发现世界的精彩"
+            },
+            {
+              "name": "腾讯视频",
+              "url": "http://v.qq.com/",
+              "logo": "assets/images/logos/%e8%85%be%e8%ae%af%e8%a7%86%e9%a2%91.png",
+              "desc": "腾讯视频，海量视频在线观看"
+            },
+            {
+              "name": "爱奇艺",
+              "url": "https://www.iqiyi.com/",
+              "logo": "assets/images/logos/%e7%88%b1%e5%a5%87%e8%89%ba.png",
+              "desc": "爱奇艺在线视频"
+            },
+            {
+              "name": "优酷",
+              "url": "http://www.youku.com/",
+              "logo": "assets/images/logos/%e4%bc%98%e9%85%b7.png",
+              "desc": "优酷 - 这个世界很酷"
+            },
+            {
+              "name": "芒果TV",
+              "url": "https://www.mgtv.com",
+              "logo": "assets/images/logos/mangguo.png",
+              "desc": "天生青春-新媒体视频平台"
+            },
+            {
+              "name": "QQ音乐",
+              "url": "https://y.qq.com/",
+              "logo": "assets/images/logos/QQ%e9%9f%b3%e4%b9%90.jpg",
+              "desc": "QQ音乐，在线听歌"
+            },
+            {
+              "name": "网易云音乐",
+              "url": "https://music.163.com/",
+              "logo": "assets/images/logos/%e7%bd%91%e6%98%93%e4%ba%91%e9%9f%b3%e4%b9%90.jpg",
+              "desc": "163网易云音乐"
+            },  
+            {
+              "name": "洛雪音乐",
+              "url": "https://lxmusic.toside.cn",
+              "logo": "assets/images/logos/rxyy.png",
+              "desc": "聚合全网音源-免费音乐查找与播放"
             }
           ]
         },
+        
         {
           "id": "a4d417d7850fde0cd00e4af576621a02",
           "name": "影音工具",
           "sites": [
             {
-              "name": "OBS Studio",
-              "url": "https://obsproject.com",
-              "logo": "assets/images/logos/obs.jpg",
-              "desc": "免费开源录屏与直播神器"
-            },
-            {
               "name": "即梦AI",
               "url": "https://jimeng.jianying.com/ai-tool/home",
               "logo": "assets/images/logos/jimeng.png",
               "desc": "一站式多模态AI-让灵感即刻成片"
+            },
+            {
+              "name": "剪映",
+              "url": "https://www.capcut.cn",
+              "logo": "assets/images/logos/JianYing.png",
+              "desc": "全能型AI视频与图像编辑平台"
+            },
+            {
+              "name": "影忆",
+              "url": "https://www.yingyiapp.com",
+              "logo": "assets/images/logos/yingyi.png",
+              "desc": "全民流行的视频制作软件"
+            },
+            {
+              "name": "达芬奇-DaVinci Resolve",
+              "url": "https://www.blackmagicdesign.com/cn/products/davinciresolve",
+              "logo": "assets/images/logos/DaVinciResolve.jpg",
+              "desc": "一站式专业影视后期全流程软件"
+            },
+            {
+              "name": "mpv",
+              "url": "https://mpv.io",
+              "logo": "assets/images/logos/mpv.png",
+              "desc": "极简高性能媒体播放器"
+            },
+            {
+              "name": "VLC",
+              "url": "https://www.videolan.org",
+              "logo": "assets/images/logos/VLC.png",
+              "desc": "全平台多媒体播放器"
+            },
+            {
+              "name": "PotPlayer",
+              "url": "https://potplayer.tv/?lang=zh_CN",
+              "logo": "assets/images/logos/PotPlayer.png",
+              "desc": "Windows平台免费高性能多媒体播放器"
+            },
+            {
+              "name": "Easydown",
+              "url": "https://easydown.org/zh",
+              "logo": "assets/images/logos/Easydown.jpg",
+              "desc": "免费视频解析下载工具网站"
+            },
+            {
+              "name": "iiiLab",
+              "url": "https://youtube.iiilab.com",
+              "logo": "assets/images/logos/iiiLab.jpg",
+              "desc": "免费在线视频解析下载工具"
+            },
+            {
+              "name": "KuKuTool",
+              "url": "https://dy.kukutool.com/zh-Hans-SG",
+              "logo": "assets/images/logos/kuku.png",
+              "desc": "批量无水印解析下载130多个平台视频，图片，实况Live图"
+            },
+            {
+              "name": "格式工厂",
+              "url": "http://www.pcfreetime.com/formatfactory/cn/index.html",
+              "logo": "assets/images/logos/gsgc.jpg",
+              "desc": "万能多媒体格式处理软件"
+            },
+            {
+              "name": "YouCompress",
+              "url": "https://www.youcompress.com/zh-cn",
+              "logo": "assets/images/logos/YouCompress.png",
+              "desc": "免费在线压缩视频/图片/音频"
+            },
+            {
+              "name": "Open Screen",
+              "url": "https://openscreen.vercel.app",
+              "logo": "assets/images/logos/openscreen.jpg",
+              "desc": "轻量级屏幕录制与视频美化工具(智能变焦/平滑放大)"
+            },
+            {
+              "name": "FSCapture",
+              "url": "https://www.faststonecapture.cn",
+              "logo": "assets/images/logos/FSC.png",
+              "desc": "轻量截图与录屏神器"
+            },
+            {
+              "name": "OBS Studio",
+              "url": "https://obsproject.com",
+              "logo": "assets/images/logos/obs.jpg",
+              "desc": "免费开源录屏与直播神器"
+            }
+          ]
+        },
+  
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a03",
+          "name": "图片工具",
+          "sites": [
+            {
+              "name": "百度文心助手",
+              "url": "https://chat.baidu.com",
+              "logo": "assets/images/logos/wenxin.png",
+              "desc": "百度AI搜"
+            },
+            {
+              "name": "SMALL.IM",
+              "url": "https://small.im/zh-hans",
+              "logo": "assets/images/logos/small.jpg",
+              "desc": "批量压缩/裁剪/转换|添加水印|移除背景等图片处理"
+            },
+            {
+              "name": "DeepConvert",
+              "url": "https://deepconvert.net",
+              "logo": "assets/images/logos/deepconvert.jpg",
+              "desc": "超好用全格式图片互转神器，一键快速转换"
+            },
+            {
+              "name": "PhotoKit",
+              "url": "https://photokit.com/?lang=zh",
+              "logo": "assets/images/logos/photokit.png",
+              "desc": "AI免费在线图片编辑器及批处理"
+            },
+            {
+              "name": "PicWish",
+              "url": "https://picwish.com/create",
+              "logo": "assets/images/logos/Picwish.png",
+              "desc": "AI多功能图片创作与编辑平台|一站式AI图像处理"
+            },
+            {
+              "name": "Birme",
+              "url": "https://www.birme.net",
+              "logo": "assets/images/logos/Birme.png",
+              "desc": "免费在线批量裁剪/重命名/自定义水印"
+            },
+            {
+              "name": "raphael/AI图像扩展器",
+              "url": "https://raphael.app/zh/uncrop",
+              "logo": "assets/images/logos/rahael.png",
+              "desc": "向任何方向扩展图像-向任何方向扩展图像"
+            },
+            {
+              "name": "raphael/AI去背景",
+              "url": "https://raphael.app/zh/background-remover",
+              "logo": "assets/images/logos/rahael.png",
+              "desc": "AI背景移除工具"
+            },
+            {
+              "name": "CleanUpPhotos",
+              "url": "https://cleanupphotos.com",
+              "logo": "assets/images/logos/cup.jpg",
+              "desc": "去水印|移除不需要的物体或背景."
+            },
+            {
+              "name": "remove",
+              "url": "https://www.remove.bg/upload",
+              "logo": "assets/images/logos/remove.png",
+              "desc": "去除背景自动抠图"
+            },
+            {
+              "name": "design-easy",
+              "url": "https://www.design-easy.com/id-photo-generator",
+              "logo": "assets/images/logos/designeasy.png",
+              "desc": "证件照生成器"
+            },
+            {
+              "name": "草料二维码",
+              "url": "https://cli.im",
+              "logo": "assets/images/logos/clewm.jpg",
+              "desc": "草料二维码生成器"
+            },
+            {
+              "name": "ShareX",
+              "url": "https://getsharex.com",
+              "logo": "assets/images/logos/sharex.jpg",
+              "desc": "免费、开源、无广告的全能截图 / 录屏 / 上传工具"
+            },
+            {
+              "name": "PixPin",
+              "url": "https://pixpin.cn",
+              "logo": "assets/images/logos/PixPin.jpg",
+              "desc": "全能型免费截图软件截图贴图"
+            },
+            {
+              "name": "Snipaste",
+              "url": "https://zh.snipaste.com",
+              "logo": "assets/images/logos/snipaste.png",
+              "desc": "轻量高效的免费截图/贴图工具"
+            }
+          ]
+        },
+        
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a04",
+          "name": "图形设计",
+          "sites": [
+            {
+              "name": "剪映AI图片设计",
+              "url": "https://www.jianying.com/editor-graphic",
+              "logo": "assets/images/logos/JianYing.png",
+              "desc": "剪映网页版AI图形编辑"
+            },
+            {
+              "name": "在线ps",
+              "url": "https://zaixianps.net/",
+              "logo": "assets/images/logos/inoreader.jpg",
+              "desc": "在线p图工具"
+            },
+            {
+              "name": "Canva",
+              "url": "https://www.canva.com",
+              "logo": "assets/images/logos/Canva.jpg",
+              "desc": "在线图形设计平台"
+            },
+            {
+              "name": "创客贴",
+              "url": "https://www.chuangkit.com/designtools/designindex",
+              "logo": "assets/images/logos/chuangkit.jpg",
+              "desc": "国产在线图形设计与内容创作平台"
+            },
+            {
+              "name": "稿定设计",
+              "url": "https://m.gaoding.com/creation",
+              "logo": "assets/images/logos/gaoding.jpg",
+              "desc": "国产在线商业视觉设计与内容创作平台"
+            },
+            {
+              "name": "美图秀秀",
+              "url": "https://pc.meitu.com",
+              "logo": "assets/images/logos/mtxx.jpg",
+              "desc": "在线P图抠图拼图"
+            },
+            {
+              "name": "ProcessOn",
+              "url": "https://www.processon.com",
+              "logo": "assets/images/logos/ProcessOn.png",
+              "desc": "在线流程图|思维导图"
+            }
+          ]
+        },
+        
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a05",
+          "name": "图标素材",
+          "sites": [            
+            {
+              "name": "iconfont",
+              "url": "http://www.iconfont.cn/",
+              "logo": "assets/images/logos/albbs.jpg",
+              "desc": "阿里矢量图标库。"
+            },
+            {
+              "name": "Google Fonts",
+              "url": "https://fonts.google.com/icons",
+              "logo": "assets/images/logos/GoogleFonts.jpg",
+              "desc": "Google推出的免费开源图标库"
+            },
+            {
+              "name": "Freepik-icons",
+              "url": "https://www.freepik.com/icons",
+              "logo": "assets/images/logos/Freepik-icons.png",
+              "desc": "免费图标在线下载/编辑"
+            },
+            {
+              "name": "Icon Archive",
+              "url": "http://www.iconarchive.com/",
+              "logo": "assets/images/logos/IconArchive.jpg",
+              "desc": "海量免费图标检索/下载"
+            },
+            {
+              "name": "FreeImages",
+              "url": "https://www.freeimages.com",
+              "logo": "assets/images/logos/FreeImages.png",
+              "desc": "照片、矢量图、图标免费下载。"
+            },
+            {
+              "name": "Flaticon",
+              "url": "https://www.flaticon.com/",
+              "logo": "assets/images/logos/Flaticon.jpg",
+              "desc": "全球最大的矢量图标与贴纸资源平台"
+            },
+            {
+              "name": "iOS Icon Gallery",
+              "url": "http://iosicongallery.com/",
+              "logo": "assets/images/logos/iosicongallery.png",
+              "desc": "Showcasing beautiful icon designs from the iOS App Store。"
+            },
+            {
+              "name": "World Vector Logo",
+              "url": "https://worldvectorlogo.com/",
+              "logo": "assets/images/logos/worldvectorlogo.png",
+              "desc": "Brand logos free to download。"
+            },
+            {
+              "name": "Iconsfeed",
+              "url": "http://www.iconsfeed.com/",
+              "logo": "assets/images/logos/iconsfeed.png",
+              "desc": "iOS icons gallery。"
+            },
+            {
+              "name": "IcoMoonApp",
+              "url": "https://icomoon.io/app/",
+              "logo": "assets/images/logos/IcoMoonApp.png",
+              "desc": "Icon Font, SVG, PDF & PNG Generator。"
+            },
+            {
+              "name": "Font Awesome Icon",
+              "url": "https://fontawesome.com/icons/",
+              "logo": "assets/images/logos/fontawesomeicon.png",
+              "desc": "The complete set of 675 icons in Font Awesome。"
+            },
+            {
+              "name": "ion icons",
+              "url": "http://ionicons.com/",
+              "logo": "assets/images/logos/ionicons.png",
+              "desc": "The premium icon font for Ionic Framework。"
+            },
+            {
+              "name": "Simpleline Icons",
+              "url": "http://simplelineicons.com/",
+              "logo": "assets/images/logos/simplelineicons.png",
+              "desc": "Simple line Icons pack。"
+            }
+          ]
+        },
+        
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a06",
+          "name": "平面素材",
+          "sites": [            
+            {
+              "name": "千图网",
+              "url": "http://www.58pic.com/",
+              "logo": "assets/images/logos/qiantu.png",
+              "desc": "专注免费设计素材下载的网站。"
+            },
+            {
+              "name": "千库网",
+              "url": "http://588ku.com/",
+              "logo": "assets/images/logos/qianku.png",
+              "desc": "免费 png 图片背景素材下载。"
+            },
+            {
+              "name": "我图网",
+              "url": "http://www.ooopic.com/",
+              "logo": "assets/images/logos/wotu.png",
+              "desc": "我图网，提供图片素材及模板下载，专注正版设计作品交易。"
+            },
+            {
+              "name": "90 设计",
+              "url": "http://90sheji.com/",
+              "logo": "assets/images/logos/90sheji.png",
+              "desc": "电商设计（淘宝美工）千图免费淘宝素材库。"
+            },
+            {
+              "name": "昵图网",
+              "url": "http://www.nipic.com/",
+              "logo": "assets/images/logos/nipic.png",
+              "desc": "原创素材共享平台。"
+            },
+            {
+              "name": "素材中国",
+              "url": "http://www.sccnn.com/",
+              "logo": "assets/images/logos/sccnn.png",
+              "desc": "免费素材共享平台。"
+            },
+            {
+              "name": "Freepik",
+              "url": "https://www.freepik.com/",
+              "logo": "assets/images/logos/freepik.png",
+              "desc": "More than a million free vectors, PSD, photos and free icons。"
+            },
+            {
+              "name": "wallhalla",
+              "url": "https://wallhalla.com/",
+              "logo": "assets/images/logos/wallhalla.png",
+              "desc": "Find awesome high quality wallpapers for desktop and mobile in one place。"
+            },
+            {
+              "name": "365PSD",
+              "url": "https://365psd.com/",
+              "logo": "assets/images/logos/365PSD.png",
+              "desc": "Free PSD & Graphics, Illustrations。"
+            },
+            {
+              "name": "Medialoot",
+              "url": "https://medialoot.com/",
+              "logo": "assets/images/logos/Medialoot.png",
+              "desc": "Free & Premium Design Resources — Medialoot。"
+            }
+          ]
+        },
+            
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a07",
+          "name": "字体资源",
+          "sites": [  
+            {
+              "name": "阿里巴巴普惠体",
+              "url": "https://www.alibabafonts.com/#/font",
+              "logo": "assets/images/logos/albb.jpg",
+              "desc": "免费正版中文字体库永久免费可商用"
+            },
+            {
+              "name": "Google Font",
+              "url": "https://fonts.google.com/",
+              "logo": "assets/images/logos/googlefont.png",
+              "desc": "Making the web more beautiful, fast, and open through great typography。"
+            },
+            {
+              "name": "方正字库",
+              "url": "http://www.foundertype.com/",
+              "logo": "assets/images/logos/Fondertype.png",
+              "desc": "方正字库官方网站。"
+            },
+            {
+              "name": "字体传奇网",
+              "url": "http://ziticq.com/",
+              "logo": "assets/images/logos/ziticq.png",
+              "desc": "中国首个字体品牌设计师交流网。"
+            },
+            {
+              "name": "私藏字体",
+              "url": "http://sicangziti.com/",
+              "logo": "assets/images/logos/sicangziti.png",
+              "desc": "优质字体免费下载站。"
+            },
+            {
+              "name": "Typekit",
+              "url": "https://typekit.com/",
+              "logo": "assets/images/logos/typekit.png",
+              "desc": "Quality fonts from the world’s best foundries。"
+            },
+            {
+              "name": "Fontsquirrel",
+              "url": "https://www.fontsquirrel.com/",
+              "logo": "assets/images/logos/fontsquirrel.png",
+              "desc": "FREE fonts for graphic designers。"
+            },
+            {
+              "name": "Urban Fonts",
+              "url": "https://www.urbanfonts.com/",
+              "logo": "assets/images/logos/UrbanFonts.png",
+              "desc": "Download Free Fonts and Free Dingbats。"
+            },
+            {
+              "name": "Lost Type",
+              "url": "http://www.losttype.com/",
+              "logo": "assets/images/logos/losttype.png",
+              "desc": "Lost Type is a Collaborative Digital Type Foundry。"
+            },
+            {
+              "name": "FONTS2U",
+              "url": "https://fonts2u.com/",
+              "logo": "assets/images/logos/fonts2u.png",
+              "desc": "Download free fonts for Windows and Macintosh。"
+            },
+            {
+              "name": "Fontex",
+              "url": "http://www.fontex.org/",
+              "logo": "assets/images/logos/fontex.png",
+              "desc": "Free Fonts to Download + Premium Typefaces。"
+            },
+            {
+              "name": "FontM",
+              "url": "http://fontm.com/",
+              "logo": "assets/images/logos/FontM.png",
+              "desc": "Free Fonts"
+            },
+            {
+              "name": "My Fonts",
+              "url": "http://www.myfonts.com/",
+              "logo": "assets/images/logos/MyFonts.png",
+              "desc": "Fonts for Print, Products & Screens。"
+            },
+            {
+              "name": "Da Font",
+              "url": "https://www.dafont.com/",
+              "logo": "assets/images/logos/dafont.png",
+              "desc": "Archive of freely downloadable fonts。"
+            },
+            {
+              "name": "OnlineWebFonts",
+              "url": "https://www.onlinewebfonts.com/",
+              "logo": "assets/images/logos/OnlineWebFonts.png",
+              "desc": "WEB Free Fonts for Windows and Mac / Font free Download。"
+            },
+            {
+              "name": "Abstract Fonts",
+              "url": "http://www.abstractfonts.com/",
+              "logo": "assets/images/logos/abstractfonts.png",
+              "desc": "Abstract Fonts (13,866 free fonts)。"
             }
           ]
         }
       ],
       "expanded": true
     },
+    
     {
       "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
       "name": "开发者资源",
