@@ -1,6 +1,26 @@
 {
   "categories": [
     {
+      "id": "3e90c5117dc0fe9d71410e448d766e01",
+      "name": "常用工具",
+      "icon": "far fa-star fa-lg",
+      "sites": [
+        {
+          "name": "豆包",
+          "url": "https://www.doubao.com",
+          "logo": "assets/images/logos/%E8%B1%86%E5%8C%85.png",
+          "desc": "字节跳动-豆包。"
+        },
+        {
+          "name": "FreeConvert",
+          "url": "https://www.freeconvert.com/zh",
+          "logo": "assets/images/logos/FreeConvert.png",
+          "desc": "音视图文免费在线转换与压缩工具"
+        }
+      ],
+      "expanded": true
+    },
+    {
       "id": "a4d417d7850fde0cd00e4af576621a01",
       "name": "音影图像",
       "icon": "fas fa-film fa-lg",
@@ -102,26 +122,6 @@
               "desc": "全球托管DNS与域名服务提供商"
             }
           ]
-        }
-      ],
-      "expanded": true
-    },
-    {
-      "id": "3e90c5117dc0fe9d71410e448d766e01",
-      "name": "常用工具",
-      "icon": "far fa-star fa-lg",
-      "sites": [
-        {
-          "name": "豆包",
-          "url": "https://www.doubao.com",
-          "logo": "assets/images/logos/%E8%B1%86%E5%8C%85.png",
-          "desc": "字节跳动-豆包。"
-        },
-        {
-          "name": "FreeConvert",
-          "url": "https://www.freeconvert.com/zh",
-          "logo": "assets/images/logos/FreeConvert.png",
-          "desc": "音视图文免费在线转换与压缩工具"
         }
       ],
       "expanded": true
