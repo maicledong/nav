@@ -165,15 +165,16 @@ function render() {
   navConfig.categories.forEach((cat, i) => {
     const bigTitle = `${cnNums[i]}、${cat.name}`;
     const isExpanded = cat.expanded !== false;
-    const toggleIcon = isExpanded ? '−' : '+';
+    // 用 Unicode 三角箭头，比加减号更清爽
+    const toggleIcon = isExpanded ? '▼' : '▶';
     const contentDisplay = isExpanded ? '' : 'display: none;';
 
     html += `
     <div class="section" data-idx="${i}">
       <!-- 标题 + 常用按钮 + 不常用按钮 同一行 -->
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-        <!-- 展开/收起按钮 -->
-        <button class="btn" onclick="toggleCategory(${i})" style="width:32px; padding:0;">
+        <!-- 展开/收起按钮：用三角箭头，清爽好看 -->
+        <button class="btn" onclick="toggleCategory(${i})" style="width:32px; padding:0; background:none; border:none; font-size:16px; color:#666;">
           ${toggleIcon}
         </button>
         <h3 style="margin:0;">${bigTitle}</h3>
