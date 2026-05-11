@@ -16,12 +16,6 @@
           "url": "https://www.freeconvert.com/zh",
           "logo": "assets/images/logos/FreeConvert.png",
           "desc": "音视图文免费在线转换与压缩工具"
-        },
-        {
-          "logo": "assets/images/logos/a12.png",
-          "name": "wode",
-          "url": "https://www.baidu.com",
-          "desc": "我弟家在东北"
         }
       ],
       "expanded": true
@@ -73,7 +67,7 @@
     {
       "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
       "name": "开发者资源",
-      "icon": "fas fa-code fa-lg",
+      "icon": "fas fa-globe fa-lg",
       "subCategories": [
         {
           "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
