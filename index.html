@@ -12,7 +12,7 @@
     <title>我的导航 | 全网优质资源聚合 | 实用有深度的综合导航网站</title>
     <link rel="shortcut icon" href="./assets/images/favicon.png" />
     <meta name="keywords" content="在线工具网,实用工具,人工智能,AI大模型,AI智能体,文本处理,图片工具,图像处理,图片编辑,音频处理,音频剪辑,视频处理,视频剪辑,音视频工具,多媒体工具,在线设计,格式转换" />
-	<meta name="description" content="我的导航是一站式实用在线平台，汇集各类在线网址导航、开发工具、绘图绘画、图片处理、在线PS、音视频处理及人工智能AI大模型、AI智能体等工具，满足日常办公、学习与设计需求。" />
+	<meta name="description" content="我的导航是一站式实用平台，汇集各类在线网址导航、开发工具、绘图绘画、图片处理、在线PS、音视频处理及人工智能AI大模型、AI智能体等工具，满足日常办公、学习与设计需求。" />
 
     <link rel="stylesheet" id="block-library-css"
         href="./assets/css/block-library.min-5.6.2.css" type="text/css" media="all" />
@@ -59,6 +59,18 @@
 }
 .sidebar-item ul.show {
     display: block;
+}
+
+/* 👇 这是我帮你加的修复代码，已经放好位置了 */
+#friendlink {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+.friendlink {
+    margin-bottom: 0 !important;
+}
+.main-footer {
+    margin-top: 20px !important;
 }
 </style>
 	
@@ -113,7 +125,7 @@
                                 <svg viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                                     <path class="line--1" d="M0 40h62c18 0 18-20-17 5L31 55"></path>
                                     <path class="line--2" d="M0 50h80"></path>
-                                    <path class="line--3" d="M0 60h62c18 0 18 20-17-5L31 45"></path>
+                                    <path class="line--3" d="M0 60h62c18 0 18-20-17-5L31 45"></path>
                                 </svg>
                             </label>
                         </div>
@@ -221,7 +233,7 @@
                             <label for="type-anaconda"><span class="text-muted">软件</span></label>
                         </li>
                         <li><input hidden="" type="radio" name="type" id="type-cnki"
-                                value="https://kns.cnki.net/kns8s/defaultresult/index?crossids=YSTT4HG0%2CLSTPFY1C%2CJUP3MUPD%2CMPMFIG1A%2CWQ0UVIAA%2CBLZOG7CK%2CPWFIRAGL%2CEMRPGLPA%2CNLBO1Z6R%2CNN3FJMUV&korder=SU&kw=" data-placeholder="知网搜索：文章标题/关键字">
+                                value="https://kns.cnki.net/kns8s/defaultresult/index?crossids=YSTT4HG0%2CLSTPFY1C%2CJUP3MUPD%2CMPMFIG1A%2CWQ0UVIAA%2CBLZOG7CK%2CPWFIRAGL%2CEMRPGLPA%2CNLBO1Z6R%2CNN3FJMUV&korder=SU&kw=" data-placeholder="知网搜索：文章关键字">
                             <label for="type-cnki"><span class="text-muted">知网</span></label>
                         </li>
                     </ul>
@@ -367,39 +379,42 @@
 </div>
 </div>
 
-
-<!-- 保留你原始的「科学上网」代码，不套多余的外层容器 -->
+<!-- 👇 这是你原来的、没改动的科学上网代码 -->
 <h4 class="text-gray text-lg mb-4">
     <i class="iconfont icon-book-mark-line icon-lg mr-2" id="friendlink"></i>科学上网
 </h4>
 <div class="friendlink text-xs card">
     <div class="card-body">
-        <a href="https://maicle.ccwu.cc" title="反代优选IP" target="_blank">免费节点</a>
-        <a href="https://wd.maicle.ccwu.cc/0697039a-847c-49c5-92d8-1d7b93ed02f2" title="节点订阅中心" target="_blank">节点订阅中心</a>
-        <a href="https://juejin.im" title="掘金社区" target="_blank">掘金社区</a>
-        <a href="https://github.com/2dust/v2rayN" title="v2rayN" target="_blank">v2rayN</a>
+
+	    <a href="https://maicle.ccwu.cc" title="反代优选IP" target="_blank">免费节点</a>
+
+	    <a href="https://wd.maicle.ccwu.cc/0697039a-847c-49c5-92d8-1d7b93ed02f2" title="节点订阅中心" target="_blank">节点订阅中心</a>
+
+	    <a href="https://juejin.im" title="掘金社区" target="_blank">掘金社区</a>
+
+	    <a href="https://github.com/2dust/v2rayN" title="v2rayN" target="_blank">v2rayN</a>
+
     </div>
 </div>
 
-<!-- 给 footer 加上负的上边距，把它往上拉，和上面的间距恢复正常 -->
-<footer class="main-footer footer-type-1 text-xs" style="margin-top: -30px;">
-    <div id="footer-tools" class="d-flex flex-column">
-        <a href="javascript:" id="go-to-up" class="btn rounded-circle go-up m-1" rel="go-top">
-            <i class="iconfont icon-to-up"></i>
-        </a>
-        <a href="javascript:" id="footer-focus-search" class="btn rounded-circle m-1" rel="search">
-            <i class="iconfont icon-search"></i>
-        </a>
-        <a href="javascript:" onclick="switchNightMode()" class="btn rounded-circle switch-dark-mode m-1" id="yejian"
-            data-toggle="tooltip" data-placement="left" title="日间模式">
-            <i class="mode-ico iconfont icon-night"></i>
-        </a>
-    </div>
-    <div class="footer-inner">
-        <div class="footer-text">我的导航网站|内容源自互联网，如有侵权请电邮：maiclezxd@gmail.com <br/>© 2023-2026 京ICP备2023018588号</div>
-        <div id="runtime" style="text-align:center;margin:20px 0;color:#39C5BB;font-size:13px;letter-spacing:1px;text-shadow:0 0 5px #39C5BB;"></div>
-    </div>
-</footer>
+        <footer class="main-footer footer-type-1 text-xs">
+            <div id="footer-tools" class="d-flex flex-column">
+                <a href="javascript:" id="go-to-up" class="btn rounded-circle go-up m-1" rel="go-top">
+                    <i class="iconfont icon-to-up"></i>
+                </a>
+				<a href="javascript:" id="footer-focus-search" class="btn rounded-circle m-1" rel="search">
+                    <i class="iconfont icon-search"></i>
+                </a>
+                <a href="javascript:" onclick="switchNightMode()" class="btn rounded-circle switch-dark-mode m-1" id="yejian"
+                    data-toggle="tooltip" data-placement="left" title="日间模式">
+                    <i class="mode-ico iconfont icon-night"></i>
+                </a>
+            </div>
+            <div class="footer-inner">
+                <div class="footer-text">我的导航网站|内容源自互联网，如有侵权请电邮：maiclezxd@gmail.com <br/>© 2023-2026 京ICP备2023018588号</div>
+				<div id="runtime" style="text-align:center;margin:20px 0;color:#39C5BB;font-size:13px;letter-spacing:1px;text-shadow:0 0 5px #39C5BB;"></div>
+            </div>
+        </footer>
     </div>
 </div>
 
