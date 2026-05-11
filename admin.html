@@ -23,6 +23,8 @@
     .modal-box { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
     .copy-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; }
     .copy-item:hover { background: #f3f4f6; }
+    .copy-item.selected { background: #dbeafe; }
+    .modal-footer { margin-top: 12px; display: flex; justify-content: flex-end; gap: 8px; }
     #status { margin: 10px 0; font-weight: bold; color: #2563eb; }
     .dragging { opacity: 0.5; }
   </style>
@@ -51,17 +53,23 @@
 
 <div class="modal" id="copyModal">
   <div class="modal-box">
-    <h3>选择目标位置</h3>
+    <h3>复制到位置（先选，再确认）</h3>
     <div id="copyTargets"></div>
-    <button class="btn" onclick="closeCopyModal()" style="margin-top:12px">关闭</button>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeCopyModal()">取消</button>
+      <button class="btn btn-primary" onclick="confirmPasteCopy()">确认复制</button>
+    </div>
   </div>
 </div>
 
 <div class="modal" id="moveSiteModal">
   <div class="modal-box">
-    <h3>移动网站到</h3>
+    <h3>移动网站到位置（先选，再确认）</h3>
     <div id="moveSiteTargets"></div>
-    <button class="btn" onclick="closeMoveSiteModal()" style="margin-top:12px">关闭</button>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeMoveSiteModal()">取消</button>
+      <button class="btn btn-primary" onclick="confirmMoveSite()">确认移动</button>
+    </div>
   </div>
 </div>
 
@@ -92,10 +100,15 @@ var GITHUB_CONFIG = {
 
 var navConfig = { categories: [] };
 var privateKey = null;
+
 var copySite = null;
-var pendingLogoInputEl = null;
+var copyTarget = null;
+
 var movingSite = null;
+var moveSiteTarget = null;
+
 var movingSub = null;
+var pendingLogoInputEl = null;
 
 function importPEM() {
   const file = document.getElementById('pemFile').files[0];
@@ -331,10 +344,12 @@ function initDrag() {
 }
 
 // ————————————————————————————————
-// 网站移动功能（可跨任意分类）
+// 网站移动（选位置 + 确认）
 // ————————————————————————————————
 function openMoveSite(cat, sub, idx) {
   movingSite = { cat, sub, idx };
+  moveSiteTarget = null;
+
   const list = [];
   navConfig.categories.forEach((c, i) => {
     list.push({ t: 'main', cat: i, sub: -1, name: c.name });
@@ -343,8 +358,8 @@ function openMoveSite(cat, sub, idx) {
     });
   });
 
-  const html = list.map(item => `
-    <div class="copy-item" onclick="confirmMoveSite(${item.cat},${item.sub})">
+  const html = list.map((item, i) => `
+    <div class="copy-item" id="moveSiteItem${i}" onclick="selectMoveSiteTarget(${item.cat},${item.sub},${i})">
       ${item.name}
     </div>
   `).join('');
@@ -353,22 +368,32 @@ function openMoveSite(cat, sub, idx) {
   document.getElementById('moveSiteModal').style.display = 'flex';
 }
 
-function confirmMoveSite(targetCat, targetSub) {
+function selectMoveSiteTarget(cat, sub, elIdx) {
+  moveSiteTarget = { cat, sub };
+  document.querySelectorAll('#moveSiteTargets .copy-item').forEach((el, i) => {
+    el.classList.toggle('selected', i === elIdx);
+  });
+}
+
+function confirmMoveSite() {
+  if (!moveSiteTarget) return alert('请先选择目标位置');
   const { cat, sub, idx } = movingSite;
+  const { cat: tCat, sub: tSub } = moveSiteTarget;
+
   const sourceList = sub === -1
     ? navConfig.categories[cat].sites
     : navConfig.categories[cat].subCategories[sub].sites;
 
   const item = sourceList.splice(idx, 1)[0];
 
-  if (targetSub === -1) {
-    if (!navConfig.categories[targetCat].sites) navConfig.categories[targetCat].sites = [];
-    navConfig.categories[targetCat].sites.push(item);
+  if (tSub === -1) {
+    if (!navConfig.categories[tCat].sites) navConfig.categories[tCat].sites = [];
+    navConfig.categories[tCat].sites.push(item);
   } else {
-    if (!navConfig.categories[targetCat].subCategories[targetSub].sites) {
-      navConfig.categories[targetCat].subCategories[targetSub].sites = [];
+    if (!navConfig.categories[tCat].subCategories[tSub].sites) {
+      navConfig.categories[tCat].subCategories[tSub].sites = [];
     }
-    navConfig.categories[targetCat].subCategories[targetSub].sites.push(item);
+    navConfig.categories[tCat].subCategories[tSub].sites.push(item);
   }
 
   closeMoveSiteModal();
@@ -378,10 +403,73 @@ function confirmMoveSite(targetCat, targetSub) {
 
 function closeMoveSiteModal() {
   document.getElementById('moveSiteModal').style.display = 'none';
+  moveSiteTarget = null;
 }
 
 // ————————————————————————————————
-// 子分类移动功能
+// 网站复制（选位置 + 确认）
+// ————————————————————————————————
+function openCopy(cat, sub, idx) {
+  copySite = { cat, sub, idx };
+  copyTarget = null;
+
+  const targets = [];
+  navConfig.categories.forEach((c, i) => {
+    targets.push({ type: 'main', cat: i, sub: -1, name: c.name });
+    (c.subCategories || []).forEach((s, k) => {
+      targets.push({ type: 'sub', cat: i, sub: k, name: '　　' + s.name });
+    });
+  });
+
+  const html = targets.map((t, i) => `
+    <div class="copy-item" id="copyItem${i}" onclick="selectCopyTarget(${t.cat},${t.sub},${i})">
+      ${t.name}
+    </div>
+  `).join('');
+
+  document.getElementById('copyTargets').innerHTML = html;
+  document.getElementById('copyModal').style.display = 'flex';
+}
+
+function selectCopyTarget(cat, sub, elIdx) {
+  copyTarget = { cat, sub };
+  document.querySelectorAll('#copyTargets .copy-item').forEach((el, i) => {
+    el.classList.toggle('selected', i === elIdx);
+  });
+}
+
+function confirmPasteCopy() {
+  if (!copyTarget) return alert('请先选择目标位置');
+  const { cat, sub, idx } = copySite;
+  const { cat: tCat, sub: tSub } = copyTarget;
+
+  const sourceList = sub == -1
+    ? navConfig.categories[cat].sites
+    : navConfig.categories[cat].subCategories[sub].sites;
+  const item = JSON.parse(JSON.stringify(sourceList[idx]));
+
+  if (tSub == -1) {
+    if (!navConfig.categories[tCat].sites) navConfig.categories[tCat].sites = [];
+    navConfig.categories[tCat].sites.push(item);
+  } else {
+    if (!navConfig.categories[tCat].subCategories[tSub].sites) {
+      navConfig.categories[tCat].subCategories[tSub].sites = [];
+    }
+    navConfig.categories[tCat].subCategories[tSub].sites.push(item);
+  }
+
+  closeCopyModal();
+  renderAllSites();
+  showStatus('✅ 复制成功');
+}
+
+function closeCopyModal() {
+  document.getElementById('copyModal').style.display = 'none';
+  copyTarget = null;
+}
+
+// ————————————————————————————————
+// 子分类移动
 // ————————————————————————————————
 function openMoveSubCategory(fromCatIdx, subIdx) {
   movingSub = { fromCat: fromCatIdx, subIdx };
@@ -527,46 +615,6 @@ async function uploadLogo() {
     showStatus(`❌ 上传失败: ${e.message}`);
     console.error(e);
   }
-}
-
-function openCopy(cat, sub, idx) {
-  copySite = { cat, sub, idx };
-  const targets = [];
-  navConfig.categories.forEach((c, i) => {
-    targets.push({ type: 'main', cat: i, name: c.name });
-    (c.subCategories || []).forEach((s, k) => {
-      targets.push({ type: 'sub', cat: i, sub: k, name: '　　' + s.name });
-    });
-  });
-
-  const html = targets.map(t => `
-    <div class="copy-item" onclick="pasteCopy(${t.cat},${t.sub??-1})">
-      ${t.name}
-    </div>
-  `).join('');
-
-  document.getElementById('copyTargets').innerHTML = html;
-  document.getElementById('copyModal').style.display = 'flex';
-}
-function pasteCopy(tCat, tSub) {
-  const { cat, sub, idx } = copySite;
-  const sourceList = sub == -1
-    ? navConfig.categories[cat].sites
-    : navConfig.categories[cat].subCategories[sub].sites;
-  const item = JSON.parse(JSON.stringify(sourceList[idx]));
-
-  if (tSub == -1) {
-    navConfig.categories[tCat].sites.push(item);
-  } else {
-    navConfig.categories[tCat].subCategories[tSub].sites.push(item);
-  }
-
-  closeCopyModal();
-  renderAllSites();
-  showStatus('✅ 复制成功');
-}
-function closeCopyModal() {
-  document.getElementById('copyModal').style.display = 'none';
 }
 
 async function saveToGitHub() {
