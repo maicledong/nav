@@ -268,7 +268,7 @@ function render() {
 
   navConfig.categories.forEach((cat, i) => {
     const bigTitle = `${cnNums[i]}、${cat.name}`;
-    const isExpanded = cat.expanded !== false;
+    const isExpanded = cat.expanded === true;
     const toggleIcon = isExpanded ? '⏬' : '⏵';
     const contentDisplay = isExpanded ? '' : 'display: none;';
     const hasSub = (cat.subCategories && cat.subCategories.length > 0);
