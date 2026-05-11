@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>导航后台｜完整版（含图片上传）</title>
+  <title>导航后台｜完整版</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: "Microsoft Yahei", system-ui; background: #f4f6f8; padding: 20px; }
@@ -37,7 +37,6 @@
   <div id="categories"></div>
 </div>
 
-<!-- 图片上传弹窗 -->
 <div class="modal" id="uploadModal">
   <div class="modal-box">
     <h3>上传网站 Logo</h3>
@@ -49,7 +48,6 @@
   </div>
 </div>
 
-<!-- 复制目标弹窗 -->
 <div class="modal" id="copyModal">
   <div class="modal-box">
     <h3>选择目标位置</h3>
@@ -62,6 +60,8 @@
 <script src="https://cdn.jsdelivr.net/npm/jsrsasign@10.8.6/lib/jsrsasign-all-min.js"></script>
 
 <script>
+const cnNums = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四'];
+
 var GITHUB_CONFIG = {
   APP_ID: "3663516",
   OWNER: "maicledong",
@@ -73,11 +73,8 @@ var GITHUB_CONFIG = {
 var navConfig = { categories: [] };
 var privateKey = null;
 var copySite = null;
-var pendingLogoInputEl = null; // 用于存储等待填充路径的输入框
+var pendingLogoInputEl = null;
 
-// =============================================
-// 私钥 & JWT & 安装令牌
-// =============================================
 function importPEM() {
   const file = document.getElementById('pemFile').files[0];
   if (!file) return alert('请选择 pem 文件');
@@ -115,9 +112,6 @@ async function getInstallToken(jwt, id) {
   return d.token;
 }
 
-// =============================================
-// 渲染界面
-// =============================================
 async function load() {
   showStatus('⌛ 加载中...');
   const res = await fetch(`https://raw.githubusercontent.com/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/${GITHUB_CONFIG.BRANCH}/nav-config.json`);
@@ -127,10 +121,6 @@ async function load() {
 }
 
 function render() {
-  // 大写数字
-  const cnNums = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四'];
-
-  // 生成 30 位随机字母数字
   function generateRandom30() {
     const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
     let id = '';
@@ -140,7 +130,6 @@ function render() {
     return id;
   }
 
-  // 确保大分类有 ID：末尾从 01 开始
   navConfig.categories.forEach((cat) => {
     if (!cat.id || cat.id.length !== 32) {
       cat.id = generateRandom30() + '01';
@@ -150,7 +139,6 @@ function render() {
     }
   });
 
-  // 保证 ID 绝对唯一
   const idSet = new Set();
   navConfig.categories.forEach(cat => {
     while (idSet.has(cat.id)) {
@@ -169,22 +157,18 @@ function render() {
 
     html += `
     <div class="section" data-idx="${i}">
-      <!-- 标题 + 按钮栏 -->
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-        <!-- 展开/收起按钮 -->
         <button class="btn" onclick="toggleCategory(${i})" style="width:32px; padding:0; background:none; border:none; font-size:16px; color:#666;">
           ${toggleIcon}
         </button>
         <h3 style="margin:0;">${bigTitle}</h3>
         
-        <!-- 常用按钮组：这里保留一个新增子分类 -->
         <div style="display:flex; gap:6px;">
           <button class="btn" onclick="addSubCategory(${i})">➕ 新增子分类</button>
           <button class="btn btn-primary" onclick="addSite(${i},-1)">➕ 添加网站</button>
           <button class="btn" onclick="deleteCategory(${i})">🗑 删除</button>
         </div>
 
-        <!-- 间隔 + 不常用按钮 -->
         <div style="width:30px;"></div>
         <div style="display:flex; gap:6px; margin-left:auto;">
           <button class="btn" onclick="addCategoryBefore(${i})">↑ 插入上</button>
@@ -192,19 +176,16 @@ function render() {
         </div>
       </div>
 
-      <!-- 大分类：ID + 分类名 + 图标 同一行 -->
       <div style="display:flex; gap:8px; margin-bottom:6px;">
         <input value="${cat.id}" disabled style="background:#f5f5f5; flex:1;">
         <input placeholder="分类名" value="${cat.name}" oninput="navConfig.categories[${i}].name=this.value" style="flex:2;">
         <input placeholder="图标" value="${cat.icon||''}" oninput="navConfig.categories[${i}].icon=this.value" style="flex:1;">
       </div>
 
-      <!-- 这里删掉了重复的新增子分类按钮 -->
       <div class="category-content" style="${contentDisplay}">
         <div class="site-list" data-cat="${i}" data-sub="-1"></div>
         <div class="sub-list" data-cat="${i}">`;
 
-    // 子分类 ID 规则
     const subs = cat.subCategories || [];
     subs.forEach((sub, k) => {
       const prefix = cat.id.slice(0, 30);
@@ -219,6 +200,7 @@ function render() {
       <div class="sub-section" data-idx="${k}">
         <div style="display:flex; align-items:center; gap:12px; margin-bottom:6px;">
           <h4 style="margin:0;">${subTitle}</h4>
+          <button class="btn" onclick="openMoveSubCategory(${i},${k})">📋 移动</button>
           <div style="display:flex; gap:6px;">
             <button class="btn btn-primary" onclick="addSite(${i},${k})">➕ 添加网站</button>
             <button class="btn" onclick="deleteSubCategory(${i},${k})">🗑 删除</button>
@@ -242,7 +224,6 @@ function render() {
   initDrag();
 }
 
-// 展开/收起大分类的函数
 function toggleCategory(i) {
   navConfig.categories[i].expanded = !navConfig.categories[i].expanded;
   render();
@@ -273,34 +254,26 @@ function renderAllSites() {
   });
 }
 
-// =============================================
-// 拖拽功能
-// =============================================
 function initDrag() {
-  // 大分类拖拽
   const bigContainer = document.getElementById('categories');
   new Sortable(bigContainer, {
     animation: 150,
     ghostClass: 'dragging',
     onStart: () => {
-      // 拖拽开始：收起所有子分类、网站列表，只保留大分类头部
-      document.querySelectorAll('.sub-list, .site-list, .sub-section').forEach(el => {
+      document.querySelectorAll('.sub-list, .site-list, .sub-section, .category-content').forEach(el => {
         el.style.display = 'none';
       });
     },
     onEnd: (e) => {
-      // 拖拽结束：恢复所有内容显示
-      document.querySelectorAll('.sub-list, .site-list, .sub-section').forEach(el => {
+      document.querySelectorAll('.sub-list, .site-list, .sub-section, .category-content').forEach(el => {
         el.style.display = '';
       });
-      // 重新排序大分类
       const list = navConfig.categories;
       list.splice(e.newIndex, 0, list.splice(e.oldIndex, 1)[0]);
       render();
     }
   });
 
-  // 子分类拖拽
   document.querySelectorAll('.sub-list').forEach(el => {
     const cat = el.dataset.cat;
     new Sortable(el, {
@@ -314,11 +287,11 @@ function initDrag() {
     });
   });
 
-  // 网站拖拽
   document.querySelectorAll('.site-list').forEach(el => {
     new Sortable(el, {
       animation: 150,
       ghostClass: 'dragging',
+      group: 'sites',
       onEnd: (e) => {
         const cat = el.dataset.cat;
         const sub = el.dataset.sub;
@@ -332,15 +305,12 @@ function initDrag() {
   });
 }
 
-// =============================================
-// 增删改功能
-// =============================================
 function addCategoryBefore(i) {
-  navConfig.categories.splice(i, 0, { name: '新分类', icon: '', sites: [], subCategories: [] });
+  navConfig.categories.splice(i, 0, { name: '新分类', icon: '', sites: [], subCategories: [], expanded: true });
   render();
 }
 function addCategoryAfter(i) {
-  navConfig.categories.splice(i + 1, 0, { name: '新分类', icon: '', sites: [], subCategories: [] });
+  navConfig.categories.splice(i + 1, 0, { name: '新分类', icon: '', sites: [], subCategories: [], expanded: true });
   render();
 }
 function deleteCategory(i) {
@@ -384,20 +354,15 @@ function deleteSite(cat, sub, idx) {
   renderAllSites();
 }
 
-// =============================================
-// 图片上传功能（核心）
-// =============================================
 function openUploadModal(inputId) {
   pendingLogoInputEl = document.getElementById(inputId);
   document.getElementById('logoFileInput').value = '';
   document.getElementById('uploadModal').style.display = 'flex';
 }
-
 function closeUploadModal() {
   document.getElementById('uploadModal').style.display = 'none';
   pendingLogoInputEl = null;
 }
-
 async function uploadLogo() {
   const file = document.getElementById('logoFileInput').files[0];
   if (!file) return alert('请选择图片文件');
@@ -405,11 +370,9 @@ async function uploadLogo() {
 
   const fileName = file.name;
   const filePath = GITHUB_CONFIG.LOGO_DIR + fileName;
-
   showStatus(`⌛ 正在上传 ${fileName}...`);
 
   try {
-    // 读取文件为base64
     const reader = new FileReader();
     const fileBase64 = await new Promise((resolve, reject) => {
       reader.onload = () => resolve(reader.result.split(',')[1]);
@@ -417,12 +380,10 @@ async function uploadLogo() {
       reader.readAsDataURL(file);
     });
 
-    // 获取令牌
     const jwt = getJWT();
     const installId = await getInstallationId(jwt);
     const token = await getInstallToken(jwt, installId);
 
-    // 获取文件SHA（如果已存在）
     let sha = null;
     try {
       const shaRes = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${filePath}?ref=${GITHUB_CONFIG.BRANCH}`, {
@@ -432,9 +393,8 @@ async function uploadLogo() {
         const shaData = await shaRes.json();
         sha = shaData.sha;
       }
-    } catch (e) { /* 文件不存在，新建 */ }
+    } catch (e) {}
 
-    // 上传文件
     await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${filePath}`, {
       method: 'PUT',
       headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' },
@@ -446,13 +406,12 @@ async function uploadLogo() {
       })
     });
 
-    // 自动填充路径到输入框
     if (pendingLogoInputEl) {
       pendingLogoInputEl.value = filePath;
       pendingLogoInputEl.dispatchEvent(new Event('input'));
     }
 
-    showStatus(`✅ ${fileName} 上传成功，路径已自动填充！`);
+    showStatus(`✅ ${fileName} 上传成功！`);
     closeUploadModal();
   } catch (e) {
     showStatus(`❌ 上传失败: ${e.message}`);
@@ -460,9 +419,6 @@ async function uploadLogo() {
   }
 }
 
-// =============================================
-// 复制功能
-// =============================================
 function openCopy(cat, sub, idx) {
   copySite = { cat, sub, idx };
   const targets = [];
@@ -482,7 +438,6 @@ function openCopy(cat, sub, idx) {
   document.getElementById('copyTargets').innerHTML = html;
   document.getElementById('copyModal').style.display = 'flex';
 }
-
 function pasteCopy(tCat, tSub) {
   const { cat, sub, idx } = copySite;
   const sourceList = sub == -1
@@ -500,14 +455,10 @@ function pasteCopy(tCat, tSub) {
   renderAllSites();
   showStatus('✅ 复制成功');
 }
-
 function closeCopyModal() {
   document.getElementById('copyModal').style.display = 'none';
 }
 
-// =============================================
-// 提交 GitHub
-// =============================================
 async function saveToGitHub() {
   if (!privateKey) return alert('请先导入私钥');
   showStatus('⌛ 提交中...');
@@ -543,11 +494,52 @@ async function saveToGitHub() {
   }
 }
 
+function openMoveSubCategory(fromCatIdx, subIdx) {
+  window.movingSub = { fromCat: fromCatIdx, subIdx: subIdx };
+  let opts = '';
+  navConfig.categories.forEach((c, i) => {
+    opts += `<option value="${i}">${cnNums[i]}、${c.name}</option>`;
+  });
+
+  const modal = `
+  <div id="moveModal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:9999;">
+    <div style="background:#fff; padding:24px; border-radius:10px; width:400px;">
+      <h3 style="margin-bottom:12px;">移动子分类</h3>
+      <select id="targetCat" style="width:100%; padding:8px; margin-bottom:16px; border-radius:6px;">${opts}</select>
+      <div style="display:flex; gap:8px; justify-content:flex-end;">
+        <button class="btn" onclick="closeMoveModal()">取消</button>
+        <button class="btn btn-primary" onclick="confirmMoveSub()">确认移动</button>
+      </div>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', modal);
+}
+
+function confirmMoveSub() {
+  const { fromCat, subIdx } = window.movingSub;
+  const toCat = document.getElementById('targetCat').value;
+  const subs = navConfig.categories[fromCat].subCategories;
+  const moved = subs.splice(subIdx, 1)[0];
+  
+  if (!navConfig.categories[toCat].subCategories) {
+    navConfig.categories[toCat].subCategories = [];
+  }
+  navConfig.categories[toCat].subCategories.push(moved);
+  
+  closeMoveModal();
+  render();
+  showStatus('✅ 子分类已移动');
+}
+
+function closeMoveModal() {
+  const m = document.getElementById('moveModal');
+  if (m) m.remove();
+}
+
 function showStatus(text) {
   document.getElementById('status').innerText = text;
 }
 
-// 启动
 load();
 </script>
 </body>
