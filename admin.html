@@ -13,10 +13,8 @@
     .sub-section { border: 1px dashed #d1d5db; padding: 12px; margin: 10px 0; border-radius: 6px; background: #f9fafb; }
     input { width: 100%; padding: 6px 8px; margin: 4px 0; border: 1px solid #e5e7eb; border-radius: 6px; }
 
-    /* 网站卡片重新布局：给描述留足宽度，按钮竖排靠右 */
     .site-row { 
       display: grid; 
-      /* 重新分配列：logo 上传 名称 网址 描述 移动 复制 删除 */
       grid-template-columns: 1fr auto 1fr 1fr 1.5fr 42px 42px 42px; 
       gap: 4px; 
       padding: 6px; 
@@ -33,7 +31,6 @@
       border-radius: 4px; 
       cursor: pointer; 
       font-size: 12px;
-      /* 文字竖排核心 */
       writing-mode: vertical-rl;
       text-orientation: upright;
       line-height: 1.2;
@@ -47,7 +44,6 @@
     .btn-upload { 
       background: #10b981; 
       color: white;
-      /* 上传按钮单独不竖排，做窄短按钮 */
       writing-mode: initial;
       width: 50px;
       height: 32px;
@@ -655,7 +651,7 @@ async function saveToGitHub() {
   showStatus('⌛ 提交中...');
   try {
     const jwt = getJWT();
-    const installId = await getInstallationId(jwt, installId);
+    const installId = await getInstallationId(jwt);
     const token = await getInstallToken(jwt, installId);
 
     const path = 'nav-config.json';
