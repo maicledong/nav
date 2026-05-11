@@ -11,14 +11,48 @@
     h2 { margin-bottom: 16px; }
     .section { border: 1px solid #e5e7eb; padding: 16px; margin: 16px 0; border-radius: 8px; background: white; }
     .sub-section { border: 1px dashed #d1d5db; padding: 12px; margin: 10px 0; border-radius: 6px; background: #f9fafb; }
-    input { width: 100%; padding: 6px 10px; margin: 4px 0; border: 1px solid #e5e7eb; border-radius: 6px; }
-    .site-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 40px 40px 60px 60px 60px; gap: 6px; padding: 6px; align-items: center; background: white; border: 1px solid #eee; border-radius: 6px; margin-top: 4px; }
-    .btn { padding: 6px 10px; border: none; border-radius: 6px; cursor: pointer; margin: 2px; }
+    input { width: 100%; padding: 6px 8px; margin: 4px 0; border: 1px solid #e5e7eb; border-radius: 6px; }
+
+    /* 网站卡片重新布局：给描述留足宽度，按钮竖排靠右 */
+    .site-row { 
+      display: grid; 
+      /* 重新分配列：logo 上传 名称 网址 描述 移动 复制 删除 */
+      grid-template-columns: 1fr auto 1fr 1fr 1.5fr 42px 42px 42px; 
+      gap: 4px; 
+      padding: 6px; 
+      align-items: center; 
+      background: white; 
+      border: 1px solid #eee; 
+      border-radius: 6px; 
+      margin-top: 4px; 
+    }
+
+    .btn { 
+      padding: 4px 2px; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      font-size: 12px;
+      /* 文字竖排核心 */
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      line-height: 1.2;
+      width: 36px;
+      height: 40px;
+    }
     .btn-primary { background: #3b82f6; color: white; }
     .btn-danger { background: #ef4444; color: white; }
     .btn-copy { background: #f59e0b; color: white; }
     .btn-move { background: #6366f1; color: white; }
-    .btn-upload { background: #10b981; color: white; }
+    .btn-upload { 
+      background: #10b981; 
+      color: white;
+      /* 上传按钮单独不竖排，做窄短按钮 */
+      writing-mode: initial;
+      width: 50px;
+      height: 32px;
+      padding: 2px 4px;
+    }
     .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 999; }
     .modal-box { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
     .copy-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; }
@@ -34,8 +68,8 @@
 <div class="wrap">
   <h2>🧭 导航后台管理</h2>
   <input type="file" id="pemFile" accept=".pem">
-  <button class="btn btn-primary" onclick="importPEM()">🔑 导入私钥</button>
-  <button class="btn btn-primary" onclick="saveToGitHub()">💾 一键保存到 GitHub</button>
+  <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="importPEM()">🔑 导入私钥</button>
+  <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="saveToGitHub()">💾 一键保存到 GitHub</button>
   <div id="status"></div>
   <div id="categories"></div>
 </div>
@@ -45,8 +79,8 @@
     <h3>上传网站 Logo</h3>
     <input type="file" id="logoFileInput" accept="image/*">
     <div style="margin-top:12px">
-      <button class="btn btn-upload" onclick="uploadLogo()">上传并填充路径</button>
-      <button class="btn" onclick="closeUploadModal()">取消</button>
+      <button class="btn btn-upload" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="uploadLogo()">上传并填充路径</button>
+      <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="closeUploadModal()">取消</button>
     </div>
   </div>
 </div>
@@ -56,8 +90,8 @@
     <h3>复制到位置（先选，再确认）</h3>
     <div id="copyTargets"></div>
     <div class="modal-footer">
-      <button class="btn" onclick="closeCopyModal()">取消</button>
-      <button class="btn btn-primary" onclick="confirmPasteCopy()">确认复制</button>
+      <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="closeCopyModal()">取消</button>
+      <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="confirmPasteCopy()">确认复制</button>
     </div>
   </div>
 </div>
@@ -67,8 +101,8 @@
     <h3>移动网站到位置（先选，再确认）</h3>
     <div id="moveSiteTargets"></div>
     <div class="modal-footer">
-      <button class="btn" onclick="closeMoveSiteModal()">取消</button>
-      <button class="btn btn-primary" onclick="confirmMoveSite()">确认移动</button>
+      <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="closeMoveSiteModal()">取消</button>
+      <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="confirmMoveSite()">确认移动</button>
     </div>
   </div>
 </div>
@@ -78,8 +112,8 @@
     <h3>移动子分类至大分类</h3>
     <select id="targetSubCat" style="width:100%; padding:8px; margin:12px 0;"></select>
     <div style="display:flex; justify-content:flex-end; gap:8px;">
-      <button class="btn" onclick="closeMoveSubModal()">取消</button>
-      <button class="btn btn-primary" onclick="confirmMoveSubCategory()">确认移动</button>
+      <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="closeMoveSubModal()">取消</button>
+      <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="confirmMoveSubCategory()">确认移动</button>
     </div>
   </div>
 </div>
@@ -193,21 +227,21 @@ function render() {
     html += `
     <div class="section" data-idx="${i}">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-        <button class="btn" onclick="toggleCategory(${i})" style="width:32px; padding:0; background:none; border:none; font-size:16px; color:#666;">
+        <button class="btn" style="writing-mode:initial;width:32px;height:auto;padding:0;border:none;background:none;font-size:16px;color:#666;" onclick="toggleCategory(${i})">
           ${toggleIcon}
         </button>
         <h3 style="margin:0;">${bigTitle}</h3>
         
         <div style="display:flex; gap:6px;">
-          <button class="btn" onclick="addSubCategory(${i})">➕ 新增子分类</button>
-          <button class="btn btn-primary" onclick="addSite(${i},-1)">➕ 添加网站</button>
-          <button class="btn" onclick="deleteCategory(${i})">🗑 删除</button>
+          <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSubCategory(${i})">➕ 新增子分类</button>
+          <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSite(${i},-1)">➕ 添加网站</button>
+          <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="deleteCategory(${i})">🗑 删除</button>
         </div>
 
         <div style="width:30px;"></div>
         <div style="display:flex; gap:6px; margin-left:auto;">
-          <button class="btn" onclick="addCategoryBefore(${i})">↑ 插入上</button>
-          <button class="btn" onclick="addCategoryAfter(${i})">↓ 插入下</button>
+          <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addCategoryBefore(${i})">↑ 插入上</button>
+          <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addCategoryAfter(${i})">↓ 插入下</button>
         </div>
       </div>
 
@@ -235,10 +269,10 @@ function render() {
       <div class="sub-section" data-idx="${k}">
         <div style="display:flex; align-items:center; gap:12px; margin-bottom:6px;">
           <h4 style="margin:0;">${subTitle}</h4>
-          <button class="btn" onclick="openMoveSubCategory(${i},${k})">📋 移动</button>
+          <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="openMoveSubCategory(${i},${k})">📋 移动</button>
           <div style="display:flex; gap:6px;">
-            <button class="btn btn-primary" onclick="addSite(${i},${k})">➕ 添加网站</button>
-            <button class="btn" onclick="deleteSubCategory(${i},${k})">🗑 删除</button>
+            <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSite(${i},${k})">➕ 添加网站</button>
+            <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="deleteSubCategory(${i},${k})">🗑 删除</button>
           </div>
         </div>
 
@@ -284,8 +318,7 @@ function renderAllSites() {
         
         <button class="btn btn-move" onclick="openMoveSite(${cat},${sub},${j})">移动</button>
         <button class="btn btn-copy" onclick="openCopy(${cat},${sub},${j})">复制</button>
-        
-        <button class="btn btn-danger" onclick="deleteSite(${cat},${sub},${j})">删</button>
+        <button class="btn btn-danger" onclick="deleteSite(${cat},${sub},${j})">删除</button>
       </div>`;
     });
     el.innerHTML = h;
@@ -622,7 +655,7 @@ async function saveToGitHub() {
   showStatus('⌛ 提交中...');
   try {
     const jwt = getJWT();
-    const installId = await getInstallationId(jwt);
+    const installId = await getInstallationId(jwt, installId);
     const token = await getInstallToken(jwt, installId);
 
     const path = 'nav-config.json';
