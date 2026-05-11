@@ -145,7 +145,6 @@ function render() {
     if (!cat.id || cat.id.length !== 32) {
       cat.id = generateRandom30() + '01';
     }
-    // 默认给每个大分类加一个展开状态标记
     if (typeof cat.expanded === 'undefined') {
       cat.expanded = true;
     }
@@ -165,28 +164,27 @@ function render() {
   navConfig.categories.forEach((cat, i) => {
     const bigTitle = `${cnNums[i]}、${cat.name}`;
     const isExpanded = cat.expanded !== false;
-    // 用 Unicode 三角箭头，比加减号更清爽
     const toggleIcon = isExpanded ? '▼' : '▶';
     const contentDisplay = isExpanded ? '' : 'display: none;';
 
     html += `
     <div class="section" data-idx="${i}">
-      <!-- 标题 + 常用按钮 + 不常用按钮 同一行 -->
+      <!-- 标题 + 按钮栏 -->
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-        <!-- 展开/收起按钮：用三角箭头，清爽好看 -->
+        <!-- 展开/收起按钮 -->
         <button class="btn" onclick="toggleCategory(${i})" style="width:32px; padding:0; background:none; border:none; font-size:16px; color:#666;">
           ${toggleIcon}
         </button>
         <h3 style="margin:0;">${bigTitle}</h3>
         
-        <!-- 常用按钮组 -->
+        <!-- 常用按钮组：这里保留一个新增子分类 -->
         <div style="display:flex; gap:6px;">
           <button class="btn" onclick="addSubCategory(${i})">➕ 新增子分类</button>
           <button class="btn btn-primary" onclick="addSite(${i},-1)">➕ 添加网站</button>
           <button class="btn" onclick="deleteCategory(${i})">🗑 删除</button>
         </div>
 
-        <!-- 间隔 + 不常用按钮（靠右，明显区分） -->
+        <!-- 间隔 + 不常用按钮 -->
         <div style="width:30px;"></div>
         <div style="display:flex; gap:6px; margin-left:auto;">
           <button class="btn" onclick="addCategoryBefore(${i})">↑ 插入上</button>
@@ -201,11 +199,9 @@ function render() {
         <input placeholder="图标" value="${cat.icon||''}" oninput="navConfig.categories[${i}].icon=this.value" style="flex:1;">
       </div>
 
+      <!-- 这里删掉了重复的新增子分类按钮 -->
       <div class="category-content" style="${contentDisplay}">
         <div class="site-list" data-cat="${i}" data-sub="-1"></div>
-        <div style="margin-top:12px">
-          <button class="btn" onclick="addSubCategory(${i})">➕ 新增子分类</button>
-        </div>
         <div class="sub-list" data-cat="${i}">`;
 
     // 子分类 ID 规则
