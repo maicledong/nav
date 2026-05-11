@@ -1409,99 +1409,6 @@
       "expanded": false
     },
     {
-      "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
-      "name": "金融理财",
-      "icon": "fas fa-coins fa-lg",
-      "sites": [
-        {
-          "name": "通达信",
-          "url": "https://www.tdx.com.cn",
-          "logo": "assets/images/logos/tdx.png",
-          "desc": ""
-        },
-        {
-          "name": "同花顺",
-          "url": "https://www.10jqka.com.cn",
-          "logo": "assets/images/logos/ths.png",
-          "desc": ""
-        },
-        {
-          "name": "益盟操盘手",
-          "url": "https://www.emoney.cn",
-          "logo": "assets/images/logos/ymcps.png",
-          "desc": ""
-        },
-        {
-          "name": "天狼50",
-          "url": "https://www.tl50.com",
-          "logo": "assets/images/logos/tl50.png",
-          "desc": ""
-        },
-        {
-          "name": "新华网",
-          "url": "https://www.xinhuanet.com",
-          "logo": "assets/images/logos/xhw.jpg",
-          "desc": ""
-        },
-        {
-          "name": "财新网",
-          "url": "https://www.caixin.com",
-          "logo": "assets/images/logos/cxw.png",
-          "desc": ""
-        },
-        {
-          "name": "界面新闻",
-          "url": "https://www.jiemian.com",
-          "logo": "assets/images/logos/jmxw.png",
-          "desc": ""
-        },
-        {
-          "name": "东方财富",
-          "url": "https://www.eastmoney.com",
-          "logo": "assets/images/logos/dfcf.png",
-          "#desc": "",
-          "desc": ""
-        },
-        {
-          "name": "新浪财经",
-          "url": "https://finance.sina.com.cn",
-          "logo": "assets/images/logos/sina.jpg",
-          "desc": ""
-        },
-        {
-          "name": "财联社",
-          "url": "https://www.cls.cn",
-          "logo": "assets/images/logos/cls.webp",
-          "desc": ""
-        },
-        {
-          "name": "金十数据",
-          "url": "https://www.jin10.com",
-          "logo": "assets/images/logos/jin10.jpg",
-          "desc": ""
-        },
-        {
-          "name": "雪球",
-          "url": "https://xueqiu.com",
-          "logo": "assets/images/logos/xqw.jpg",
-          "desc": ""
-        },
-        {
-          "name": "TradingView",
-          "url": "https://cn.tradingview.com/chart/WFU3r7QC",
-          "logo": "assets/images/logos/tradingview.png",
-          "desc": ""
-        },
-        {
-          "name": "乌龟量化",
-          "url": "https://wglh.com",
-          "logo": "assets/images/logos/wglh.jpg",
-          "desc": ""
-        }
-      ],
-      "expanded": true
-    },
-    {
       "id": "19cb9b648dba4efc58a205ea413b6b01",
       "name": "人工智能",
       "icon": "fas fa-brain fa-lg",
@@ -1943,6 +1850,99 @@
               "desc": "The Agentic Coding Platform"
             }
           ]
+        }
+      ],
+      "expanded": false
+    },
+    {
+      "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
+      "name": "金融理财",
+      "icon": "fas fa-coins fa-lg",
+      "sites": [
+        {
+          "name": "通达信",
+          "url": "https://www.tdx.com.cn",
+          "logo": "assets/images/logos/tdx.png",
+          "desc": ""
+        },
+        {
+          "name": "同花顺",
+          "url": "https://www.10jqka.com.cn",
+          "logo": "assets/images/logos/ths.png",
+          "desc": ""
+        },
+        {
+          "name": "益盟操盘手",
+          "url": "https://www.emoney.cn",
+          "logo": "assets/images/logos/ymcps.png",
+          "desc": ""
+        },
+        {
+          "name": "天狼50",
+          "url": "https://www.tl50.com",
+          "logo": "assets/images/logos/tl50.png",
+          "desc": ""
+        },
+        {
+          "name": "新华网",
+          "url": "https://www.xinhuanet.com",
+          "logo": "assets/images/logos/xhw.jpg",
+          "desc": ""
+        },
+        {
+          "name": "财新网",
+          "url": "https://www.caixin.com",
+          "logo": "assets/images/logos/cxw.png",
+          "desc": ""
+        },
+        {
+          "name": "界面新闻",
+          "url": "https://www.jiemian.com",
+          "logo": "assets/images/logos/jmxw.png",
+          "desc": ""
+        },
+        {
+          "name": "东方财富",
+          "url": "https://www.eastmoney.com",
+          "logo": "assets/images/logos/dfcf.png",
+          "#desc": "",
+          "desc": ""
+        },
+        {
+          "name": "新浪财经",
+          "url": "https://finance.sina.com.cn",
+          "logo": "assets/images/logos/sina.jpg",
+          "desc": ""
+        },
+        {
+          "name": "财联社",
+          "url": "https://www.cls.cn",
+          "logo": "assets/images/logos/cls.webp",
+          "desc": ""
+        },
+        {
+          "name": "金十数据",
+          "url": "https://www.jin10.com",
+          "logo": "assets/images/logos/jin10.jpg",
+          "desc": ""
+        },
+        {
+          "name": "雪球",
+          "url": "https://xueqiu.com",
+          "logo": "assets/images/logos/xqw.jpg",
+          "desc": ""
+        },
+        {
+          "name": "TradingView",
+          "url": "https://cn.tradingview.com/chart/WFU3r7QC",
+          "logo": "assets/images/logos/tradingview.png",
+          "desc": ""
+        },
+        {
+          "name": "乌龟量化",
+          "url": "https://wglh.com",
+          "logo": "assets/images/logos/wglh.jpg",
+          "desc": ""
         }
       ],
       "expanded": false
