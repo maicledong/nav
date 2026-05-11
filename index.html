@@ -31,20 +31,25 @@
     <script type="text/javascript" src="./assets/js/content-search.js"  id="content-search-js"></script>
 
 <style>
+/* 1. 未选中时：保持清晰高亮 */
 .s-type-list span {
-    color: #ffffff !important;
-    font-size: 16px !important;
-    opacity: 1 !important;
+    color: #ffffff !important; /* 文字改成白色，在深色背景上超清晰 */
+    font-size: 16px !important; /* 适当放大字体 */
+    opacity: 1 !important;    /* 透明度拉满，不再发灰 */
     font-weight: 500 !important;
 }
+
+/* 2. 选中时：加粗+保持高亮 */
 .s-type-list .active span,
 .s-type-list label.checked span,
 .s-type-list input:checked + label span {
-    color: #FF9F43 !important;
+    color: #FF9F43 !important; /* 高亮橙色，非常醒目好看 */
     font-weight: bold !important;
     font-size: 18px !important;
     opacity: 1 !important;
 }
+	
+/* 3. 鼠标悬浮时：更亮一点，增强交互感 */
 .s-type-list label:hover span {
     color: #ffffff !important;
     opacity: 1 !important;
@@ -423,8 +428,179 @@ var theme = {
 <script src="./assets/js/app-anim.js" defer></script>	
 
 <script>
-let navConfig = {};
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-text");
+    const topBtn = document.getElementById("focus-site-search");
+    const bottomBtn = document.getElementById("footer-focus-search");
 
+    function goSearch() {
+        if (!searchInput) return;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+            searchInput.focus();
+            searchInput.select();
+        }, 400);
+    }
+
+    if (topBtn) topBtn.onclick = goSearch;
+    if (bottomBtn) bottomBtn.onclick = goSearch;
+});
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var siteWelcome = $('#loading');
+        siteWelcome.addClass('close');
+        setTimeout(function() {
+            siteWelcome.remove();
+        }, 600);
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        setTimeout(function () {
+            if ($('a.smooth[href="' + window.location.hash + '"]')[0]) {
+                $('a.smooth[href="' + window.location.hash + '"]').click();
+            }else if (window.location.hash != '') {
+                $("html, body").animate({
+                    scrollTop: $(window.location.hash).offset().top - 90
+                }, {
+                    duration: 500,
+                    easing: "swing"
+                });
+            }
+        }, 300);
+        $(document).on('click','a.smooth',function(ev) {
+            if($('#sidebar').hasClass('show') && !$(this).hasClass('change-href')){
+                $('#sidebar').modal('toggle');
+            }
+            if($(this).attr("href").substr(0, 1) == "#"){
+                $("html, body").animate({
+                    scrollTop: $($(this).attr("href")).offset().top - 90
+                }, {
+                    duration: 500,
+                    easing: "swing"
+                });
+            }
+            if($(this).hasClass('go-search-btn')){
+                $('#search-text').focus();
+            }
+            if(!$(this).hasClass('change-href')){
+                var menu =  $("a"+$(this).attr("href"));
+                menu.click();
+                toTarget(menu.parent().parent(),true,true);
+            }
+        });
+    });
+</script>
+
+<script>
+var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1") || '0';
+if (night === '1') {
+    document.body.classList.remove('io-grey-mode');
+    document.body.classList.add('io-black-mode');
+} else {
+    document.body.classList.remove('io-black-mode');
+    document.body.classList.add('io-grey-mode');
+}
+
+$(document).ready(function () {
+    if (night === '1') {
+        $(".switch-dark-mode").attr("data-original-title", "日间模式");
+        $(".mode-ico").removeClass("icon-night").addClass("icon-light");
+    } else {
+        $(".switch-dark-mode").attr("data-original-title", "夜间模式");
+        $(".mode-ico").removeClass("icon-light").addClass("icon-night");
+    }
+});
+
+$("#search-bg").css("background-image", "url(assets/images/bg-dna.jpg)");
+
+function switchNightMode() {
+    var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1") || '0';
+    if (night === '0') {
+        $("#search-bg").css("background-image", "url(assets/images/bg-dna.jpg)");
+        document.body.classList.remove('io-grey-mode');
+        document.body.classList.add('io-black-mode');
+        document.cookie = "night=1;path=/";
+        $(".switch-dark-mode").attr("data-original-title", "日间模式");
+        $(".mode-ico").removeClass("icon-night").addClass("icon-light");
+    } else {
+        $("#search-bg").css("background-image", "url(assets/images/bg-dna.jpg)");
+        document.body.classList.remove('io-black-mode');
+        document.body.classList.add('io-grey-mode');
+        document.cookie = "night=0;path=/";
+        $(".switch-dark-mode").attr("data-original-title", "夜间模式");
+        $(".mode-ico").removeClass("icon-light").addClass("icon-night");
+    }
+}
+</script>
+
+<script>
+function updateRuntime() {
+    const startTime = new Date("2023-03-17T00:00:00+08:00");
+    const now = new Date();
+    const diff = now - startTime;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(diff / (1000 * 60 * 60) % 24);
+    const minutes = Math.floor(diff / (1000 * 60) % 60);
+    const seconds = Math.floor(diff / 1000 % 60);
+    function pad(n) { return n < 10 ? '0' + n : n; }
+    const runtime = document.getElementById("runtime");
+    if (runtime) runtime.innerText = `⏱️ 已稳定运行 ${days}天 ${pad(hours)}时 ${pad(minutes)}分 ${pad(seconds)}秒`;
+}
+setInterval(updateRuntime, 1000);
+updateRuntime();
+</script>
+
+<script>
+$(function () {
+    $('input[name="type"]').on('change', function () {
+        var val = $(this).val();
+        var placeholderText = $(this).data('placeholder');
+        if (val === 'local') {
+            $('.super-search-fm').attr('onsubmit', 'return false');
+            $('#search-text').attr('placeholder', '选择「站内」输入即可自动检索本站工具卡片...');
+        } else {
+            $('.super-search-fm').removeAttr('onsubmit');
+            $('#search-text').attr('placeholder', placeholderText);
+        }
+    });
+
+    $('#search-text').on('input', function () {
+        if ($('#type-local').is(':checked')) {
+            var kw = $(this).val().toLowerCase().trim();
+            if (kw) {
+                $('.url-card').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().includes(kw));
+                });
+                var showNum = $('.url-card:visible').length;
+                $('#site-search-empty').toggle(showNum === 0);
+            } else {
+                $('.url-card').show();
+                $('#site-search-empty').hide();
+            }
+        }
+    });
+});
+</script>
+
+<script>	
+function triggerSearch() {
+    setTimeout(function() {
+        $('#type-local').prop('checked', true);
+        $('#search-text').trigger('input');
+    }, 50);
+}
+function clearSiteSearch() {
+    $('.url-card').show();
+    $('#site-search-empty').hide();
+}
+</script>
+
+<script>
+let navConfig = {};
 async function initNav(){
     const res = await fetch("./nav-config.json");
     navConfig = await res.json();
@@ -439,7 +615,7 @@ function renderSidebar(){
             html += `
             <li class="sidebar-item">
                 <a href="#${cat.id}" class="smooth">
-                    <i class="${cat.icon} icon-fw icon-lg mr-2"></i>
+                    <i class="${cat.icon} fa-lg icon-fw icon-lg mr-2"></i>
                     <span>${cat.name}</span>
                 </a>
             </li>
@@ -448,7 +624,7 @@ function renderSidebar(){
             html += `
             <li class="sidebar-item">
                 <a href="#${cat.id}" class="smooth change-href" data-change="#${cat.id}">
-                    <i class="${cat.icon} icon-fw icon-lg mr-2"></i>
+                    <i class="${cat.icon} fa-lg icon-fw icon-lg mr-2"></i>
                     <span>${cat.name}</span>
                     <i class="iconfont icon-arrow-r-m sidebar-more text-sm"></i>
                 </a>
@@ -479,36 +655,28 @@ function renderContent(){
             });
         }
     });
-    document.getElementById("content").innerHTML = html;
+    document.getElementById("content").innerHTML = document.getElementById("site-search-empty").outerHTML + html;
 }
 
 function renderBlock(item){
     let html = `
-    <div class="card-list-wrap">
-        <div class="card-header-actions card-header flex-between" id="${item.id}">
-            <h2>${item.name}</h2>
-        </div>
-        <div class="row${theme.classColumns}">
+    <div class="d-flex flex-fill">
+        <h4 class="text-gray text-lg mb-4" id="${item.id}">
+            <i class="site-tag iconfont icon-tag icon-lg mr-1"></i>
+            ${item.name}
+        </h4>
+        <div class="flex-fill"></div>
+    </div>
+    <div class="row">
     `;
     item.sites.forEach(site=>{
         html += `
-        <div class="card-wrap">
-            <div class="card card-site shadow-hover">
-                <a href="${site.url}" target="_blank" class="card-body text-center">
-                    <div class="card-img">
-                        <img src="${site.logo}" class="card-img-top lazy" alt="${site.name}">
-                    </div>
-                    <h3 class="card-title">${site.name}</h3>
-                    <p class="card-text text-xs">${site.desc}</p>
-                </a>
-            </div>
-        </div>
+<div class="url-card col-6 col-sm-6 col-md-4 col-xl-5a col-xxl-6a"><div class="url-body default"><a href="${site.url}" target="_blank" data-id="" data-url="${site.url}" class="card no-c mb-4" data-toggle="tooltip" data-placement="bottom" data-original-title="${site.desc}"><div class="card-body"><div class="url-content d-flex align-items-center"><div class="url-img mr-2 d-flex align-items-center justify-content-center"><img class="lazy" src="${site.logo}" data-src="${site.logo}" onerror="javascript:this.src='assets/images/logos/default.webp'" alt="${site.name}"></div><div class="url-info flex-fill"><div class="text-sm overflowClip_1"><strong>${site.name}</strong></div><p class="overflowClip_1 m-0 text-muted text-xs">${site.desc}</p></div></div></div></a><a href="${site.url}" class="togo text-center text-muted is-views" data-toggle="tooltip" data-placement="right" title="直达" rel="nofollow"><i class="iconfont icon-goto"></i></a></div></div>
         `;
     });
-    html += `</div></div>`;
+    html += `</div><br/>`;
     return html;
 }
-
 window.onload = initNav;
 </script>
 </body>
