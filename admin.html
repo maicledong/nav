@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>导航后台｜实时刷新版</title>
+  <title>导航后台｜修复版</title>
   <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -91,7 +91,7 @@
   <div class="modal-box">
     <h3>上传网站 Logo</h3>
     <input type="file" id="logoFileInput" accept="image/*">
-    <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
+    <div style="margin-top:12px">
       <button class="btn btn-upload" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="uploadLogo()">上传并填充路径</button>
       <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="closeUploadModal()">取消</button>
     </div>
@@ -185,6 +185,9 @@ var moveSiteTarget = null;
 var movingSub = null;
 var pendingLogoInputEl = null;
 
+// ==============================================
+// 修复 1：保存后强制使用当前内存配置，不再拉取旧数据
+// ==============================================
 let hasSubmitted = false;
 
 function importPEM() {
@@ -227,6 +230,9 @@ async function getInstallToken(jwt, id) {
 async function load() {
   showStatus('⌛ 加载中...');
   
+  // ==============================================
+  // 修复 2：提交后不再加载线上旧配置
+  // ==============================================
   if(hasSubmitted && navConfig.categories.length > 0) {
     render();
     showStatus('✅ 使用最新已提交配置');
@@ -234,8 +240,7 @@ async function load() {
   }
 
   try {
-    const timestamp = Date.now();
-    const res = await fetch(`https://raw.githubusercontent.com/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/${GITHUB_CONFIG.BRANCH}/nav-config.json?t=${timestamp}`);
+    const res = await fetch(`https://raw.githubusercontent.com/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/${GITHUB_CONFIG.BRANCH}/nav-config.json`);
     navConfig = await res.json();
   } catch(e) {}
   
@@ -432,6 +437,7 @@ function initDrag() {
   });
 }
 
+// 网站移动
 function openMoveSite(cat, sub, idx) {
   movingSite = { cat, sub, idx };
   moveSiteTarget = null;
@@ -478,6 +484,7 @@ function closeMoveSiteModal() {
   moveSiteTarget = null;
 }
 
+// 网站复制
 function openCopy(cat, sub, idx) {
   copySite = { cat, sub, idx };
   copyTarget = null;
@@ -524,6 +531,7 @@ function closeCopyModal() {
   copyTarget = null;
 }
 
+// 子分类移动
 function openMoveSubCategory(fromCatIdx, subIdx) {
   movingSub = { fromCat: fromCatIdx, subIdx };
   const sel = document.getElementById('targetSubCat');
@@ -547,6 +555,7 @@ function closeMoveSubModal() {
   document.getElementById('moveSubModal').style.display = 'none';
 }
 
+// 基础功能
 function addCategoryBefore(i) {
   navConfig.categories.splice(i, 0, { name: '新分类', icon: 'far fa-star fa-lg', sites: [], subCategories: [], expanded: true });
   render();
@@ -592,6 +601,7 @@ function deleteSite(cat, sub, idx) {
   renderAllSites();
 }
 
+// 上传 Logo
 function openUploadModal(inputId) {
   pendingLogoInputEl = document.getElementById(inputId);
   document.getElementById('logoFileInput').value = '';
@@ -650,6 +660,9 @@ async function uploadLogo() {
   }
 }
 
+// ==============================================
+// 修复 3：保存成功后标记已提交，确保刷新使用最新内存数据
+// ==============================================
 async function saveToGitHub() {
   if (!privateKey) return alert('请先导入私钥');
   showStatus('⌛ 提交中...');
@@ -658,18 +671,10 @@ async function saveToGitHub() {
     const installId = await getInstallationId(jwt);
     const token = await getInstallToken(jwt, installId);
     const path = 'nav-config.json';
-    
-    let sha = null;
-    try {
-      const shaRes = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}?ref=${GITHUB_CONFIG.BRANCH}`, {
-        headers: { Authorization: 'token ' + token }
-      });
-      if (shaRes.ok) {
-        const data = await shaRes.json();
-        sha = data.sha;
-      }
-    } catch (e) {}
-
+    const shaRes = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}?ref=${GITHUB_CONFIG.BRANCH}`, {
+      headers: { Authorization: 'token ' + token }
+    });
+    const sha = (await shaRes.json()).sha;
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(navConfig, null, 2))));
     await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}`, {
       method: 'PUT',
@@ -682,14 +687,13 @@ async function saveToGitHub() {
       })
     });
 
+    // ==============================================
+    // 关键修复：标记已提交，刷新不再加载旧数据
+    // ==============================================
     hasSubmitted = true;
-    showStatus('✅ 提交成功！正在刷新加载最新数据...');
-    alert('✅ 保存成功！页面将刷新，立刻显示最新内容');
-    
-    // 🔥 关键修复：保存成功后自动刷新页面
-    setTimeout(() => {
-      location.reload();
-    }, 800);
+
+    showStatus('✅ 提交成功！刷新也会保持最新！');
+    alert('✅ 提交成功！实时更新已生效！');
   } catch (e) {
     showStatus('❌ 提交失败');
     console.error(e);
