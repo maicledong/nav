@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>导航后台｜Cloudflare环境变量安全版</title>
+  <title>导航后台｜Cloudflare Pages 兼容版</title>
   <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -80,8 +80,7 @@
 
 <div class="wrap">
   <h2>🧭 导航后台管理</h2>
-  <input type="file" id="pemFile" accept=".pem" style="display:none;">
-  <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="importPEM()">🔑 加载密钥</button>
+  <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="loadKey()">🔑 加载密钥</button>
   <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;margin-left:8px;" onclick="saveToGitHub()">💾 一键保存到 GitHub</button>
   <div id="status"></div>
   <div id="categories"></div>
@@ -168,9 +167,9 @@ const commonIcons = [
   { text: '🗺️ 旅行地图', value: 'fas fa-map-marked-alt fa-lg' }
 ];
 
-// ========== 从Cloudflare Pages环境变量读取，代码不暴露密钥 ==========
+// ========== 关键：去掉 process.env，直接用变量接收 ==========
 var GITHUB_CONFIG = {
-  APP_ID: process.env.GITHUB_APP_ID,
+  APP_ID: "", // 会在 loadKey() 里自动赋值
   OWNER: "maicledong",
   REPO: "nav",
   BRANCH: "master",
@@ -187,24 +186,27 @@ var movingSub = null;
 var pendingLogoInputEl = null;
 let hasSubmitted = false;
 
-// 自动从环境变量加载私钥
-function autoLoadPrivateKey() {
-  if (process.env.GITHUB_PRIVATE_KEY) {
-    privateKey = process.env.GITHUB_PRIVATE_KEY;
-    showStatus("✅ 已自动读取Cloudflare环境变量密钥");
-  } else {
-    showStatus("⚠️ 未读取到环境变量密钥，请检查Pages环境变量配置");
+// ========== 关键：自动读取 PUBLIC_ 前缀的环境变量 ==========
+function loadKey() {
+  // Cloudflare Pages 中，PUBLIC_ 前缀的变量会被注入到全局
+  if (typeof PUBLIC_GITHUB_APP_ID !== "undefined" && PUBLIC_GITHUB_APP_ID) {
+    GITHUB_CONFIG.APP_ID = PUBLIC_GITHUB_APP_ID;
   }
-}
+  if (typeof PUBLIC_GITHUB_PRIVATE_KEY !== "undefined" && PUBLIC_GITHUB_PRIVATE_KEY) {
+    privateKey = PUBLIC_GITHUB_PRIVATE_KEY;
+  }
 
-// 手动导入按钮兼容（保留按钮但不用传文件）
-function importPEM() {
-  autoLoadPrivateKey();
+  if (privateKey && GITHUB_CONFIG.APP_ID) {
+    showStatus("✅ 已成功加载 Cloudflare Pages 密钥");
+  } else {
+    showStatus("⚠️ 未读取到密钥，请检查 Pages 环境变量是否添加了 PUBLIC_ 前缀");
+  }
 }
 
 function getJWT() {
   if (!privateKey) {
-    privateKey = process.env.GITHUB_PRIVATE_KEY;
+    loadKey();
+    if (!privateKey) return null;
   }
   const now = Math.floor(Date.now() / 1000);
   return KJUR.jws.JWS.sign('RS256',
@@ -231,7 +233,6 @@ async function getInstallToken(jwt, id) {
   return data.token;
 }
 
-// 带防缓存：提交后优先用内存数据，不重复拉旧配置
 async function load() {
   showStatus('⌛ 加载中...');
   if(hasSubmitted && navConfig.categories.length > 0) {
@@ -240,7 +241,6 @@ async function load() {
     return;
   }
   try {
-    // 加时间戳防CDN缓存
     const timestamp = Date.now();
     const res = await fetch(`https://raw.githubusercontent.com/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/${GITHUB_CONFIG.BRANCH}/nav-config.json?t=${timestamp}`);
     navConfig = await res.json();
@@ -402,7 +402,6 @@ function initDrag() {
   });
 }
 
-// 网站、分类增删改移动逻辑
 function addCategoryBefore(i){
   navConfig.categories.splice(i,0,{name:'新分类',icon:'fas fa-folder fa-lg',expanded:true,sites:[],subCategories:[]});
   render();
@@ -451,7 +450,6 @@ function deleteSite(cat,sub,j){
   render();
 }
 
-// 复制移动弹窗逻辑
 function openCopySite(cat,sub,j){
   copySite = {cat,sub,j};
   copyTarget = null;
@@ -572,7 +570,6 @@ function closeMoveSubModal(){
   movingSub = null;
 }
 
-// Logo上传
 function openUploadModal(inputId){
   pendingLogoInputEl = document.getElementById(inputId);
   document.getElementById('logoFileInput').value = '';
@@ -586,7 +583,7 @@ async function uploadLogo(){
   const file = document.getElementById('logoFileInput').files[0];
   if(!file) return alert('请选择图片');
   if(!privateKey){
-    autoLoadPrivateKey();
+    loadKey();
     if(!privateKey) return showStatus('❌ 无密钥，无法上传');
   }
   showStatus(`⌛ 正在上传 ${file.name}...`);
@@ -642,10 +639,9 @@ async function uploadLogo(){
   }
 }
 
-// 保存到GitHub + 标记已提交，防刷新变回旧数据
 async function saveToGitHub() {
   if(!privateKey){
-    autoLoadPrivateKey();
+    loadKey();
     if(!privateKey) return showStatus('❌ 未读取到环境变量密钥，无法保存');
   }
   showStatus('⌛ 提交中...');
@@ -683,7 +679,7 @@ async function saveToGitHub() {
 
     hasSubmitted = true;
     showStatus('✅ 保存成功！刷新后台也不会变回旧数据');
-    alert('✅ 保存成功！Cloudflare环境变量生效，无需密钥文件');
+    alert('✅ 保存成功！Cloudflare Pages 环境变量已生效');
   } catch (e) {
     showStatus('❌ 提交失败：'+e.message);
   }
@@ -695,7 +691,7 @@ function showStatus(text){
 
 // 页面初始化
 window.onload = function(){
-  autoLoadPrivateKey();
+  loadKey();
   load();
 };
 </script>
