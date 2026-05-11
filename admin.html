@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>导航后台｜完整全功能自动版</title>
+  <title>导航后台｜修复版</title>
   <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -80,8 +80,10 @@
 
 <div class="wrap">
   <h2>🧭 导航后台管理</h2>
-  <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;margin-right:8px;" onclick="saveToGitHub()">💾 一键保存到 GitHub</button>
-  <div id="status">加载中...</div>
+  <input type="file" id="pemFile" accept=".pem">
+  <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="importPEM()">🔑 导入私钥</button>
+  <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="saveToGitHub()">💾 一键保存到 GitHub</button>
+  <div id="status"></div>
   <div id="categories"></div>
 </div>
 
@@ -89,7 +91,7 @@
   <div class="modal-box">
     <h3>上传网站 Logo</h3>
     <input type="file" id="logoFileInput" accept="image/*">
-    <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:8px;">
+    <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
       <button class="btn btn-upload" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="uploadLogo()">上传并填充路径</button>
       <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="closeUploadModal()">取消</button>
     </div>
@@ -122,7 +124,7 @@
   <div class="modal-box">
     <h3>移动子分类至大分类</h3>
     <select id="targetSubCat" style="width:100%; padding:8px; margin:12px 0;"></select>
-    <div class="modal-footer">
+    <div style="display:flex; justify-content:flex-end; gap:8px;">
       <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="closeMoveSubModal()">取消</button>
       <button class="btn btn-primary" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="confirmMoveSubCategory()">确认移动</button>
     </div>
@@ -130,14 +132,11 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsrsasign@10.6.1/dist/jsrsasign-all-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsrsasign@10.8.6/lib/jsrsasign-all-min.js"></script>
 
 <script>
-// ========== 关键修复：不使用 process.env，直接读全局 PUBLIC_ 变量 ==========
-const GITHUB_APP_ID = window.PUBLIC_GITHUB_APP_ID || "3663516";
-const PRIVATE_KEY = window.PUBLIC_GITHUB_PRIVATE_KEY || "";
-
 const cnNums = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四'];
+
 const commonIcons = [
   { text: '⭐ 空心星星', value: 'far fa-star fa-lg' },
   { text: '🔧 常用工具', value: 'fas fa-tools fa-lg' },
@@ -170,7 +169,7 @@ const commonIcons = [
 ];
 
 var GITHUB_CONFIG = {
-  APP_ID: GITHUB_APP_ID,
+  APP_ID: "3663516",
   OWNER: "maicledong",
   REPO: "nav",
   BRANCH: "master",
@@ -178,93 +177,106 @@ var GITHUB_CONFIG = {
 };
 
 var navConfig = { categories: [] };
+var privateKey = null;
 var copySite = null;
 var copyTarget = null;
 var movingSite = null;
 var moveSiteTarget = null;
 var movingSub = null;
 var pendingLogoInputEl = null;
+
 let hasSubmitted = false;
 
-// 生成JWT
+function importPEM() {
+  const file = document.getElementById('pemFile').files[0];
+  if (!file) return alert('请选择 pem 文件');
+  const reader = new FileReader();
+  reader.onload = e => {
+    privateKey = e.target.result;
+    showStatus('✅ 私钥导入成功');
+  };
+  reader.readAsText(file);
+}
+
 function getJWT() {
-  if (!PRIVATE_KEY) {
-    showStatus("❌ 未读取到环境变量密钥，请检查Cloudflare Pages的PUBLIC_GITHUB_PRIVATE_KEY配置");
-    return null;
-  }
   const now = Math.floor(Date.now() / 1000);
   return KJUR.jws.JWS.sign('RS256',
     JSON.stringify({ alg: 'RS256', typ: 'JWT' }),
     JSON.stringify({ iss: GITHUB_CONFIG.APP_ID, iat: now - 10, exp: now + 300 }),
-    PRIVATE_KEY
+    privateKey
   );
 }
 
 async function getInstallationId(jwt) {
-  const res = await fetch('https://api.github.com/app/installations', {
-    headers: { Authorization: `Bearer ${jwt}`, Accept: 'application/vnd.github.v3+json' }
+  const r = await fetch('https://api.github.com/app/installations', {
+    headers: { Authorization: 'Bearer ' + jwt, Accept: 'application/vnd.github+json' }
   });
-  const list = await res.json();
+  const list = await r.json();
   return list.find(i => i.account.login === GITHUB_CONFIG.OWNER).id;
 }
 
 async function getInstallToken(jwt, id) {
-  const res = await fetch(`https://api.github.com/app/installations/${id}/access_tokens`, {
+  const r = await fetch(`https://api.github.com/app/installations/${id}/access_tokens`, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${jwt}`, Accept: 'application/vnd.github.v3+json' }
+    headers: { Authorization: 'Bearer ' + jwt, Accept: 'application/vnd.github+json' }
   });
-  const data = await res.json();
-  return data.token;
+  const d = await r.json();
+  return d.token;
 }
 
 async function load() {
   showStatus('⌛ 加载中...');
+  
   if(hasSubmitted && navConfig.categories.length > 0) {
     render();
-    showStatus('✅ 使用本地已修改配置');
+    showStatus('✅ 使用最新已提交配置');
     return;
   }
+
   try {
     const timestamp = Date.now();
     const res = await fetch(`https://raw.githubusercontent.com/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/${GITHUB_CONFIG.BRANCH}/nav-config.json?t=${timestamp}`);
     navConfig = await res.json();
-  } catch(e) {
-    showStatus('⚠️ 拉取线上配置失败，使用空配置');
-  }
+  } catch(e) {}
+  
   render();
-  showStatus('✅ 加载完成，可直接修改保存');
+  showStatus('✅ 加载完成');
 }
 
 function render() {
-  function generateRandom32Id() {
+  function generateRandom30() {
     const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
     let id = '';
-    for (let i = 0; i < 30; i++) id += chars[Math.floor(Math.random() * chars.length)];
-    return id + '01';
+    for (let i = 0; i < 30; i++) {
+      id += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return id;
   }
 
-  navConfig.categories.forEach(cat => {
-    if (!cat.id || cat.id.length !== 32) cat.id = generateRandom32Id();
+  navConfig.categories.forEach((cat) => {
+    if (!cat.id || cat.id.length !== 32) cat.id = generateRandom30() + '01';
     if (typeof cat.expanded === 'undefined') cat.expanded = true;
   });
 
   const idSet = new Set();
   navConfig.categories.forEach(cat => {
-    while (idSet.has(cat.id)) cat.id = generateRandom32Id();
+    while (idSet.has(cat.id)) cat.id = generateRandom30() + '01';
     idSet.add(cat.id);
   });
 
   let html = '';
+
   navConfig.categories.forEach((cat, i) => {
     const bigTitle = `${cnNums[i]}、${cat.name}`;
     const isExpanded = cat.expanded !== false;
     const toggleIcon = isExpanded ? '⏬' : '⏵';
-    const hasSub = cat.subCategories && cat.subCategories.length > 0;
+    const contentDisplay = isExpanded ? '' : 'display: none;';
+    const hasSub = (cat.subCategories && cat.subCategories.length > 0);
     const bigAddBtnClass = hasSub ? 'btn-gray' : 'btn-pink';
 
     let iconOptions = '';
     commonIcons.forEach(icon => {
-      const selected = cat.icon === icon.value ? 'selected' : '';
+      const selected = (cat.icon === icon.value) ? 'selected' : '';
       iconOptions += `<option value="${icon.value}" ${selected}>${icon.text}</option>`;
     });
 
@@ -273,11 +285,13 @@ function render() {
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
         <button class="btn" style="writing-mode:initial;width:32px;height:auto;padding:0;border:none;background:none;font-size:16px;color:#666;" onclick="toggleCategory(${i})">${toggleIcon}</button>
         <h3 style="margin:0;">${bigTitle}</h3>
+        
         <div style="display:flex; gap:6px;">
           <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSubCategory(${i})">➕ 新增子分类</button>
           <button class="btn ${bigAddBtnClass}" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSite(${i},-1)">➕ 添加网站</button>
-          <button class="btn btn-danger" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="deleteCategory(${i})">🗑 删除</button>
+          <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="deleteCategory(${i})">🗑 删除</button>
         </div>
+
         <div style="width:30px;"></div>
         <div style="display:flex; gap:6px; margin-left:auto;">
           <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addCategoryBefore(${i})">↑ 插入上</button>
@@ -287,17 +301,24 @@ function render() {
 
       <div class="category-row">
         <input class="id-input" value="${cat.id}" disabled style="background:#f5f5f5;">
-        <input class="name-input" placeholder="分类名" value="${cat.name}" oninput="updateCatName(${i},this.value)">
-        <select class="icon-select" onchange="updateCatIcon(${i},this.value)">
+        <input class="name-input" placeholder="分类名" value="${cat.name}" oninput="navConfig.categories[${i}].name=this.value">
+        <select class="icon-select" onchange="navConfig.categories[${i}].icon=this.value">
           ${iconOptions}
         </select>
       </div>
 
-      <div class="category-content" style="${isExpanded ? '' : 'display: none;'}">
+      <div class="category-content" style="${contentDisplay}">
         <div class="site-list" data-cat="${i}" data-sub="-1"></div>
         <div class="sub-list" data-cat="${i}">`;
 
     const subs = cat.subCategories || [];
+    subs.forEach((sub, k) => {
+      const prefix = cat.id.slice(0, 30);
+      const suffixNum = k + 1;
+      const suffix = suffixNum.toString().padStart(2, '0');
+      sub.id = prefix + suffix;
+    });
+
     subs.forEach((sub, k) => {
       const subTitle = `${k + 1}、${sub.name}`;
       html += `
@@ -307,13 +328,13 @@ function render() {
           <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="openMoveSubCategory(${i},${k})">📋 移动</button>
           <div style="display:flex; gap:6px;">
             <button class="btn btn-pink" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="addSite(${i},${k})">➕ 添加网站</button>
-            <button class="btn btn-danger" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="deleteSubCategory(${i},${k})">🗑 删除</button>
+            <button class="btn" style="writing-mode:initial;width:auto;height:auto;padding:6px 10px;" onclick="deleteSubCategory(${i},${k})">🗑 删除</button>
           </div>
         </div>
 
         <div style="display:flex; gap:8px; margin-bottom:6px;">
-          <input value="${sub.id || ''}" disabled style="background:#f5f5f5; flex:1;">
-          <input placeholder="子分类名" value="${sub.name}" oninput="updateSubName(${i},${k},this.value)" style="flex:2;">
+          <input value="${sub.id}" disabled style="background:#f5f5f5; flex:1;">
+          <input placeholder="子分类名" value="${sub.name}" oninput="navConfig.categories[${i}].subCategories[${k}].name=this.value" style="flex:2;">
         </div>
 
         <div class="site-list" data-cat="${i}" data-sub="${k}"></div>
@@ -333,39 +354,27 @@ function toggleCategory(i) {
   render();
 }
 
-function updateCatName(i, val) {
-  navConfig.categories[i].name = val;
-}
-function updateCatIcon(i, val) {
-  navConfig.categories[i].icon = val;
-}
-function updateSubName(i,k,val) {
-  navConfig.categories[i].subCategories[k].name = val;
-}
-
 function renderAllSites() {
   document.querySelectorAll('.site-list').forEach(el => {
-    const catIdx = el.dataset.cat;
-    const subIdx = el.dataset.sub;
-    const cat = navConfig.categories[catIdx];
-    let list = [];
-    if(subIdx == -1) {
-      list = cat.sites || [];
-    } else {
-      list = (cat.subCategories[subIdx]?.sites) || [];
-    }
+    const cat = el.dataset.cat;
+    const sub = el.dataset.sub;
+    const list = sub == -1
+      ? navConfig.categories[cat].sites || []
+      : navConfig.categories[cat].subCategories[sub].sites || [];
+
     let h = '';
-    list.forEach((s,j) => {
+    list.forEach((s, j) => {
       h += `
       <div class="site-row" data-idx="${j}">
-        <input value="${s.logo||''}" oninput="updateSite(${catIdx},${subIdx},${j},'logo',this.value)" id="logo-${catIdx}-${subIdx}-${j}">
-        <button class="btn btn-upload" onclick="openUploadModal('logo-${catIdx}-${subIdx}-${j}')">上传</button>
-        <input value="${s.name||''}" oninput="updateSite(${catIdx},${subIdx},${j},'name',this.value)">
-        <input value="${s.url||''}" oninput="updateSite(${catIdx},${subIdx},${j},'url',this.value)">
-        <input value="${s.desc||''}" oninput="updateSite(${catIdx},${subIdx},${j},'desc',this.value)">
-        <button class="btn btn-move" onclick="openMoveSite(${catIdx},${subIdx},${j})">移</button>
-        <button class="btn btn-copy" onclick="openCopySite(${catIdx},${subIdx},${j})">复</button>
-        <button class="btn btn-danger" onclick="deleteSite(${catIdx},${subIdx},${j})">删</button>
+        <input value="${s.logo}" oninput="updateSite(${cat},${sub},${j},'logo',this.value)" id="logo-${cat}-${sub}-${j}">
+        <button class="btn btn-upload" onclick="openUploadModal('logo-${cat}-${sub}-${j}')">上传</button>
+        <input value="${s.name}" oninput="updateSite(${cat},${sub},${j},'name',this.value)">
+        <input value="${s.url}" oninput="updateSite(${cat},${sub},${j},'url',this.value)">
+        <input value="${s.desc}" oninput="updateSite(${cat},${sub},${j},'desc',this.value)">
+        
+        <button class="btn btn-move" onclick="openMoveSite(${cat},${sub},${j})">移动</button>
+        <button class="btn btn-copy" onclick="openCopy(${cat},${sub},${j})">复制</button>
+        <button class="btn btn-danger" onclick="deleteSite(${cat},${sub},${j})">删除</button>
       </div>`;
     });
     el.innerHTML = h;
@@ -375,296 +384,318 @@ function renderAllSites() {
 function initDrag() {
   const bigContainer = document.getElementById('categories');
   new Sortable(bigContainer, {
-    animation:150,
-    ghostClass:'dragging',
-    onEnd:e=>{
+    animation: 150,
+    ghostClass: 'dragging',
+    onStart: () => {
+      document.querySelectorAll('.sub-list, .site-list, .sub-section, .category-content').forEach(el => {
+        el.style.display = 'none';
+      });
+    },
+    onEnd: (e) => {
+      document.querySelectorAll('.sub-list, .site-list, .sub-section, .category-content').forEach(el => {
+        el.style.display = '';
+      });
       const list = navConfig.categories;
-      const item = list.splice(e.oldIndex,1)[0];
-      list.splice(e.newIndex,0,item);
+      list.splice(e.newIndex, 0, list.splice(e.oldIndex, 1)[0]);
       render();
     }
   });
-}
 
-function addCategoryBefore(i){
-  navConfig.categories.splice(i,0,{name:'新分类',icon:'fas fa-folder fa-lg',expanded:true,sites:[],subCategories:[]});
-  render();
-}
-function addCategoryAfter(i){
-  navConfig.categories.splice(i+1,0,{name:'新分类',icon:'fas fa-folder fa-lg',expanded:true,sites:[],subCategories:[]});
-  render();
-}
-function deleteCategory(i){
-  if(!confirm('确定删除该大分类？'))return;
-  navConfig.categories.splice(i,1);
-  render();
-}
-function addSubCategory(i){
-  if(!navConfig.categories[i].subCategories) navConfig.categories[i].subCategories = [];
-  navConfig.categories[i].subCategories.push({name:'新子分类',id:'',sites:[]});
-  render();
-}
-function deleteSubCategory(i,k){
-  if(!confirm('确定删除该子分类？'))return;
-  navConfig.categories[i].subCategories.splice(k,1);
-  render();
-}
-function addSite(i,sub){
-  if(sub == -1){
-    if(!navConfig.categories[i].sites) navConfig.categories[i].sites = [];
-    navConfig.categories[i].sites.push({logo:'',name:'',url:'',desc:''});
-  }else{
-    if(!navConfig.categories[i].subCategories[sub].sites) navConfig.categories[i].subCategories[sub].sites = [];
-    navConfig.categories[i].subCategories[sub].sites.push({logo:'',name:'',url:'',desc:''});
-  }
-  render();
-}
-function updateSite(cat,sub,j,key,val){
-  let list;
-  if(sub == -1) list = navConfig.categories[cat].sites;
-  else list = navConfig.categories[cat].subCategories[sub].sites;
-  list[j][key] = val;
-}
-function deleteSite(cat,sub,j){
-  if(!confirm('确定删除该网站？'))return;
-  let list;
-  if(sub == -1) list = navConfig.categories[cat].sites;
-  else list = navConfig.categories[cat].subCategories[sub].sites;
-  list.splice(j,1);
-  render();
-}
-
-function openCopySite(cat,sub,j){
-  copySite = {cat,sub,j};
-  copyTarget = null;
-  const list = [];
-  navConfig.categories.forEach((c,i)=>{
-    list.push({t:'main',cat:i,sub:-1,name:c.name});
-    (c.subCategories||[]).forEach((s,k)=>{
-      list.push({t:'sub',cat:i,sub:k,name:'　　'+s.name});
+  document.querySelectorAll('.sub-list').forEach(el => {
+    const cat = el.dataset.cat;
+    new Sortable(el, {
+      animation: 150,
+      ghostClass: 'dragging',
+      onEnd: (e) => {
+        const list = navConfig.categories[cat].subCategories || [];
+        list.splice(e.newIndex, 0, list.splice(e.oldIndex, 1)[0]);
+        render();
+      }
     });
   });
-  let html = '';
-  list.forEach((item,idx)=>{
-    html += `<div class="copy-item" id="copyItem${idx}" onclick="selectCopyTarget(${item.cat},${item.sub},${idx})">${item.name}</div>`;
+
+  document.querySelectorAll('.site-list').forEach(el => {
+    new Sortable(el, {
+      animation: 150,
+      ghostClass: 'dragging',
+      group: 'sites',
+      onEnd: (e) => {
+        const cat = el.dataset.cat;
+        const sub = el.dataset.sub;
+        const list = sub == -1
+          ? navConfig.categories[cat].sites
+          : navConfig.categories[cat].subCategories[sub].sites;
+        list.splice(e.newIndex, 0, list.splice(e.oldIndex, 1)[0]);
+        renderAllSites();
+      }
+    });
   });
-  document.getElementById('copyTargets').innerHTML = html;
-  document.getElementById('copyModal').style.display = 'flex';
-}
-function selectCopyTarget(cat,sub,idx){
-  copyTarget = {cat,sub};
-  document.querySelectorAll('.copy-item').forEach(el=>el.classList.remove('selected'));
-  document.getElementById('copyItem'+idx).classList.add('selected');
-}
-function confirmPasteCopy(){
-  if(!copySite||!copyTarget){alert('请先选择目标位置');return;}
-  let sourceList;
-  if(copySite.sub == -1) sourceList = navConfig.categories[copySite.cat].sites;
-  else sourceList = navConfig.categories[copySite.cat].subCategories[copySite.sub].sites;
-  const item = JSON.parse(JSON.stringify(sourceList[copySite.j]));
-
-  let targetList;
-  if(copyTarget.sub == -1){
-    if(!navConfig.categories[copyTarget.cat].sites) navConfig.categories[copyTarget.cat].sites = [];
-    targetList = navConfig.categories[copyTarget.cat].sites;
-  }else{
-    if(!navConfig.categories[copyTarget.cat].subCategories[copyTarget.sub].sites) navConfig.categories[copyTarget.cat].subCategories[copyTarget.sub].sites = [];
-    targetList = navConfig.categories[copyTarget.cat].subCategories[copyTarget.sub].sites;
-  }
-  targetList.push(item);
-  closeCopyModal();
-  render();
-  showStatus('✅ 复制成功');
-}
-function closeCopyModal(){
-  document.getElementById('copyModal').style.display = 'none';
-  copySite = null;
-  copyTarget = null;
 }
 
-function openMoveSite(cat,sub,j){
-  movingSite = {cat,sub,j};
+function openMoveSite(cat, sub, idx) {
+  movingSite = { cat, sub, idx };
   moveSiteTarget = null;
   const list = [];
-  navConfig.categories.forEach((c,i)=>{
-    list.push({t:'main',cat:i,sub:-1,name:c.name});
-    (c.subCategories||[]).forEach((s,k)=>{
-      list.push({t:'sub',cat:i,sub:k,name:'　　'+s.name});
+  navConfig.categories.forEach((c, i) => {
+    list.push({ t: 'main', cat: i, sub: -1, name: c.name });
+    (c.subCategories || []).forEach((s, k) => {
+      list.push({ t: 'sub', cat: i, sub: k, name: '　　' + s.name });
     });
   });
-  let html = '';
-  list.forEach((item,idx)=>{
-    html += `<div class="copy-item" id="moveItem${idx}" onclick="selectMoveSiteTarget(${item.cat},${item.sub},${idx})">${item.name}</div>`;
-  });
+  const html = list.map((item, i) => `
+    <div class="copy-item" id="moveSiteItem${i}" onclick="selectMoveSiteTarget(${item.cat},${item.sub},${i})">
+      ${item.name}
+    </div>
+  `).join('');
   document.getElementById('moveSiteTargets').innerHTML = html;
   document.getElementById('moveSiteModal').style.display = 'flex';
 }
-function selectMoveSiteTarget(cat,sub,idx){
-  moveSiteTarget = {cat,sub};
-  document.querySelectorAll('.copy-item').forEach(el=>el.classList.remove('selected'));
-  document.getElementById('moveItem'+idx).classList.add('selected');
+function selectMoveSiteTarget(cat, sub, elIdx) {
+  moveSiteTarget = { cat, sub };
+  document.querySelectorAll('#moveSiteTargets .copy-item').forEach((el, i) => {
+    el.classList.toggle('selected', i === elIdx);
+  });
 }
-function confirmMoveSite(){
-  if(!movingSite||!moveSiteTarget){alert('请先选择目标位置');return;}
-  let sourceList;
-  if(movingSite.sub == -1) sourceList = navConfig.categories[movingSite.cat].sites;
-  else sourceList = navConfig.categories[movingSite.cat].subCategories[movingSite.sub].sites;
-  const item = sourceList.splice(movingSite.j,1)[0];
-
-  let targetList;
-  if(moveSiteTarget.sub == -1){
-    if(!navConfig.categories[moveSiteTarget.cat].sites) navConfig.categories[moveSiteTarget.cat].sites = [];
-    targetList = navConfig.categories[moveSiteTarget.cat].sites;
-  }else{
-    if(!navConfig.categories[moveSiteTarget.cat].subCategories[moveSiteTarget.sub].sites) navConfig.categories[moveSiteTarget.cat].subCategories[moveSiteTarget.sub].sites = [];
-    targetList = navConfig.categories[moveSiteTarget.cat].subCategories[moveSiteTarget.sub].sites;
+function confirmMoveSite() {
+  if (!moveSiteTarget) return alert('请先选择目标位置');
+  const { cat, sub, idx } = movingSite;
+  const { cat: tCat, sub: tSub } = moveSiteTarget;
+  const sourceList = sub === -1 ? navConfig.categories[cat].sites : navConfig.categories[cat].subCategories[sub].sites;
+  const item = sourceList.splice(idx, 1)[0];
+  if (tSub === -1) {
+    if (!navConfig.categories[tCat].sites) navConfig.categories[tCat].sites = [];
+    navConfig.categories[tCat].sites.push(item);
+  } else {
+    if (!navConfig.categories[tCat].subCategories[tSub].sites) navConfig.categories[tCat].subCategories[tSub].sites = [];
+    navConfig.categories[tCat].subCategories[tSub].sites.push(item);
   }
-  targetList.push(item);
   closeMoveSiteModal();
-  render();
-  showStatus('✅ 移动成功');
+  renderAllSites();
+  showStatus('✅ 网站已移动');
 }
-function closeMoveSiteModal(){
+function closeMoveSiteModal() {
   document.getElementById('moveSiteModal').style.display = 'none';
-  movingSite = null;
   moveSiteTarget = null;
 }
 
-function openMoveSubCategory(fromCat,subIdx){
-  movingSub = {fromCat,subIdx};
-  const sel = document.getElementById('targetSubCat');
-  sel.innerHTML = '';
-  navConfig.categories.forEach((c,i)=>{
-    sel.innerHTML += `<option value="${i}">${cnNums[i]}、${c.name}</option>`;
+function openCopy(cat, sub, idx) {
+  copySite = { cat, sub, idx };
+  copyTarget = null;
+  const targets = [];
+  navConfig.categories.forEach((c, i) => {
+    targets.push({ type: 'main', cat: i, sub: -1, name: c.name });
+    (c.subCategories || []).forEach((s, k) => {
+      targets.push({ type: 'sub', cat: i, sub: k, name: '　　' + s.name });
+    });
   });
-  document.getElementById('moveSubModal').style.display = 'flex';
+  const html = targets.map((t, i) => `
+    <div class="copy-item" id="copyItem${i}" onclick="selectCopyTarget(${t.cat},${t.sub},${i})">
+      ${t.name}
+    </div>
+  `).join('');
+  document.getElementById('copyTargets').innerHTML = html;
+  document.getElementById('copyModal').style.display = 'flex';
 }
-function confirmMoveSubCategory(){
-  const toCat = document.getElementById('targetSubCat').value;
-  const {fromCat,subIdx} = movingSub;
-  const subItem = navConfig.categories[fromCat].subCategories.splice(subIdx,1)[0];
-  if(!navConfig.categories[toCat].subCategories) navConfig.categories[toCat].subCategories = [];
-  navConfig.categories[toCat].subCategories.push(subItem);
-  closeMoveSubModal();
-  render();
-  showStatus('✅ 子分类移动成功');
+function selectCopyTarget(cat, sub, elIdx) {
+  copyTarget = { cat, sub };
+  document.querySelectorAll('#copyTargets .copy-item').forEach((el, i) => {
+    el.classList.toggle('selected', i === elIdx);
+  });
 }
-function closeMoveSubModal(){
-  document.getElementById('moveSubModal').style.display = 'none';
-  movingSub = null;
+function confirmPasteCopy() {
+  if (!copyTarget) return alert('请先选择目标位置');
+  const { cat, sub, idx } = copySite;
+  const { cat: tCat, sub: tSub } = copyTarget;
+  const sourceList = sub == -1 ? navConfig.categories[cat].sites : navConfig.categories[cat].subCategories[sub].sites;
+  const item = JSON.parse(JSON.stringify(sourceList[idx]));
+  if (tSub == -1) {
+    if (!navConfig.categories[tCat].sites) navConfig.categories[tCat].sites = [];
+    navConfig.categories[tCat].sites.push(item);
+  } else {
+    if (!navConfig.categories[tCat].subCategories[tSub].sites) navConfig.categories[tCat].subCategories[tSub].sites = [];
+    navConfig.categories[tCat].subCategories[tSub].sites.push(item);
+  }
+  closeCopyModal();
+  renderAllSites();
+  showStatus('✅ 复制成功');
+}
+function closeCopyModal() {
+  document.getElementById('copyModal').style.display = 'none';
+  copyTarget = null;
 }
 
-function openUploadModal(inputId){
+function openMoveSubCategory(fromCatIdx, subIdx) {
+  movingSub = { fromCat: fromCatIdx, subIdx };
+  const sel = document.getElementById('targetSubCat');
+  sel.innerHTML = navConfig.categories.map((c, i) =>
+    `<option value="${i}">${cnNums[i]}、${c.name}</option>`
+  ).join('');
+  document.getElementById('moveSubModal').style.display = 'flex';
+}
+function confirmMoveSubCategory() {
+  const { fromCat, subIdx } = movingSub;
+  const toCat = document.getElementById('targetSubCat').value;
+  const sourceSubs = navConfig.categories[fromCat].subCategories;
+  const moved = sourceSubs.splice(subIdx, 1)[0];
+  if (!navConfig.categories[toCat].subCategories) navConfig.categories[toCat].subCategories = [];
+  navConfig.categories[toCat].subCategories.push(moved);
+  closeMoveSubModal();
+  render();
+  showStatus('✅ 子分类已移动');
+}
+function closeMoveSubModal() {
+  document.getElementById('moveSubModal').style.display = 'none';
+}
+
+function addCategoryBefore(i) {
+  navConfig.categories.splice(i, 0, { name: '新分类', icon: 'far fa-star fa-lg', sites: [], subCategories: [], expanded: true });
+  render();
+}
+function addCategoryAfter(i) {
+  navConfig.categories.splice(i + 1, 0, { name: '新分类', icon: 'far fa-star fa-lg', sites: [], subCategories: [], expanded: true });
+  render();
+}
+function deleteCategory(i) {
+  if (!confirm('确定删除？')) return;
+  navConfig.categories.splice(i, 1);
+  render();
+}
+function addSubCategory(i) {
+  if (!navConfig.categories[i].subCategories) navConfig.categories[i].subCategories = [];
+  navConfig.categories[i].subCategories.push({ name: '新子分类', sites: [] });
+  render();
+}
+function deleteSubCategory(i, k) {
+  if (!confirm('确定删除？')) return;
+  navConfig.categories[i].subCategories.splice(k, 1);
+  render();
+}
+function addSite(i, sub) {
+  const item = { logo: '', name: '', url: '', desc: '' };
+  if (sub === -1) {
+    if (!navConfig.categories[i].sites) navConfig.categories[i].sites = [];
+    navConfig.categories[i].sites.push(item);
+  } else {
+    if (!navConfig.categories[i].subCategories[sub].sites) navConfig.categories[i].subCategories[sub].sites = [];
+    navConfig.categories[i].subCategories[sub].sites.push(item);
+  }
+  renderAllSites();
+}
+function updateSite(cat, sub, idx, key, val) {
+  const list = sub == -1 ? navConfig.categories[cat].sites : navConfig.categories[cat].subCategories[sub].sites;
+  list[idx][key] = val;
+}
+function deleteSite(cat, sub, idx) {
+  if (!confirm('确定删除？')) return;
+  const list = sub == -1 ? navConfig.categories[cat].sites : navConfig.categories[cat].subCategories[sub].sites;
+  list.splice(idx, 1);
+  renderAllSites();
+}
+
+function openUploadModal(inputId) {
   pendingLogoInputEl = document.getElementById(inputId);
   document.getElementById('logoFileInput').value = '';
   document.getElementById('uploadModal').style.display = 'flex';
 }
-function closeUploadModal(){
+function closeUploadModal() {
   document.getElementById('uploadModal').style.display = 'none';
   pendingLogoInputEl = null;
 }
-async function uploadLogo(){
+async function uploadLogo() {
   const file = document.getElementById('logoFileInput').files[0];
-  if(!file) return alert('请选择图片');
-  if(!PRIVATE_KEY){
-    showStatus('❌ 无密钥，无法上传');
-    return;
-  }
-  showStatus(`⌛ 正在上传 ${file.name}...`);
+  if (!file) return alert('请选择图片文件');
+  if (!privateKey) return alert('请先导入私钥！');
+  const fileName = file.name;
+  const filePath = GITHUB_CONFIG.LOGO_DIR + fileName;
+  showStatus(`⌛ 正在上传 ${fileName}...`);
   try {
+    const reader = new FileReader();
+    const fileBase64 = await new Promise((resolve, reject) => {
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
     const jwt = getJWT();
     const installId = await getInstallationId(jwt);
     const token = await getInstallToken(jwt, installId);
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = async function(){
-      const base64 = reader.result.split(',')[1];
-      const path = GITHUB_CONFIG.LOGO_DIR + file.name;
-
-      let sha = null;
-      try {
-        const res = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}?ref=${GITHUB_CONFIG.BRANCH}`, {
-          headers: { Authorization: `token ${token}` }
-        });
-        if(res.ok){
-          const data = await res.json();
-          sha = data.sha;
-        }
-      }catch(e){}
-
-      const putRes = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `token ${token}`,
-          'Content-Type':'application/json'
-        },
-        body: JSON.stringify({
-          message: `Upload logo: ${file.name}`,
-          content: base64,
-          sha: sha,
-          branch: GITHUB_CONFIG.BRANCH
-        })
+    let sha = null;
+    try {
+      const shaRes = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${filePath}?ref=${GITHUB_CONFIG.BRANCH}`, {
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' }
       });
-      if(putRes.ok){
-        if(pendingLogoInputEl){
-          pendingLogoInputEl.value = path;
-          pendingLogoInputEl.dispatchEvent(new Event('input'));
-        }
-        showStatus(`✅ ${file.name} 上传成功`);
-        closeUploadModal();
-        renderAllSites();
-      }else{
-        showStatus('❌ 上传失败');
+      if (shaRes.ok) {
+        const shaData = await shaRes.json();
+        sha = shaData.sha;
       }
+    } catch (e) {}
+    await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${filePath}`, {
+      method: 'PUT',
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' },
+      body: JSON.stringify({
+        message: `Add logo: ${fileName}`,
+        content: fileBase64,
+        sha: sha,
+        branch: GITHUB_CONFIG.BRANCH
+      })
+    });
+    if (pendingLogoInputEl) {
+      pendingLogoInputEl.value = filePath;
+      pendingLogoInputEl.dispatchEvent(new Event('input'));
     }
+    showStatus(`✅ ${fileName} 上传成功！`);
+    closeUploadModal();
   } catch (e) {
-    showStatus('❌ 上传异常：'+e.message);
+    showStatus(`❌ 上传失败: ${e.message}`);
+    console.error(e);
   }
 }
 
 async function saveToGitHub() {
-  if(!PRIVATE_KEY){
-    showStatus('❌ 未读取到环境变量密钥，无法保存');
-    return;
-  }
+  if (!privateKey) return alert('请先导入私钥');
   showStatus('⌛ 提交中...');
   try {
     const jwt = getJWT();
     const installId = await getInstallationId(jwt);
     const token = await getInstallToken(jwt, installId);
-
     const path = 'nav-config.json';
+    
     let sha = null;
     try {
-      const res = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}?ref=${GITHUB_CONFIG.BRANCH}`, {
-        headers: { Authorization: `token ${token}` }
+      const shaRes = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}?ref=${GITHUB_CONFIG.BRANCH}`, {
+        headers: { Authorization: 'token ' + token }
       });
-      if(res.ok){
-        const info = await res.json();
-        sha = info.sha;
+      if (shaRes.ok) {
+        const data = await shaRes.json();
+        sha = data.sha;
       }
-    }catch(e){}
+    } catch (e) {}
 
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(navConfig, null, 2))));
     await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}`, {
       method: 'PUT',
-      headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "更新导航配置", content, sha, branch: GITHUB_CONFIG.BRANCH })
+      headers: { Authorization: 'token ' + token },
+      body: JSON.stringify({
+        message: '更新配置',
+        content: content,
+        sha: sha,
+        branch: GITHUB_CONFIG.BRANCH
+      })
     });
-    showStatus("✅ 保存成功！任意设备打开自动生效");
-    alert("✅ 保存成功");
+
+    hasSubmitted = true;
+    showStatus('✅ 提交成功！刷新也会保持最新！');
+    alert('✅ 提交成功！实时更新已生效！');
   } catch (e) {
-    showStatus("❌ 保存失败：" + e.message);
+    showStatus('❌ 提交失败');
     console.error(e);
   }
 }
 
-function showStatus(t) {
-  document.getElementById("status").innerText = t;
+function showStatus(text) {
+  document.getElementById('status').innerText = text;
 }
 
-window.onload = load;
+load();
 </script>
 </body>
 </html>
