@@ -274,7 +274,7 @@ function render() {
   navConfig.categories.forEach((cat, i) => {
     const bigTitle = `${cnNums[i]}、${cat.name}`;
     const isExpanded = cat.expanded !== false;
-    const toggleIcon = isExpanded ? '▼' : '▶';
+    const toggleIcon = isExpanded ? '︾' : '⋙';
     const contentDisplay = isExpanded ? '' : 'display: none;';
     const hasSub = (cat.subCategories && cat.subCategories.length > 0);
     const bigAddBtnClass = hasSub ? 'btn-gray' : 'btn-pink';
