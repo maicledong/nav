@@ -16,12 +16,6 @@
           "url": "https://www.freeconvert.com/zh",
           "logo": "assets/images/logos/FreeConvert.png",
           "desc": "音视图文免费在线转换与压缩工具"
-        },
-        {
-          "name": "即梦AI",
-          "url": "https://jimeng.jianying.com/ai-tool/home",
-          "logo": "assets/images/logos/jimeng.png",
-          "desc": "一站式多模态AI-让灵感即刻成片"
         }
       ],
       "expanded": true
@@ -73,7 +67,7 @@
     {
       "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
       "name": "开发者资源",
-      "icon": "fas fa-cog fa-lg",
+      "icon": "fas fa-code fa-lg",
       "subCategories": [
         {
           "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
