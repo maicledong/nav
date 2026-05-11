@@ -12,11 +12,12 @@
     .section { border: 1px solid #e5e7eb; padding: 16px; margin: 16px 0; border-radius: 8px; background: white; }
     .sub-section { border: 1px dashed #d1d5db; padding: 12px; margin: 10px 0; border-radius: 6px; background: #f9fafb; }
     input { width: 100%; padding: 6px 10px; margin: 4px 0; border: 1px solid #e5e7eb; border-radius: 6px; }
-    .site-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 40px 40px 60px 60px; gap: 6px; padding: 6px; align-items: center; background: white; border: 1px solid #eee; border-radius: 6px; margin-top: 4px; }
+    .site-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 40px 40px 60px 60px 60px; gap: 6px; padding: 6px; align-items: center; background: white; border: 1px solid #eee; border-radius: 6px; margin-top: 4px; }
     .btn { padding: 6px 10px; border: none; border-radius: 6px; cursor: pointer; margin: 2px; }
     .btn-primary { background: #3b82f6; color: white; }
     .btn-danger { background: #ef4444; color: white; }
     .btn-copy { background: #f59e0b; color: white; }
+    .btn-move { background: #6366f1; color: white; }
     .btn-upload { background: #10b981; color: white; }
     .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 999; }
     .modal-box { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
@@ -56,6 +57,25 @@
   </div>
 </div>
 
+<div class="modal" id="moveSiteModal">
+  <div class="modal-box">
+    <h3>移动网站到</h3>
+    <div id="moveSiteTargets"></div>
+    <button class="btn" onclick="closeMoveSiteModal()" style="margin-top:12px">关闭</button>
+  </div>
+</div>
+
+<div class="modal" id="moveSubModal">
+  <div class="modal-box">
+    <h3>移动子分类至大分类</h3>
+    <select id="targetSubCat" style="width:100%; padding:8px; margin:12px 0;"></select>
+    <div style="display:flex; justify-content:flex-end; gap:8px;">
+      <button class="btn" onclick="closeMoveSubModal()">取消</button>
+      <button class="btn btn-primary" onclick="confirmMoveSubCategory()">确认移动</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsrsasign@10.8.6/lib/jsrsasign-all-min.js"></script>
 
@@ -74,6 +94,8 @@ var navConfig = { categories: [] };
 var privateKey = null;
 var copySite = null;
 var pendingLogoInputEl = null;
+var movingSite = null;
+var movingSub = null;
 
 function importPEM() {
   const file = document.getElementById('pemFile').files[0];
@@ -246,7 +268,10 @@ function renderAllSites() {
         <input value="${s.name}" oninput="updateSite(${cat},${sub},${j},'name',this.value)">
         <input value="${s.url}" oninput="updateSite(${cat},${sub},${j},'url',this.value)">
         <input value="${s.desc}" oninput="updateSite(${cat},${sub},${j},'desc',this.value)">
+        
+        <button class="btn btn-move" onclick="openMoveSite(${cat},${sub},${j})">移动</button>
         <button class="btn btn-copy" onclick="openCopy(${cat},${sub},${j})">复制</button>
+        
         <button class="btn btn-danger" onclick="deleteSite(${cat},${sub},${j})">删</button>
       </div>`;
     });
@@ -305,6 +330,91 @@ function initDrag() {
   });
 }
 
+// ————————————————————————————————
+// 网站移动功能（可跨任意分类）
+// ————————————————————————————————
+function openMoveSite(cat, sub, idx) {
+  movingSite = { cat, sub, idx };
+  const list = [];
+  navConfig.categories.forEach((c, i) => {
+    list.push({ t: 'main', cat: i, sub: -1, name: c.name });
+    (c.subCategories || []).forEach((s, k) => {
+      list.push({ t: 'sub', cat: i, sub: k, name: '　　' + s.name });
+    });
+  });
+
+  const html = list.map(item => `
+    <div class="copy-item" onclick="confirmMoveSite(${item.cat},${item.sub})">
+      ${item.name}
+    </div>
+  `).join('');
+
+  document.getElementById('moveSiteTargets').innerHTML = html;
+  document.getElementById('moveSiteModal').style.display = 'flex';
+}
+
+function confirmMoveSite(targetCat, targetSub) {
+  const { cat, sub, idx } = movingSite;
+  const sourceList = sub === -1
+    ? navConfig.categories[cat].sites
+    : navConfig.categories[cat].subCategories[sub].sites;
+
+  const item = sourceList.splice(idx, 1)[0];
+
+  if (targetSub === -1) {
+    if (!navConfig.categories[targetCat].sites) navConfig.categories[targetCat].sites = [];
+    navConfig.categories[targetCat].sites.push(item);
+  } else {
+    if (!navConfig.categories[targetCat].subCategories[targetSub].sites) {
+      navConfig.categories[targetCat].subCategories[targetSub].sites = [];
+    }
+    navConfig.categories[targetCat].subCategories[targetSub].sites.push(item);
+  }
+
+  closeMoveSiteModal();
+  renderAllSites();
+  showStatus('✅ 网站已移动');
+}
+
+function closeMoveSiteModal() {
+  document.getElementById('moveSiteModal').style.display = 'none';
+}
+
+// ————————————————————————————————
+// 子分类移动功能
+// ————————————————————————————————
+function openMoveSubCategory(fromCatIdx, subIdx) {
+  movingSub = { fromCat: fromCatIdx, subIdx };
+  const sel = document.getElementById('targetSubCat');
+  sel.innerHTML = navConfig.categories.map((c, i) =>
+    `<option value="${i}">${cnNums[i]}、${c.name}</option>`
+  ).join('');
+  document.getElementById('moveSubModal').style.display = 'flex';
+}
+
+function confirmMoveSubCategory() {
+  const { fromCat, subIdx } = movingSub;
+  const toCat = document.getElementById('targetSubCat').value;
+  const sourceSubs = navConfig.categories[fromCat].subCategories;
+  const moved = sourceSubs.splice(subIdx, 1)[0];
+
+  if (!navConfig.categories[toCat].subCategories) {
+    navConfig.categories[toCat].subCategories = [];
+  }
+  navConfig.categories[toCat].subCategories.push(moved);
+
+  closeMoveSubModal();
+  render();
+  showStatus('✅ 子分类已移动');
+}
+
+function closeMoveSubModal() {
+  document.getElementById('moveSubModal').style.display = 'none';
+}
+
+// ————————————————————————————————
+// 基础功能
+// ————————————————————————————————
 function addCategoryBefore(i) {
   navConfig.categories.splice(i, 0, { name: '新分类', icon: '', sites: [], subCategories: [], expanded: true });
   render();
@@ -492,48 +602,6 @@ async function saveToGitHub() {
     showStatus('❌ 提交失败');
     console.error(e);
   }
-}
-
-function openMoveSubCategory(fromCatIdx, subIdx) {
-  window.movingSub = { fromCat: fromCatIdx, subIdx: subIdx };
-  let opts = '';
-  navConfig.categories.forEach((c, i) => {
-    opts += `<option value="${i}">${cnNums[i]}、${c.name}</option>`;
-  });
-
-  const modal = `
-  <div id="moveModal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:9999;">
-    <div style="background:#fff; padding:24px; border-radius:10px; width:400px;">
-      <h3 style="margin-bottom:12px;">移动子分类</h3>
-      <select id="targetCat" style="width:100%; padding:8px; margin-bottom:16px; border-radius:6px;">${opts}</select>
-      <div style="display:flex; gap:8px; justify-content:flex-end;">
-        <button class="btn" onclick="closeMoveModal()">取消</button>
-        <button class="btn btn-primary" onclick="confirmMoveSub()">确认移动</button>
-      </div>
-    </div>
-  </div>`;
-  document.body.insertAdjacentHTML('beforeend', modal);
-}
-
-function confirmMoveSub() {
-  const { fromCat, subIdx } = window.movingSub;
-  const toCat = document.getElementById('targetCat').value;
-  const subs = navConfig.categories[fromCat].subCategories;
-  const moved = subs.splice(subIdx, 1)[0];
-  
-  if (!navConfig.categories[toCat].subCategories) {
-    navConfig.categories[toCat].subCategories = [];
-  }
-  navConfig.categories[toCat].subCategories.push(moved);
-  
-  closeMoveModal();
-  render();
-  showStatus('✅ 子分类已移动');
-}
-
-function closeMoveModal() {
-  const m = document.getElementById('moveModal');
-  if (m) m.remove();
 }
 
 function showStatus(text) {
