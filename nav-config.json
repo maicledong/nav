@@ -12,6 +12,12 @@
           "desc": "字节跳动-豆包。"
         },
         {
+          "name": "洛雪音乐",
+          "url": "https://lxmusic.toside.cn",
+          "logo": "assets/images/logos/rxyy.png",
+          "desc": "聚合全网音源-免费音乐查找与播放"
+        },
+        {
           "name": "FreeConvert",
           "url": "https://www.freeconvert.com/zh",
           "logo": "assets/images/logos/FreeConvert.png",
@@ -30,7 +36,7 @@
           "name": "影音娱乐",
           "sites": [
             {
-              "name": "洛雪音乐",
+              "name": "洛雪",
               "url": "https://lxmusic.toside.cn",
               "logo": "assets/images/logos/rxyy.png",
               "desc": "聚合全网音源-免费音乐查找与播放"
@@ -129,7 +135,7 @@
     {
       "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
       "name": "办公学习",
-      "icon": "fas fa-book fa-lg",
+      "icon": "fas fa-pen fa-lg",
       "subCategories": [
         {
           "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
@@ -251,6 +257,26 @@
       "expanded": true
     },
     {
+      "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
+      "name": "金融理财",
+      "icon": "fas fa-coins fa-lg",
+      "sites": [
+        {
+          "name": "乌龟量化",
+          "url": "https://wglh.com",
+          "logo": "assets/images/logos/wglh.jpg",
+          "desc": ""
+        },
+        {
+          "name": "通达信",
+          "url": "https://www.tdx.com.cn",
+          "logo": "assets/images/logos/tdx.png",
+          "desc": ""
+        }
+      ],
+      "expanded": true
+    },
+    {
       "id": "19cb9b648dba4efc58a205ea413b6b01",
       "name": "人工智能",
       "icon": "fas fa-brain fa-lg",
@@ -290,26 +316,6 @@
               "desc": "可视化搭建复杂的图像、视频生成智能体"
             }
           ]
-        }
-      ],
-      "expanded": true
-    },
-    {
-      "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
-      "name": "金融理财",
-      "icon": "fas fa-coins fa-lg",
-      "sites": [
-        {
-          "name": "乌龟量化",
-          "url": "https://wglh.com",
-          "logo": "assets/images/logos/wglh.jpg",
-          "desc": ""
-        },
-        {
-          "name": "通达信",
-          "url": "https://www.tdx.com.cn",
-          "logo": "assets/images/logos/tdx.png",
-          "desc": ""
         }
       ],
       "expanded": true
