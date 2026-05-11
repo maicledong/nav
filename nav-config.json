@@ -12,12 +12,6 @@
           "desc": "字节跳动-豆包。"
         },
         {
-          "name": "洛雪音乐",
-          "url": "https://lxmusic.toside.cn",
-          "logo": "assets/images/logos/rxyy.png",
-          "desc": "聚合全网音源-免费音乐查找与播放"
-        },
-        {
           "name": "FreeConvert",
           "url": "https://www.freeconvert.com/zh",
           "logo": "assets/images/logos/FreeConvert.png",
@@ -36,16 +30,16 @@
           "name": "影音娱乐",
           "sites": [
             {
-              "name": "洛雪",
-              "url": "https://lxmusic.toside.cn",
-              "logo": "assets/images/logos/rxyy.png",
-              "desc": "聚合全网音源-免费音乐查找与播放"
-            },
-            {
               "name": "私人影视",
               "url": "https://avi.ccwu.cc",
               "logo": "assets/images/logos/kvideo.jpg",
               "desc": "聚合全网影视随性搜"
+            },
+            {
+              "name": "洛雪音乐",
+              "url": "https://lxmusic.toside.cn",
+              "logo": "assets/images/logos/rxyy.png",
+              "desc": "聚合全网音源-免费音乐查找与播放"
             }
           ]
         },
@@ -73,7 +67,7 @@
     {
       "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
       "name": "开发者资源",
-      "icon": "fas fa-code fa-lg",
+      "icon": "fas fa-globe fa-lg",
       "subCategories": [
         {
           "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
@@ -135,7 +129,7 @@
     {
       "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
       "name": "办公学习",
-      "icon": "fas fa-pen fa-lg",
+      "icon": "fas fa-book fa-lg",
       "subCategories": [
         {
           "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
