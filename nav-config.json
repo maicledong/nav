@@ -73,7 +73,7 @@
     {
       "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
       "name": "开发者资源",
-      "icon": "fas fa-cog fa-lg",
+      "icon": "fas fa-code fa-lg",
       "subCategories": [
         {
           "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
@@ -303,7 +303,7 @@
     {
       "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
       "name": "金融理财",
-      "icon": "fas fa-wallet fa-lg",
+      "icon": "fas fa-chart-line fa-lg",
       "sites": [
         {
           "name": "乌龟量化",
