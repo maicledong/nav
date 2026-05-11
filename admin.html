@@ -255,7 +255,7 @@ function render() {
 
   navConfig.categories.forEach((cat) => {
     if (!cat.id || cat.id.length !== 32) cat.id = generateRandom30() + '01';
-    if (typeof cat.expanded === 'undefined') cat.expanded = true;
+    if (typeof cat.expanded === 'undefined') cat.expanded = false;
   });
 
   const idSet = new Set();
