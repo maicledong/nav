@@ -29,7 +29,7 @@
     {
       "id": "a4d417d7850fde0cd00e4af576621a01",
       "name": "音影图像",
-      "icon": "fas fa-film fa-lg",
+      "icon": "fas fa-code fa-lg",
       "subCategories": [
         {
           "id": "a4d417d7850fde0cd00e4af576621a01",
@@ -135,7 +135,7 @@
     {
       "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
       "name": "办公学习",
-      "icon": "fas fa-pencil-alt fa-lg",
+      "icon": "fas fa-book fa-lg",
       "subCategories": [
         {
           "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
