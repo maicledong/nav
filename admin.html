@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>导航后台｜修复版</title>
+  <title>导航后台｜实时刷新版</title>
   <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -683,8 +683,13 @@ async function saveToGitHub() {
     });
 
     hasSubmitted = true;
-    showStatus('✅ 提交成功！刷新也会保持最新！');
-    alert('✅ 提交成功！实时更新已生效！');
+    showStatus('✅ 提交成功！正在刷新加载最新数据...');
+    alert('✅ 保存成功！页面将刷新，立刻显示最新内容');
+    
+    // 🔥 关键修复：保存成功后自动刷新页面
+    setTimeout(() => {
+      location.reload();
+    }, 800);
   } catch (e) {
     showStatus('❌ 提交失败');
     console.error(e);
