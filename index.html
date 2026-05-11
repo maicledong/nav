@@ -33,26 +33,32 @@
 <style>
 /* 1. 未选中时：保持清晰高亮 */
 .s-type-list span {
-    color: #ffffff !important; /* 文字改成白色，在深色背景上超清晰 */
-    font-size: 16px !important; /* 适当放大字体 */
-    opacity: 1 !important;    /* 透明度拉满，不再发灰 */
+    color: #ffffff !important;
+    font-size: 16px !important;
+    opacity: 1 !important;
     font-weight: 500 !important;
 }
-
 /* 2. 选中时：加粗+保持高亮 */
 .s-type-list .active span,
 .s-type-list label.checked span,
 .s-type-list input:checked + label span {
-    color: #FF9F43 !important; /* 高亮橙色，非常醒目好看 */
+    color: #FF9F43 !important;
     font-weight: bold !important;
     font-size: 18px !important;
     opacity: 1 !important;
 }
-	
 /* 3. 鼠标悬浮时：更亮一点，增强交互感 */
 .s-type-list label:hover span {
     color: #ffffff !important;
     opacity: 1 !important;
+}
+
+/* 侧边栏子菜单默认隐藏（原版核心样式） */
+.sidebar-item ul {
+    display: none;
+}
+.sidebar-item ul.show {
+    display: block;
 }
 </style>
 	
@@ -492,6 +498,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 toTarget(menu.parent().parent(),true,true);
             }
         });
+
+        // ✅ 核心：侧边栏子菜单 展开/收起 交互（原版功能100%恢复）
+        $(document).on('click', '.sidebar-item > a.change-href', function(e) {
+            e.preventDefault();
+            $(this).next('ul').toggleClass('show');
+        });
     });
 </script>
 
@@ -608,10 +620,12 @@ async function initNav(){
     renderContent();
 }
 
+// ✅ 动态渲染侧边栏：完整还原 change‑href、箭头、子菜单结构
 function renderSidebar(){
     let html = "";
     navConfig.categories.forEach(cat=>{
         if(!cat.subCategories){
+            // 无下级分类
             html += `
             <li class="sidebar-item">
                 <a href="#${cat.id}" class="smooth">
@@ -621,6 +635,7 @@ function renderSidebar(){
             </li>
             `;
         }else{
+            // 有下级分类：保留原版 change‑href + 箭头图标
             html += `
             <li class="sidebar-item">
                 <a href="#${cat.id}" class="smooth change-href" data-change="#${cat.id}">
@@ -641,6 +656,7 @@ function renderSidebar(){
     document.getElementById("sidebarMenuWrap").innerHTML = html;
 }
 
+// ✅ 动态渲染内容区：1:1还原原版卡片样式
 function renderContent(){
     let html = "";
     navConfig.categories.forEach(cat=>{
@@ -658,6 +674,7 @@ function renderContent(){
     document.getElementById("content").innerHTML = document.getElementById("site-search-empty").outerHTML + html;
 }
 
+// ✅ 还原原版区块标题 + 卡片布局
 function renderBlock(item){
     let html = `
     <div class="d-flex flex-fill">
@@ -677,6 +694,7 @@ function renderBlock(item){
     html += `</div><br/>`;
     return html;
 }
+
 window.onload = initNav;
 </script>
 </body>
