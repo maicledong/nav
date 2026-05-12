@@ -76,7 +76,16 @@
     #status { margin: 10px 0; font-weight: bold; color: #2563eb; }
     .dragging { opacity: 0.5; }
   </style>
+  <!-- 域名跳转：nav-8v9.pages.dev → inav.ccwu.cc -->
+  <script>
+    if (window.location.host === 'nav-8v9.pages.dev') {
+      window.location.replace(
+        'https://inav.ccwu.cc' + window.location.pathname + window.location.search
+      );
+    }
+  </script>
 </head>
+
 <body>
 
 <div class="wrap">
