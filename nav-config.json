@@ -1408,6 +1408,12 @@
               "url": "https://inv-veri.chinatax.gov.cn",
               "logo": "assets/images/logos/shui.png",
               "desc": "国家税务总局唯一官方发票真伪查验平台"
+            },
+            {
+              "logo": "assets/images/logos/speedtest.jpg",
+              "name": "SpeedTest",
+              "url": "https://www.speedtest.net/zh-Hans",
+              "desc": "全球权威免费网络测速网站"
             }
           ]
         }
@@ -1959,15 +1965,15 @@
       "sites": [
         {
           "logo": "assets/images/logos/YouTube.png",
-          "name": "dgetunnel高手模式",
-          "url": "https://www.youtube.com/watch?v=trMEL4iQkks",
-          "desc": "Cloudflare 免费 VPN 节点｜优选订阅｜代理指定国家IP"
-        },
-        {
-          "logo": "assets/images/logos/YouTube.png",
           "name": "dgetunnel部署教程",
           "url": "https://www.youtube.com/watch?v=okjTFMiUCYA",
           "desc": "免费VPN节点！Cloudflare 10分钟搭建｜永久免费｜全球高速节点"
+        },
+        {
+          "logo": "assets/images/logos/YouTube.png",
+          "name": "dgetunnel高手模式",
+          "url": "https://www.youtube.com/watch?v=trMEL4iQkks",
+          "desc": "Cloudflare 免费 VPN 节点｜优选订阅｜代理指定国家IP"
         }
       ],
       "subCategories": [],
