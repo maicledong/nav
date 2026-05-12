@@ -117,14 +117,5 @@
     });
   </script>
 
-  <!-- 同步站点日夜模式 -->
-  <script>
-    // 读取 Cookie 同步日间/夜间模式
-    let night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1") || '0';
-    if (night === '1') {
-      document.body.classList.remove('io-grey-mode');
-      document.body.classList.add('io-black-mode');
-    }
-  </script>
 </body>
 </html>
