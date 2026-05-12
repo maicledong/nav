@@ -81,6 +81,15 @@
       border-bottom-color: #444 !important;
     }
   </style>
+  <!-- 域名跳转：nav-8v9.pages.dev → inav.ccwu.cc -->
+  <script>
+    if (window.location.host === 'nav-8v9.pages.dev') {
+      window.location.replace(
+        'https://inav.ccwu.cc' + window.location.pathname + window.location.search
+      );
+    }
+  </script>
+  
 </head>
 <body class="io-grey-mode">
   <div class="container">
