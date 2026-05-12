@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>留言评论 | 我的导航</title>
+  <link rel="shortcut icon" href="./assets/images/favicon.png" />
+  <!-- Font Awesome 图标 -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Waline 样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Microsoft Yahei", system-ui;
+      background: #f4f6f8;
+      padding: 40px 20px;
+      transition: background 0.3s ease;
+    }
+    /* 暗色模式 */
+    body.io-black-mode {
+      background: #18191a;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .comment-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    /* 暗色卡片样式 */
+    body.io-black-mode .comment-card {
+      background: #242526;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .page-title {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 26px;
+      color: #333;
+    }
+    body.io-black-mode .page-title {
+      color: #eee;
+    }
+    .page-desc {
+      text-align: center;
+      color: #999;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #1677FF;
+      text-decoration: none;
+      font-size: 15px;
+    }
+    .back-btn i {
+      margin-right: 4px;
+    }
+    /* 美化 Waline 内部 */
+    #waline {
+      padding-top: 10px;
+    }
+    /* 夜间模式适配 Waline */
+    body.io-black-mode .wl-card,
+    body.io-black-mode .wl-editor {
+      background: #3a3b3c !important;
+      color: #eee !important;
+    }
+    body.io-black-mode .wl-header {
+      border-bottom-color: #444 !important;
+    }
+  </style>
+</head>
+<body class="io-grey-mode">
+  <div class="container">
+    <!-- 返回首页按钮 -->
+    <a href="./index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> 返回导航首页
+    </a>
+
+    <div class="comment-card">
+      <h2 class="page-title"><i class="fas fa-comments mr-2"></i>留言评论区</h2>
+      <p class="page-desc">欢迎留言交流、提建议、站点反馈、友链互换</p>
+      
+      <!-- Waline 评论容器 -->
+      <div id="waline"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+    init({
+      el: '#waline',
+      serverURL: 'https://comment.zxdai.ccwu.cc/',
+      // 丰富配置
+      pageSize: 15,
+      emoji: true,
+      uploadImage: true,
+      record: true,
+      comment: true,
+      avatar: 'robohash',
+      meta: ['nick', 'mail', 'link'],
+      requiredMeta: ['nick'],
+      placeholder: '留下你的昵称和想说的话，友好交流～',
+    });
+  </script>
+
+  <!-- 同步站点日夜模式 -->
+  <script>
+    // 读取 Cookie 同步日间/夜间模式
+    let night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1") || '0';
+    if (night === '1') {
+      document.body.classList.remove('io-grey-mode');
+      document.body.classList.add('io-black-mode');
+    }
+  </script>
+</body>
+</html>
