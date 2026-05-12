@@ -1412,7 +1412,7 @@
           ]
         }
       ],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "19cb9b648dba4efc58a205ea413b6b01",
@@ -1952,6 +1952,21 @@
         }
       ],
       "expanded": false
+    },
+    {
+      "name": "视频教程",
+      "icon": "fas fa-link fa-lg",
+      "sites": [
+        {
+          "logo": "assets/images/logos/YouTube.png",
+          "name": "dgetunnel高手模式",
+          "url": "https://www.youtube.com/watch?v=trMEL4iQkks",
+          "desc": "Cloudflare 免费 VPN 节点｜优选订阅｜代理指定国家IP"
+        }
+      ],
+      "subCategories": [],
+      "expanded": true,
+      "id": "blddhqb94fvi6ij2xlrfyvkh6nmha901"
     }
   ]
 }
