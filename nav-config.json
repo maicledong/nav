@@ -1126,6 +1126,12 @@
               "url": "https://tieba.baidu.com",
               "logo": "assets/images/logos/bdtb.jpg",
               "desc": ""
+            },
+            {
+              "logo": "assets/images/logos/NodeSeek.jpg",
+              "name": "NodeSeek",
+              "url": "https://www.nodeseek.com/",
+              "desc": "是一个面向网络开发、VPS / 服务器、主机托管与极客爱好者的技术社区论坛"
             }
           ]
         },
@@ -1406,7 +1412,7 @@
           ]
         }
       ],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "19cb9b648dba4efc58a205ea413b6b01",
