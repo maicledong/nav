@@ -1962,6 +1962,12 @@
           "name": "dgetunnel高手模式",
           "url": "https://www.youtube.com/watch?v=trMEL4iQkks",
           "desc": "Cloudflare 免费 VPN 节点｜优选订阅｜代理指定国家IP"
+        },
+        {
+          "logo": "assets/images/logos/YouTube.png",
+          "name": "dgetunnel部署教程",
+          "url": "https://www.youtube.com/watch?v=okjTFMiUCYA",
+          "desc": "免费VPN节点！Cloudflare 10分钟搭建｜永久免费｜全球高速节点"
         }
       ],
       "subCategories": [],
