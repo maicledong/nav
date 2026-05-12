@@ -1,3 +1,1984 @@
 {
-  "categories": []
+  "categories": [
+    {
+      "id": "3e90c5117dc0fe9d71410e448d766e01",
+      "name": "常用工具",
+      "icon": "far fa-star fa-lg",
+      "sites": [
+        {
+          "name": "豆包",
+          "url": "https://www.doubao.com",
+          "logo": "assets/images/logos/%E8%B1%86%E5%8C%85.png",
+          "desc": "字节跳动-豆包。"
+        },
+        {
+          "name": "DeepSeek",
+          "url": "https://chat.deepseek.com",
+          "logo": "assets/images/logos/DeepSeek.jpg",
+          "desc": "DeepSeek-深度求索"
+        },
+        {
+          "name": "ChatGPT",
+          "url": "https://chatgpt.com",
+          "logo": "assets/images/logos/chatgpt.jpg",
+          "desc": "OpenAI-ChatGPT"
+        },
+        {
+          "name": "即梦AI",
+          "url": "https://jimeng.jianying.com/ai-tool/home",
+          "logo": "assets/images/logos/jimeng.png",
+          "desc": "一站式多模态AI-让灵感即刻成片"
+        },
+        {
+          "name": "Gmail",
+          "url": "https://mail.google.com",
+          "logo": "assets/images/logos/gmail.png",
+          "desc": "Gmail-谷歌邮箱。"
+        },
+        {
+          "name": "GitHub",
+          "url": "https://github.com/",
+          "logo": "assets/images/logos/github.jpg",
+          "desc": "GitHub开源社区"
+        },
+        {
+          "name": "Cloudflare",
+          "url": "https://www.cloudflare.com/zh-cn",
+          "logo": "assets/images/logos/CloudFlare.jpg",
+          "desc": "全球网络安全加速平台"
+        },
+        {
+          "name": "Vercel",
+          "url": "https://vercel.com/maiclezxds-projects",
+          "logo": "assets/images/logos/vercel.png",
+          "desc": "全球领先的前端云平台"
+        },
+        {
+          "name": "YouTube",
+          "url": "https://www.youtube.com",
+          "logo": "assets/images/logos/YouTube.png",
+          "desc": "YouTube-油管"
+        },
+        {
+          "name": "SMALL.IM",
+          "url": "https://small.im/zh-hans",
+          "logo": "assets/images/logos/small.jpg",
+          "desc": "批量压缩/裁剪/转换|添加水印|移除背景等图片处理"
+        },
+        {
+          "name": "DeepConvert",
+          "url": "https://deepconvert.net",
+          "logo": "assets/images/logos/deepconvert.jpg",
+          "desc": "超好用全格式图片互转神器，一键快速转换"
+        },
+        {
+          "name": "百度文心助手",
+          "url": "https://chat.baidu.com",
+          "logo": "assets/images/logos/wenxin.png",
+          "desc": "全能 AI 助手，覆盖视频图片、办公学习、代码编程、语音交互等多元场景"
+        },
+        {
+          "name": "PhotoKit",
+          "url": "https://photokit.com/?lang=zh",
+          "logo": "assets/images/logos/photokit.png",
+          "desc": "AI免费在线图片编辑器及批处理"
+        },
+        {
+          "name": "MYIP.COM",
+          "url": "https://www.myip.com",
+          "logo": "assets/images/logos/myip.jpg",
+          "desc": "查看您的IP地址"
+        },
+        {
+          "name": "Tcptest",
+          "url": "https://tcptest.cn",
+          "logo": "assets/images/logos/tcptest.png",
+          "desc": "免费在线网络拨测工具"
+        },
+        {
+          "name": "剪映AI图片设计",
+          "url": "https://www.jianying.com/editor-graphic",
+          "logo": "assets/images/logos/JianYing.png",
+          "desc": "剪映网页版AI图形编辑"
+        },
+        {
+          "name": "FreeConvert",
+          "url": "https://www.freeconvert.com/zh",
+          "logo": "assets/images/logos/FreeConvert.png",
+          "desc": "音视图文免费在线转换与压缩工具"
+        }
+      ],
+      "expanded": false
+    },
+    {
+      "id": "a4d417d7850fde0cd00e4af576621a01",
+      "name": "音影图像",
+      "icon": "fas fa-film fa-lg",
+      "subCategories": [
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a01",
+          "name": "影音娱乐",
+          "sites": [
+            {
+              "name": "私人影视",
+              "url": "https://avi.ccwu.cc",
+              "logo": "assets/images/logos/kvideo.jpg",
+              "desc": "聚合全网影视随性搜"
+            },
+            {
+              "name": "电影天堂",
+              "url": "https://www.dygod.net/",
+              "logo": "assets/images/logos/%e7%94%b5%e5%bd%b1%e5%a4%a9%e5%a0%82.png",
+              "desc": "高清电影下载"
+            },
+            {
+              "name": "YouTube",
+              "url": "https://www.youtube.com",
+              "logo": "assets/images/logos/YouTube.png",
+              "desc": "YouTube-油管"
+            },
+            {
+              "name": "B站",
+              "url": "https://www.bilibili.com/",
+              "logo": "assets/images/logos/%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9.png",
+              "desc": "Bilibili视频弹幕网站"
+            },
+            {
+              "name": "抖音",
+              "url": "https://www.douyin.com",
+              "logo": "assets/images/logos/douyin.jpg",
+              "desc": "抖音短视频与生活娱乐平台"
+            },
+            {
+              "name": "TikTok",
+              "url": "https://www.tiktok.com",
+              "logo": "assets/images/logos/TikTok.jpg",
+              "desc": "抖音国际版-全球热门短视频社交平台"
+            },
+            {
+              "name": "快手",
+              "url": "https://www.kuaishou.com/new-reco",
+              "logo": "assets/images/logos/kuaishou.png",
+              "desc": "快手拥抱每一种生活"
+            },
+            {
+              "name": "小红书",
+              "url": "https://www.xiaohongshu.com/explore",
+              "logo": "assets/images/logos/xhs.png",
+              "desc": "分享和发现世界的精彩"
+            },
+            {
+              "name": "腾讯视频",
+              "url": "http://v.qq.com/",
+              "logo": "assets/images/logos/%e8%85%be%e8%ae%af%e8%a7%86%e9%a2%91.png",
+              "desc": "腾讯视频，海量视频在线观看"
+            },
+            {
+              "name": "爱奇艺",
+              "url": "https://www.iqiyi.com/",
+              "logo": "assets/images/logos/%e7%88%b1%e5%a5%87%e8%89%ba.png",
+              "desc": "爱奇艺在线视频"
+            },
+            {
+              "name": "优酷",
+              "url": "http://www.youku.com/",
+              "logo": "assets/images/logos/%e4%bc%98%e9%85%b7.png",
+              "desc": "优酷 - 这个世界很酷"
+            },
+            {
+              "name": "芒果TV",
+              "url": "https://www.mgtv.com",
+              "logo": "assets/images/logos/mangguo.png",
+              "desc": "天生青春-新媒体视频平台"
+            },
+            {
+              "name": "QQ音乐",
+              "url": "https://y.qq.com/",
+              "logo": "assets/images/logos/QQ%e9%9f%b3%e4%b9%90.jpg",
+              "desc": "QQ音乐，在线听歌"
+            },
+            {
+              "name": "网易云音乐",
+              "url": "https://music.163.com/",
+              "logo": "assets/images/logos/%e7%bd%91%e6%98%93%e4%ba%91%e9%9f%b3%e4%b9%90.jpg",
+              "desc": "163网易云音乐"
+            },
+            {
+              "name": "洛雪音乐",
+              "url": "https://lxmusic.toside.cn",
+              "logo": "assets/images/logos/rxyy.png",
+              "desc": "聚合全网音源-免费音乐查找与播放"
+            }
+          ]
+        },
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a02",
+          "name": "影音工具",
+          "sites": [
+            {
+              "name": "即梦AI",
+              "url": "https://jimeng.jianying.com/ai-tool/home",
+              "logo": "assets/images/logos/jimeng.png",
+              "desc": "一站式多模态AI-让灵感即刻成片"
+            },
+            {
+              "name": "剪映",
+              "url": "https://www.capcut.cn",
+              "logo": "assets/images/logos/JianYing.png",
+              "desc": "全能型AI视频与图像编辑平台"
+            },
+            {
+              "name": "影忆",
+              "url": "https://www.yingyiapp.com",
+              "logo": "assets/images/logos/yingyi.png",
+              "desc": "全民流行的视频制作软件"
+            },
+            {
+              "name": "达芬奇-DaVinci Resolve",
+              "url": "https://www.blackmagicdesign.com/cn/products/davinciresolve",
+              "logo": "assets/images/logos/DaVinciResolve.jpg",
+              "desc": "一站式专业影视后期全流程软件"
+            },
+            {
+              "name": "mpv",
+              "url": "https://mpv.io",
+              "logo": "assets/images/logos/mpv.png",
+              "desc": "极简高性能媒体播放器"
+            },
+            {
+              "name": "VLC",
+              "url": "https://www.videolan.org",
+              "logo": "assets/images/logos/VLC.png",
+              "desc": "全平台多媒体播放器"
+            },
+            {
+              "name": "PotPlayer",
+              "url": "https://potplayer.tv/?lang=zh_CN",
+              "logo": "assets/images/logos/PotPlayer.png",
+              "desc": "Windows平台免费高性能多媒体播放器"
+            },
+            {
+              "name": "Easydown",
+              "url": "https://easydown.org/zh",
+              "logo": "assets/images/logos/Easydown.jpg",
+              "desc": "免费视频解析下载工具网站"
+            },
+            {
+              "name": "iiiLab",
+              "url": "https://youtube.iiilab.com",
+              "logo": "assets/images/logos/iiiLab.jpg",
+              "desc": "免费在线视频解析下载工具"
+            },
+            {
+              "name": "KuKuTool",
+              "url": "https://dy.kukutool.com/zh-Hans-SG",
+              "logo": "assets/images/logos/kuku.png",
+              "desc": "批量无水印解析下载130多个平台视频，图片，实况Live图"
+            },
+            {
+              "name": "格式工厂",
+              "url": "http://www.pcfreetime.com/formatfactory/cn/index.html",
+              "logo": "assets/images/logos/gsgc.jpg",
+              "desc": "万能多媒体格式处理软件"
+            },
+            {
+              "name": "YouCompress",
+              "url": "https://www.youcompress.com/zh-cn",
+              "logo": "assets/images/logos/YouCompress.png",
+              "desc": "免费在线压缩视频/图片/音频"
+            },
+            {
+              "name": "Open Screen",
+              "url": "https://openscreen.vercel.app",
+              "logo": "assets/images/logos/openscreen.jpg",
+              "desc": "轻量级屏幕录制与视频美化工具(智能变焦/平滑放大)"
+            },
+            {
+              "name": "FSCapture",
+              "url": "https://www.faststonecapture.cn",
+              "logo": "assets/images/logos/FSC.png",
+              "desc": "轻量截图与录屏神器"
+            },
+            {
+              "name": "OBS Studio",
+              "url": "https://obsproject.com",
+              "logo": "assets/images/logos/obs.jpg",
+              "desc": "免费开源录屏与直播神器"
+            }
+          ]
+        },
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a03",
+          "name": "图片工具",
+          "sites": [
+            {
+              "name": "百度文心助手",
+              "url": "https://chat.baidu.com",
+              "logo": "assets/images/logos/wenxin.png",
+              "desc": "百度AI搜"
+            },
+            {
+              "name": "SMALL.IM",
+              "url": "https://small.im/zh-hans",
+              "logo": "assets/images/logos/small.jpg",
+              "desc": "批量压缩/裁剪/转换|添加水印|移除背景等图片处理"
+            },
+            {
+              "name": "DeepConvert",
+              "url": "https://deepconvert.net",
+              "logo": "assets/images/logos/deepconvert.jpg",
+              "desc": "超好用全格式图片互转神器，一键快速转换"
+            },
+            {
+              "name": "PhotoKit",
+              "url": "https://photokit.com/?lang=zh",
+              "logo": "assets/images/logos/photokit.png",
+              "desc": "AI免费在线图片编辑器及批处理"
+            },
+            {
+              "name": "PicWish",
+              "url": "https://picwish.com/create",
+              "logo": "assets/images/logos/Picwish.png",
+              "desc": "AI多功能图片创作与编辑平台|一站式AI图像处理"
+            },
+            {
+              "name": "Birme",
+              "url": "https://www.birme.net",
+              "logo": "assets/images/logos/Birme.png",
+              "desc": "免费在线批量裁剪/重命名/自定义水印"
+            },
+            {
+              "name": "raphael/AI图像扩展器",
+              "url": "https://raphael.app/zh/uncrop",
+              "logo": "assets/images/logos/rahael.png",
+              "desc": "向任何方向扩展图像-向任何方向扩展图像"
+            },
+            {
+              "name": "raphael/AI去背景",
+              "url": "https://raphael.app/zh/background-remover",
+              "logo": "assets/images/logos/rahael.png",
+              "desc": "AI背景移除工具"
+            },
+            {
+              "name": "CleanUpPhotos",
+              "url": "https://cleanupphotos.com",
+              "logo": "assets/images/logos/cup.jpg",
+              "desc": "去水印|移除不需要的物体或背景."
+            },
+            {
+              "name": "remove",
+              "url": "https://www.remove.bg/upload",
+              "logo": "assets/images/logos/remove.png",
+              "desc": "去除背景自动抠图"
+            },
+            {
+              "name": "design-easy",
+              "url": "https://www.design-easy.com/id-photo-generator",
+              "logo": "assets/images/logos/designeasy.png",
+              "desc": "证件照生成器"
+            },
+            {
+              "name": "草料二维码",
+              "url": "https://cli.im",
+              "logo": "assets/images/logos/clewm.jpg",
+              "desc": "草料二维码生成器"
+            },
+            {
+              "name": "ShareX",
+              "url": "https://getsharex.com",
+              "logo": "assets/images/logos/sharex.jpg",
+              "desc": "免费、开源、无广告的全能截图 / 录屏 / 上传工具"
+            },
+            {
+              "name": "PixPin",
+              "url": "https://pixpin.cn",
+              "logo": "assets/images/logos/PixPin.jpg",
+              "desc": "全能型免费截图软件截图贴图"
+            },
+            {
+              "name": "Snipaste",
+              "url": "https://zh.snipaste.com",
+              "logo": "assets/images/logos/snipaste.png",
+              "desc": "轻量高效的免费截图/贴图工具"
+            }
+          ]
+        },
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a04",
+          "name": "图形设计",
+          "sites": [
+            {
+              "name": "剪映AI图片设计",
+              "url": "https://www.jianying.com/editor-graphic",
+              "logo": "assets/images/logos/JianYing.png",
+              "desc": "剪映网页版AI图形编辑"
+            },
+            {
+              "name": "在线ps",
+              "url": "https://zaixianps.net/",
+              "logo": "assets/images/logos/inoreader.jpg",
+              "desc": "在线p图工具"
+            },
+            {
+              "name": "Canva",
+              "url": "https://www.canva.com",
+              "logo": "assets/images/logos/Canva.jpg",
+              "desc": "在线图形设计平台"
+            },
+            {
+              "name": "创客贴",
+              "url": "https://www.chuangkit.com/designtools/designindex",
+              "logo": "assets/images/logos/chuangkit.jpg",
+              "desc": "国产在线图形设计与内容创作平台"
+            },
+            {
+              "name": "稿定设计",
+              "url": "https://m.gaoding.com/creation",
+              "logo": "assets/images/logos/gaoding.jpg",
+              "desc": "国产在线商业视觉设计与内容创作平台"
+            },
+            {
+              "name": "美图秀秀",
+              "url": "https://pc.meitu.com",
+              "logo": "assets/images/logos/mtxx.jpg",
+              "desc": "在线P图抠图拼图"
+            },
+            {
+              "name": "ProcessOn",
+              "url": "https://www.processon.com",
+              "logo": "assets/images/logos/ProcessOn.png",
+              "desc": "在线流程图|思维导图"
+            }
+          ]
+        },
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a05",
+          "name": "图标素材",
+          "sites": [
+            {
+              "name": "iconfont",
+              "url": "http://www.iconfont.cn/",
+              "logo": "assets/images/logos/albbs.jpg",
+              "desc": "阿里矢量图标库。"
+            },
+            {
+              "name": "Google Fonts",
+              "url": "https://fonts.google.com/icons",
+              "logo": "assets/images/logos/GoogleFonts.jpg",
+              "desc": "Google推出的免费开源图标库"
+            },
+            {
+              "name": "Freepik-icons",
+              "url": "https://www.freepik.com/icons",
+              "logo": "assets/images/logos/Freepik-icons.png",
+              "desc": "免费图标在线下载/编辑"
+            },
+            {
+              "name": "Icon Archive",
+              "url": "http://www.iconarchive.com/",
+              "logo": "assets/images/logos/IconArchive.jpg",
+              "desc": "海量免费图标检索/下载"
+            },
+            {
+              "name": "FreeImages",
+              "url": "https://www.freeimages.com",
+              "logo": "assets/images/logos/FreeImages.png",
+              "desc": "照片、矢量图、图标免费下载。"
+            },
+            {
+              "name": "Flaticon",
+              "url": "https://www.flaticon.com/",
+              "logo": "assets/images/logos/Flaticon.jpg",
+              "desc": "全球最大的矢量图标与贴纸资源平台"
+            },
+            {
+              "name": "iOS Icon Gallery",
+              "url": "http://iosicongallery.com/",
+              "logo": "assets/images/logos/iosicongallery.png",
+              "desc": "Showcasing beautiful icon designs from the iOS App Store。"
+            },
+            {
+              "name": "World Vector Logo",
+              "url": "https://worldvectorlogo.com/",
+              "logo": "assets/images/logos/worldvectorlogo.png",
+              "desc": "Brand logos free to download。"
+            },
+            {
+              "name": "Iconsfeed",
+              "url": "http://www.iconsfeed.com/",
+              "logo": "assets/images/logos/iconsfeed.png",
+              "desc": "iOS icons gallery。"
+            },
+            {
+              "name": "IcoMoonApp",
+              "url": "https://icomoon.io/app/",
+              "logo": "assets/images/logos/IcoMoonApp.png",
+              "desc": "Icon Font, SVG, PDF & PNG Generator。"
+            },
+            {
+              "name": "Font Awesome Icon",
+              "url": "https://fontawesome.com/icons/",
+              "logo": "assets/images/logos/fontawesomeicon.png",
+              "desc": "The complete set of 675 icons in Font Awesome。"
+            },
+            {
+              "name": "ion icons",
+              "url": "http://ionicons.com/",
+              "logo": "assets/images/logos/ionicons.png",
+              "desc": "The premium icon font for Ionic Framework。"
+            },
+            {
+              "name": "Simpleline Icons",
+              "url": "http://simplelineicons.com/",
+              "logo": "assets/images/logos/simplelineicons.png",
+              "desc": "Simple line Icons pack。"
+            }
+          ]
+        },
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a06",
+          "name": "平面素材",
+          "sites": [
+            {
+              "name": "千图网",
+              "url": "http://www.58pic.com/",
+              "logo": "assets/images/logos/qiantu.png",
+              "desc": "专注免费设计素材下载的网站。"
+            },
+            {
+              "name": "千库网",
+              "url": "http://588ku.com/",
+              "logo": "assets/images/logos/qianku.png",
+              "desc": "免费 png 图片背景素材下载。"
+            },
+            {
+              "name": "我图网",
+              "url": "http://www.ooopic.com/",
+              "logo": "assets/images/logos/wotu.png",
+              "desc": "我图网，提供图片素材及模板下载，专注正版设计作品交易。"
+            },
+            {
+              "name": "90 设计",
+              "url": "http://90sheji.com/",
+              "logo": "assets/images/logos/90sheji.png",
+              "desc": "电商设计（淘宝美工）千图免费淘宝素材库。"
+            },
+            {
+              "name": "昵图网",
+              "url": "http://www.nipic.com/",
+              "logo": "assets/images/logos/nipic.png",
+              "desc": "原创素材共享平台。"
+            },
+            {
+              "name": "素材中国",
+              "url": "http://www.sccnn.com/",
+              "logo": "assets/images/logos/sccnn.png",
+              "desc": "免费素材共享平台。"
+            },
+            {
+              "name": "Freepik",
+              "url": "https://www.freepik.com/",
+              "logo": "assets/images/logos/freepik.png",
+              "desc": "More than a million free vectors, PSD, photos and free icons。"
+            },
+            {
+              "name": "wallhalla",
+              "url": "https://wallhalla.com/",
+              "logo": "assets/images/logos/wallhalla.png",
+              "desc": "Find awesome high quality wallpapers for desktop and mobile in one place。"
+            },
+            {
+              "name": "365PSD",
+              "url": "https://365psd.com/",
+              "logo": "assets/images/logos/365PSD.png",
+              "desc": "Free PSD & Graphics, Illustrations。"
+            },
+            {
+              "name": "Medialoot",
+              "url": "https://medialoot.com/",
+              "logo": "assets/images/logos/Medialoot.png",
+              "desc": "Free & Premium Design Resources — Medialoot。"
+            }
+          ]
+        },
+        {
+          "id": "a4d417d7850fde0cd00e4af576621a07",
+          "name": "字体资源",
+          "sites": [
+            {
+              "name": "阿里巴巴普惠体",
+              "url": "https://www.alibabafonts.com/#/font",
+              "logo": "assets/images/logos/albb.jpg",
+              "desc": "免费正版中文字体库永久免费可商用"
+            },
+            {
+              "name": "Google Font",
+              "url": "https://fonts.google.com/",
+              "logo": "assets/images/logos/googlefont.png",
+              "desc": "Making the web more beautiful, fast, and open through great typography。"
+            },
+            {
+              "name": "方正字库",
+              "url": "http://www.foundertype.com/",
+              "logo": "assets/images/logos/Fondertype.png",
+              "desc": "方正字库官方网站。"
+            },
+            {
+              "name": "字体传奇网",
+              "url": "http://ziticq.com/",
+              "logo": "assets/images/logos/ziticq.png",
+              "desc": "中国首个字体品牌设计师交流网。"
+            },
+            {
+              "name": "私藏字体",
+              "url": "http://sicangziti.com/",
+              "logo": "assets/images/logos/sicangziti.png",
+              "desc": "优质字体免费下载站。"
+            },
+            {
+              "name": "Typekit",
+              "url": "https://typekit.com/",
+              "logo": "assets/images/logos/typekit.png",
+              "desc": "Quality fonts from the world’s best foundries。"
+            },
+            {
+              "name": "Fontsquirrel",
+              "url": "https://www.fontsquirrel.com/",
+              "logo": "assets/images/logos/fontsquirrel.png",
+              "desc": "FREE fonts for graphic designers。"
+            },
+            {
+              "name": "Urban Fonts",
+              "url": "https://www.urbanfonts.com/",
+              "logo": "assets/images/logos/UrbanFonts.png",
+              "desc": "Download Free Fonts and Free Dingbats。"
+            },
+            {
+              "name": "Lost Type",
+              "url": "http://www.losttype.com/",
+              "logo": "assets/images/logos/losttype.png",
+              "desc": "Lost Type is a Collaborative Digital Type Foundry。"
+            },
+            {
+              "name": "FONTS2U",
+              "url": "https://fonts2u.com/",
+              "logo": "assets/images/logos/fonts2u.png",
+              "desc": "Download free fonts for Windows and Macintosh。"
+            },
+            {
+              "name": "Fontex",
+              "url": "http://www.fontex.org/",
+              "logo": "assets/images/logos/fontex.png",
+              "desc": "Free Fonts to Download + Premium Typefaces。"
+            },
+            {
+              "name": "FontM",
+              "url": "http://fontm.com/",
+              "logo": "assets/images/logos/FontM.png",
+              "desc": "Free Fonts"
+            },
+            {
+              "name": "My Fonts",
+              "url": "http://www.myfonts.com/",
+              "logo": "assets/images/logos/MyFonts.png",
+              "desc": "Fonts for Print, Products & Screens。"
+            },
+            {
+              "name": "Da Font",
+              "url": "https://www.dafont.com/",
+              "logo": "assets/images/logos/dafont.png",
+              "desc": "Archive of freely downloadable fonts。"
+            },
+            {
+              "name": "OnlineWebFonts",
+              "url": "https://www.onlinewebfonts.com/",
+              "logo": "assets/images/logos/OnlineWebFonts.png",
+              "desc": "WEB Free Fonts for Windows and Mac / Font free Download。"
+            },
+            {
+              "name": "Abstract Fonts",
+              "url": "http://www.abstractfonts.com/",
+              "logo": "assets/images/logos/abstractfonts.png",
+              "desc": "Abstract Fonts (13,866 free fonts)。"
+            }
+          ]
+        }
+      ],
+      "expanded": false
+    },
+    {
+      "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
+      "name": "开发者资源",
+      "icon": "fas fa-cog fa-lg",
+      "subCategories": [
+        {
+          "id": "4fbc8ba07df90bae306d8e3b83fc5a01",
+          "name": "开发工具",
+          "sites": [
+            {
+              "name": "Cloudflare",
+              "url": "https://www.cloudflare.com/zh-cn",
+              "logo": "assets/images/logos/CloudFlare.jpg",
+              "desc": "全球网络安全加速平台"
+            },
+            {
+              "name": "GitHub",
+              "url": "https://github.com/",
+              "logo": "assets/images/logos/github.jpg",
+              "desc": "GitHub开源社区"
+            },
+            {
+              "name": "Vercel",
+              "url": "https://vercel.com/maiclezxds-projects",
+              "logo": "assets/images/logos/vercel.png",
+              "desc": "全球领先的前端云平台"
+            },
+            {
+              "name": "Gitee",
+              "url": "https://gitee.com",
+              "logo": "assets/images/logos/Gitee.png",
+              "desc": "中国版GitHub-开源中国旗下代码托管平台"
+            },
+            {
+              "name": "CSDN",
+              "url": "https://www.csdn.net",
+              "logo": "assets/images/logos/CSDN.jpg",
+              "desc": "中国专业开发者社区&IT技术知识平台"
+            },
+            {
+              "name": "掘金",
+              "url": "https://juejin.cn",
+              "logo": "assets/images/logos/juejin.png",
+              "desc": "帮助开发者成长的社区"
+            },
+            {
+              "name": "开源中国",
+              "url": "https://www.oschina.net/",
+              "logo": "assets/images/logos/开源中国.jpg",
+              "desc": "中文开源技术交流社区。"
+            },
+            {
+              "name": "菜鸟教程",
+              "url": "https://www.runoob.com",
+              "logo": "assets/images/logos/cainiao.png",
+              "desc": "免费编程入门教程网站"
+            },
+            {
+              "name": "博客园",
+              "url": "https://www.cnblogs.com",
+              "logo": "assets/images/logos/bky.jpg",
+              "desc": "国内历史最悠久/最具影响力的开发者技术博客社区"
+            },
+            {
+              "name": "在线工具助手",
+              "url": "https://tool.gitapp.cn",
+              "logo": "assets/images/logos/mdx.png",
+              "desc": "一些常见的开发工具"
+            }
+          ]
+        },
+        {
+          "id": "4fbc8ba07df90bae306d8e3b83fc5a02",
+          "name": "云服务器",
+          "sites": [
+            {
+              "name": "阿里云",
+              "url": "https://www.aliyun.com/",
+              "logo": "assets/images/logos/阿里云.jpg",
+              "desc": "上云就上阿里云"
+            },
+            {
+              "name": "腾讯云",
+              "url": "https://cloud.tencent.com/",
+              "logo": "assets/images/logos/腾讯云.jpg",
+              "desc": "产业智变，云启未来"
+            },
+            {
+              "name": "华为云",
+              "url": "https://www.huawe1icloud.com/",
+              "logo": "assets/images/logos/华为云.png",
+              "desc": "提供云计算服务+智能，见未来-华为云"
+            },
+            {
+              "name": "VULTR",
+              "url": "https://www.vultr.com",
+              "logo": "assets/images/logos/vultr.png",
+              "desc": "开发者的云服务"
+            }
+          ]
+        },
+        {
+          "id": "4fbc8ba07df90bae306d8e3b83fc5a03",
+          "name": "域名DNS",
+          "sites": [
+            {
+              "name": "DNSHE",
+              "url": "https://my.dnshe.com",
+              "logo": "assets/images/logos/DNSHE.jpg",
+              "desc": "永久免费的二级域名与DNS服务平台"
+            },
+            {
+              "name": "ClouDNS",
+              "url": "https://www.cloudns.net",
+              "logo": "assets/images/logos/cloudns.png",
+              "desc": "全球托管DNS与域名服务提供商"
+            }
+          ]
+        }
+      ],
+      "expanded": false
+    },
+    {
+      "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
+      "name": "办公学习",
+      "icon": "fas fa-book fa-lg",
+      "subCategories": [
+        {
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
+          "name": "翻译词典",
+          "sites": [
+            {
+              "name": "有道翻译",
+              "url": "http://fanyi.youdao.com/",
+              "logo": "assets/images/logos/有道翻译.png",
+              "desc": "有道翻译"
+            },
+            {
+              "name": "金山词霸",
+              "url": "https://www.iciba.com",
+              "logo": "assets/images/logos/jinshan.jpg",
+              "desc": "权威词典||英语学习全能平台"
+            },
+            {
+              "name": "百度翻译",
+              "url": "https://fanyi.baidu.com",
+              "logo": "assets/images/logos/baidufanyi.jpg",
+              "desc": "国内场景最强/功能最全"
+            },
+            {
+              "name": "腾讯翻译君",
+              "url": "https://fanyi.qq.com",
+              "logo": "assets/images/logos/tengxun.jpg",
+              "desc": "轻量高效AI翻译"
+            },
+            {
+              "name": "DeepL翻译",
+              "url": "https://www.deepl.com/zh/translator",
+              "logo": "assets/images/logos/DeepL.jpg",
+              "desc": "专业级高质量翻译"
+            },
+            {
+              "name": "谷歌翻译",
+              "url": "https://translate.google.cn/",
+              "logo": "assets/images/logos/gugefanyi.png",
+              "desc": "全球普及度最高的多语种翻译"
+            }
+          ]
+        },
+        {
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e02",
+          "name": "文档办公",
+          "sites": [
+            {
+              "name": "WPS在线",
+              "url": "https://www.wps.cn",
+              "logo": "assets/images/logos/WPSzx.jpg",
+              "desc": "全能Office/AI强兼容"
+            },
+            {
+              "name": "金山文档",
+              "url": "https://www.kdocs.cn",
+              "logo": "assets/images/logos/jswd.jpg",
+              "desc": "WPS网页版，免装即用"
+            },
+            {
+              "name": "腾讯文档",
+              "url": "https://docs.qq.com",
+              "logo": "assets/images/logos/txwd.jpg",
+              "desc": "微信生态/轻巧分享"
+            },
+            {
+              "name": "石墨文档",
+              "url": "https://shimo.im",
+              "logo": "assets/images/logos/smwd.jpg",
+              "desc": "企业协同/安全流畅"
+            },
+            {
+              "name": "语雀",
+              "url": "https://www.yuque.com",
+              "logo": "assets/images/logos/yuque.jpg",
+              "desc": "文档协同/专业云端结构化知识库"
+            },
+            {
+              "name": "飞书文档",
+              "url": "https://www.feishu.cn/product/docs",
+              "logo": "assets/images/logos/fswd.jpg",
+              "desc": "飞书生态/高效共创"
+            },
+            {
+              "name": "钉钉文档",
+              "url": "https://alidocs.dingtalk.com",
+              "logo": "assets/images/logos/ddwd.jpg",
+              "desc": "钉钉原生/企业强管控"
+            },
+            {
+              "name": "印象笔记",
+              "url": "https://www.yinxiang.com",
+              "logo": "assets/images/logos/yxbj.jpg",
+              "desc": "经典笔记/知识沉淀"
+            }
+          ]
+        },
+        {
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e03",
+          "name": "网盘资源",
+          "sites": [
+            {
+              "name": "百度网盘",
+              "url": "http://pan.baidu.com/",
+              "logo": "assets/images/logos/百度网盘.jpg",
+              "desc": "国内最大网盘，资源库最全"
+            },
+            {
+              "name": "123云盘",
+              "url": "https://www.123pan.com",
+              "logo": "assets/images/logos/123yp.png",
+              "desc": "2T大容量不限速，适合做图床/资源站"
+            },
+            {
+              "name": "Google Drive",
+              "url": "https://drive.google.com",
+              "logo": "assets/images/logos/Google_drive_logo.png",
+              "desc": "谷歌全能云盘，免费15GB存储空间"
+            },
+            {
+              "name": "阿里云盘",
+              "url": "https://www.aliyundrive.com/",
+              "logo": "assets/images/logos/阿里云盘.png",
+              "desc": "不限速安全无广告"
+            },
+            {
+              "name": "腾讯微云",
+              "url": "https://www.weiyun.com",
+              "logo": "assets/images/logos/txwy.png",
+              "desc": "个人智能云盘，主打QQ/微信生态深度融合"
+            },
+            {
+              "name": "蓝奏云",
+              "url": "https://up.woozooo.com",
+              "logo": "assets/images/logos/lzy.png",
+              "desc": "专注小文件，完全免费不限容量不限速"
+            },
+            {
+              "name": "坚果云",
+              "url": "https://www.jianguoyun.com",
+              "logo": "assets/images/logos/坚果云.png",
+              "desc": "专业同步，办公首选"
+            },
+            {
+              "name": "中国移动云盘",
+              "url": "https://yun.139.com",
+              "logo": "assets/images/logos/zgyd.jpg",
+              "desc": "中国移动官方云盘，移动用户不限速定向免流"
+            },
+            {
+              "name": "天翼云盘",
+              "url": "https://cloud.189.cn/",
+              "logo": "assets/images/logos/天翼云盘.jpg",
+              "desc": "电信官方网盘，高速稳定"
+            }
+          ]
+        },
+        {
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e04",
+          "name": "电子邮箱",
+          "sites": [
+            {
+              "name": "Gmail",
+              "url": "https://mail.google.com",
+              "logo": "assets/images/logos/gmail.png",
+              "desc": "https://mail.google.com"
+            },
+            {
+              "name": "网易邮箱",
+              "url": "https://mail.163.com",
+              "logo": "assets/images/logos/163mail.jpg",
+              "desc": "https://mail.163.com"
+            },
+            {
+              "name": "126邮箱",
+              "url": "https://mail.126.com",
+              "logo": "assets/images/logos/126yx.jpg",
+              "desc": "https://mail.126.com"
+            },
+            {
+              "name": "QQ邮箱",
+              "url": "https://mail.qq.com",
+              "logo": "assets/images/logos/QQyx.jpg",
+              "desc": "https://mail.qq.com"
+            },
+            {
+              "name": "新浪邮箱",
+              "url": "https://mail.sina.com.cn",
+              "logo": "assets/images/logos/sina.jpg",
+              "desc": "https://mail.sina.com.cn"
+            },
+            {
+              "name": "阿里邮箱",
+              "url": "https://mail.aliyun.com",
+              "logo": "assets/images/logos/aliyx.jpg",
+              "desc": "https://mail.aliyun.com"
+            },
+            {
+              "name": "iCloud邮箱",
+              "url": "https://www.icloud.com",
+              "logo": "assets/images/logos/icloud.jpg",
+              "desc": "https://www.icloud.com"
+            },
+            {
+              "name": "2925无限邮箱",
+              "url": "https://www.2925.com",
+              "logo": "assets/images/logos/2925mail.jpg",
+              "desc": "https://www.2925.com"
+            },
+            {
+              "name": "Proton Mail",
+              "url": "https://mail.proton.me",
+              "logo": "assets/images/logos/proton.jpg",
+              "desc": "https://mail.proton.me"
+            }
+          ]
+        }
+      ],
+      "expanded": false
+    },
+    {
+      "id": "9c2232288caaa8ec40948cef6a786a01",
+      "name": "生活社交",
+      "icon": "fas fa-users fa-lg",
+      "subCategories": [
+        {
+          "id": "9c2232288caaa8ec40948cef6a786a01",
+          "name": "社交社区",
+          "sites": [
+            {
+              "name": "QQ",
+              "url": "https://im.qq.com/index",
+              "logo": "assets/images/logos/QQ.jpg",
+              "desc": ""
+            },
+            {
+              "name": "微信",
+              "url": "https://weixin.qq.com",
+              "logo": "assets/images/logos/weixin.jpg",
+              "desc": ""
+            },
+            {
+              "name": "WhatsApp",
+              "url": "https://www.whatsapp.com",
+              "logo": "assets/images/logos/whatsapp.jpg",
+              "desc": ""
+            },
+            {
+              "name": "Instagram",
+              "url": "https://www.instagram.com",
+              "logo": "assets/images/logos/Instagram.jpg",
+              "desc": ""
+            },
+            {
+              "name": "Facebook",
+              "url": "https://www.facebook.com",
+              "logo": "assets/images/logos/face.jpg",
+              "desc": ""
+            },
+            {
+              "name": "X|Twitter",
+              "url": "https://x.com",
+              "logo": "assets/images/logos/X.jpg",
+              "desc": ""
+            },
+            {
+              "name": "Telegram",
+              "url": "https://telegram.org",
+              "logo": "assets/images/logos/Telegram.jpg",
+              "desc": ""
+            },
+            {
+              "name": "微博",
+              "url": "https://weibo.com",
+              "logo": "assets/images/logos/SinaWeibo.jpg",
+              "desc": ""
+            },
+            {
+              "name": "知乎",
+              "url": "https://www.zhihu.com",
+              "logo": "assets/images/logos/zhihu.jpg",
+              "desc": ""
+            },
+            {
+              "name": "豆瓣",
+              "url": "https://www.douban.com",
+              "logo": "assets/images/logos/douban.jpg",
+              "desc": ""
+            },
+            {
+              "name": "百度贴吧",
+              "url": "https://tieba.baidu.com",
+              "logo": "assets/images/logos/bdtb.jpg",
+              "desc": ""
+            },
+            {
+              "logo": "assets/images/logos/NodeSeek.jpg",
+              "name": "NodeSeek",
+              "url": "https://www.nodeseek.com/",
+              "desc": "是一个面向网络开发、VPS / 服务器、主机托管与极客爱好者的技术社区论坛"
+            }
+          ]
+        },
+        {
+          "id": "9c2232288caaa8ec40948cef6a786a02",
+          "name": "新闻资讯",
+          "sites": [
+            {
+              "name": "新华网",
+              "url": "https://www.xinhuanet.com",
+              "logo": "assets/images/logos/xhw.jpg",
+              "desc": "国家通讯社新华社旗下官网"
+            },
+            {
+              "name": "人民网",
+              "url": "https://www.people.com.cn",
+              "logo": "assets/images/logos/rmw.jpg",
+              "desc": "人民日报官方网站，中央重点新闻网站"
+            },
+            {
+              "name": "澎湃新闻",
+              "url": "https://www.thepaper.cn",
+              "logo": "assets/images/logos/pengpai.jpg",
+              "desc": "主打深度调查/原创新闻/时事评论"
+            },
+            {
+              "name": "观察者网",
+              "url": "https://www.guancha.cn",
+              "logo": "assets/images/logos/guan.jpg",
+              "desc": "主打时政/国际/军事/财经的深度分析网站"
+            },
+            {
+              "name": "36氪",
+              "url": "https://36kr.com",
+              "logo": "assets/images/logos/36kr.png",
+              "desc": "互联网与科技领域第一媒体"
+            },
+            {
+              "name": "钛媒体",
+              "url": "https://www.tmtpost.com",
+              "logo": "assets/images/logos/tmt.jpg",
+              "desc": "聚焦科技/数字经济/产业互联网"
+            },
+            {
+              "name": "今日头条",
+              "url": "https://www.toutiao.com",
+              "logo": "assets/images/logos/jrtt.jpg",
+              "desc": "字节旗下个性化推荐引擎资讯平台/综合资讯"
+            },
+            {
+              "name": "腾讯新闻",
+              "url": "https://news.qq.com",
+              "logo": "assets/images/logos/txxw.png",
+              "desc": "腾讯旗下的综合新闻平台"
+            },
+            {
+              "name": "网易新闻",
+              "url": "https://news.163.com",
+              "logo": "assets/images/logos/wyxw.jpg",
+              "desc": "网易旗下的老牌新闻门户"
+            },
+            {
+              "name": "新浪新闻",
+              "url": "https://news.sina.com.cn",
+              "logo": "assets/images/logos/xlxw.jpg",
+              "desc": "新浪旗下的核心新闻频道"
+            },
+            {
+              "name": "搜狐新闻",
+              "url": "https://news.sohu.com",
+              "logo": "assets/images/logos/soho.jpg",
+              "desc": "搜狐旗下的综合新闻资讯平台"
+            },
+            {
+              "name": "凤凰网",
+              "url": "https://www.ifeng.com",
+              "logo": "assets/images/logos/fenghuang.png",
+              "desc": "凤凰卫视旗下的全球华人资讯平台"
+            }
+          ]
+        },
+        {
+          "id": "9c2232288caaa8ec40948cef6a786a03",
+          "name": "购物平台",
+          "sites": [
+            {
+              "name": "淘宝",
+              "url": "https://www.taobao.com",
+              "logo": "assets/images/logos/tbw.jpg",
+              "desc": ""
+            },
+            {
+              "name": "天猫",
+              "url": "https://www.tmall.com",
+              "logo": "assets/images/logos/tm.jpg",
+              "desc": ""
+            },
+            {
+              "name": "京东",
+              "url": "https://www.jd.com",
+              "logo": "assets/images/logos/jdw.png",
+              "desc": ""
+            },
+            {
+              "name": "拼多多",
+              "url": "https://www.pinduoduo.com",
+              "logo": "assets/images/logos/pdd.jpg",
+              "desc": ""
+            },
+            {
+              "name": "小米有品",
+              "url": "https://www.xiaomiyoupin.com",
+              "logo": "assets/images/logos/xmyp.png",
+              "desc": ""
+            },
+            {
+              "name": "苏宁易购",
+              "url": "https://www.suning.com",
+              "logo": "assets/images/logos/snyg.png",
+              "desc": ""
+            },
+            {
+              "name": "得物",
+              "url": "https://www.dewu.com",
+              "logo": "assets/images/logos/dewu.jpg",
+              "desc": ""
+            },
+            {
+              "name": "唯品会",
+              "url": "https://www.vip.com",
+              "logo": "assets/images/logos/wph.jpg",
+              "desc": ""
+            }
+          ]
+        },
+        {
+          "id": "9c2232288caaa8ec40948cef6a786a04",
+          "name": "生活旅行",
+          "sites": [
+            {
+              "name": "美团",
+              "url": "https://w.dianping.com/c/OThhYWM2N2Qt",
+              "logo": "assets/images/logos/mtw.png",
+              "desc": "零售与本地生活服务平台，覆盖吃喝玩乐住行全场景"
+            },
+            {
+              "name": "大众点评",
+              "url": "https://www.dianping.com",
+              "logo": "assets/images/logos/DianPing.jpg",
+              "desc": "消费点评、团购省钱，发现品质生活"
+            },
+            {
+              "name": "淘宝闪购",
+              "url": "https://microdown.yyb.qq.com/o/simple.jsp?pkgname=me.ele",
+              "logo": "assets/images/logos/tbsg.png",
+              "desc": "阿里巴巴旗下的即时零售服务"
+            },
+            {
+              "name": "58同城",
+              "url": "https://www.58.com",
+              "logo": "assets/images/logos/58tc.jpg",
+              "desc": "覆盖生活全场景，高效解决求职/租房/找服务/买卖二手等日常需求"
+            },
+            {
+              "name": "猫眼",
+              "url": "https://maoyan.com",
+              "logo": "assets/images/logos/my.webp",
+              "desc": "电影/演出/赛事票务/在线选座"
+            },
+            {
+              "name": "BOSS直聘",
+              "url": "https://www.zhipin.com",
+              "logo": "assets/images/logos/boss.jpg",
+              "desc": "中国领先的直聘模式招聘平台,让求职者与用人方提升效率"
+            },
+            {
+              "name": "智联招聘",
+              "url": "https://www.zhaopin.com",
+              "logo": "assets/images/logos/zlzp.webp",
+              "desc": "国内老牌人力资源服务平台"
+            },
+            {
+              "name": "前程无忧",
+              "url": "https://www.51job.com",
+              "logo": "assets/images/logos/qcwy.jpg",
+              "desc": "中国领先的综合人力资源服务商"
+            },
+            {
+              "name": "去哪儿网",
+              "url": "https://www.qunar.com",
+              "logo": "assets/images/logos/qner.webp",
+              "desc": "中国领先的旅游搜索与比价平台，主打机票/酒店全网比价"
+            },
+            {
+              "name": "携程旅行",
+              "url": "https://www.ctrip.com",
+              "logo": "assets/images/logos/xclx.jpg",
+              "desc": "全球领先一站式旅行平台，全场景覆盖"
+            },
+            {
+              "name": "同程旅行",
+              "url": "https://www.ly.com",
+              "logo": "assets/images/logos/tclx.jpg",
+              "desc": "一站式旅游预订平台，知名的旅行服务公司"
+            },
+            {
+              "name": "飞猪旅行",
+              "url": "https://www.fliggy.com",
+              "logo": "assets/images/logos/fzlx.webp",
+              "desc": "阿里巴巴旗下|年轻化出境游标杆"
+            },
+            {
+              "name": "12306",
+              "url": "https://www.12306.cn",
+              "logo": "assets/images/logos/12306.png",
+              "desc": "中国铁路集团唯一官方票务平台"
+            },
+            {
+              "name": "智行",
+              "url": "https://www.suanya.cn",
+              "logo": "assets/images/logos/zxhcp.webp",
+              "desc": "主打抢票、低价、智能推荐"
+            }
+          ]
+        },
+        {
+          "id": "9c2232288caaa8ec40948cef6a786a05",
+          "name": "实用查询",
+          "sites": [
+            {
+              "name": "快递100",
+              "url": "https://www.kuaidi100.com",
+              "logo": "assets/images/logos/kd100.webp",
+              "desc": "上百家常用快递实时查询"
+            },
+            {
+              "name": "查询网",
+              "url": "https://ip138.com",
+              "logo": "assets/images/logos/cxw.png",
+              "desc": "最全能的综合查询工具箱"
+            },
+            {
+              "name": "MYIP.COM",
+              "url": "https://www.myip.com",
+              "logo": "assets/images/logos/myip.jpg",
+              "desc": "查看您的IP地址"
+            },
+            {
+              "name": "Tcptest",
+              "url": "https://tcptest.cn",
+              "logo": "assets/images/logos/tcptest.png",
+              "desc": "免费在线网络拨测工具"
+            },
+            {
+              "name": "站长工具",
+              "url": "https://ip.chinaz.com",
+              "logo": "assets/images/logos/chinaz.jpg",
+              "desc": "站长圈老牌工具"
+            },
+            {
+              "name": "交通违章",
+              "url": "https://www.122.gov.cn",
+              "logo": "assets/images/logos/12123.jpg",
+              "desc": "全国车辆/驾驶证违法查询与处理官方平台"
+            },
+            {
+              "name": "学信网",
+              "url": "https://www.chsi.com.cn",
+              "logo": "assets/images/logos/xxw.jpg",
+              "desc": "中国唯一官方学历学籍查询平台"
+            },
+            {
+              "name": "发票查验",
+              "url": "https://inv-veri.chinatax.gov.cn",
+              "logo": "assets/images/logos/shui.png",
+              "desc": "国家税务总局唯一官方发票真伪查验平台"
+            },
+            {
+              "logo": "assets/images/logos/speedtest.jpg",
+              "name": "SpeedTest",
+              "url": "https://www.speedtest.net/zh-Hans",
+              "desc": "全球权威免费网络测速网站"
+            }
+          ]
+        }
+      ],
+      "expanded": false
+    },
+    {
+      "id": "19cb9b648dba4efc58a205ea413b6b01",
+      "name": "人工智能",
+      "icon": "fas fa-brain fa-lg",
+      "subCategories": [
+        {
+          "id": "19cb9b648dba4efc58a205ea413b6b01",
+          "name": "AI大模型",
+          "sites": [
+            {
+              "name": "豆包",
+              "url": "https://www.doubao.com",
+              "logo": "assets/images/logos/%E8%B1%86%E5%8C%85.png",
+              "desc": "字节跳动-豆包。"
+            },
+            {
+              "name": "DeepSeek",
+              "url": "https://chat.deepseek.com",
+              "logo": "assets/images/logos/DeepSeek.jpg",
+              "desc": "DeepSeek-深度求索"
+            },
+            {
+              "name": "文心一言",
+              "url": "https://yiyan.baidu.com",
+              "logo": "assets/images/logos/wxyy.jpg",
+              "desc": "百度旗下"
+            },
+            {
+              "name": "通义千问",
+              "url": "https://www.qianwen.com",
+              "logo": "assets/images/logos/Qwen.jpg",
+              "desc": "阿里旗下"
+            },
+            {
+              "name": "腾讯混元",
+              "url": "https://hunyuan.tencent.com",
+              "logo": "assets/images/logos/Qwen.jpg",
+              "desc": "腾讯旗下"
+            },
+            {
+              "name": "华为盘古",
+              "url": "https://www.huaweicloud.com/product/pangu/nlp.html",
+              "logo": "assets/images/logos/pangu.jpg",
+              "desc": "华为旗下"
+            },
+            {
+              "name": "讯飞星火",
+              "url": "https://xinghuo.xfyun.cn/desk",
+              "logo": "assets/images/logos/xfxh.png",
+              "desc": "科大讯飞旗下"
+            },
+            {
+              "name": "ChatGPT",
+              "url": "https://chatgpt.com",
+              "logo": "assets/images/logos/chatgpt.jpg",
+              "desc": "OpenAI-ChatGPT"
+            },
+            {
+              "name": "Gemini",
+              "url": "https://gemini.google.com",
+              "logo": "assets/images/logos/Gemini.jpg",
+              "desc": "谷歌旗下(Google）"
+            },
+            {
+              "name": "Claude",
+              "url": "https://claude.ai",
+              "logo": "assets/images/logos/claude-ai.jpg",
+              "desc": "Anthropic-Claude 5 / Claude Opus"
+            },
+            {
+              "name": "Llama",
+              "url": "https://www.meta.ai",
+              "logo": "assets/images/logos/metaai.png",
+              "desc": "Meta-Llama 4 / CodeLlama"
+            },
+            {
+              "name": "Grok",
+              "url": "https://grok.x.ai",
+              "logo": "assets/images/logos/Grok.png",
+              "desc": "xAI马斯克旗下大模型"
+            }
+          ]
+        },
+        {
+          "id": "19cb9b648dba4efc58a205ea413b6b02",
+          "name": "AI智能体",
+          "sites": [
+            {
+              "name": "文心",
+              "url": "https://agents.baidu.com",
+              "logo": "assets/images/logos/wxyy.jpg",
+              "desc": "百度文心智能体平台"
+            },
+            {
+              "name": "扣子",
+              "url": "https://www.coze.cn",
+              "logo": "assets/images/logos/Coze-logo.png",
+              "desc": "字节跳动扣子（Coze）智能体平台"
+            },
+            {
+              "name": "元器",
+              "url": "https://yuanqi.tencent.com",
+              "logo": "assets/images/logos/yuanqi.jpg",
+              "desc": "腾讯元器智能体平台"
+            },
+            {
+              "name": "通义千问",
+              "url": "https://www.qianwen.com/chat/agents",
+              "logo": "assets/images/logos/Qwen.jpg",
+              "desc": "阿里通义智能体平台"
+            },
+            {
+              "name": "星辰",
+              "url": "https://agent.xfyun.cn/home",
+              "logo": "assets/images/logos/xunfei-xingchen.jpg",
+              "desc": "讯飞星辰智能体平台"
+            },
+            {
+              "name": "智谱清言",
+              "url": "https://chatglm.cn/main/toolsCenter?lang=zh",
+              "logo": "assets/images/logos/zpqy.png",
+              "desc": "清华智谱清言智能体平台"
+            },
+            {
+              "name": "天工",
+              "url": "https://www.tiangong.cn",
+              "logo": "assets/images/logos/skywork.png",
+              "desc": "昆仑万维天工 AI 办公智能体"
+            },
+            {
+              "name": "百宝箱",
+              "url": "https://www.tbox.cn/community",
+              "logo": "assets/images/logos/bbxlogo.png",
+              "desc": "蚂蚁百宝箱TBOX"
+            },
+            {
+              "name": "n8n",
+              "url": "https://n8n.io",
+              "logo": "assets/images/logos/n8n.png",
+              "desc": "自动化工作流平台，支持连接各类 AI 工具与应用，可视化搭建智能体流程，实现业务自动化"
+            },
+            {
+              "name": "ComfyUI",
+              "url": "https://comfyui.org",
+              "logo": "assets/images/logos/confyui.png",
+              "desc": "可视化搭建复杂的图像、视频生成智能体"
+            }
+          ]
+        },
+        {
+          "id": "19cb9b648dba4efc58a205ea413b6b03",
+          "name": "AI视频工具",
+          "sites": [
+            {
+              "name": "Dreamina AI",
+              "url": "https://dreamina.capcut.com",
+              "logo": "assets/images/logos/jimeng.png",
+              "desc": "即梦国际版"
+            },
+            {
+              "name": "即梦AI",
+              "url": "https://jimeng.jianying.com/ai-tool/home",
+              "logo": "assets/images/logos/jimeng.png",
+              "desc": "一站式多模态AI"
+            },
+            {
+              "name": "可灵AI",
+              "url": "https://klingai.com/app",
+              "logo": "assets/images/logos/keling.png",
+              "desc": "快手多模态AI创作"
+            },
+            {
+              "name": "Veo",
+              "url": "https://labs.google/fx/zh/tools/flow",
+              "logo": "assets/images/logos/VEO.png",
+              "desc": "谷歌文生视频大模型"
+            },
+            {
+              "name": "Grok",
+              "url": "https://grok.com/imagine",
+              "logo": "assets/images/logos/Grok.png",
+              "desc": "xAI图文视频生成"
+            },
+            {
+              "name": "sora",
+              "url": "https://sora.chatgpt.com/explore",
+              "logo": "assets/images/logos/sora.jpg",
+              "desc": "OpenAI文生视频"
+            },
+            {
+              "name": "PixVerse",
+              "url": "https://app.pixverse.ai",
+              "logo": "assets/images/logos/pixverse.png",
+              "desc": "国产图文视频生成"
+            },
+            {
+              "name": "Vidu",
+              "url": "https://www.vidu.cn/home/recommend",
+              "logo": "assets/images/logos/vidu.png",
+              "desc": "清华&生数文生视频"
+            },
+            {
+              "name": "通义万相(Wan)",
+              "url": "https://tongyi.aliyun.com/wan/generate",
+              "logo": "assets/images/logos/wan.jpg",
+              "desc": "阿里图文视频生成"
+            },
+            {
+              "name": "海螺(MiniMax)",
+              "url": "https://hailuoai.com",
+              "logo": "assets/images/logos/hailuo.jpg",
+              "desc": "MiniMax多模态生成"
+            },
+            {
+              "name": "智谱清影CogVideoX",
+              "url": "https://chatglm.cn/video?lang=zh",
+              "logo": "assets/images/logos/zpqy.png",
+              "desc": "GLM文生视频"
+            },
+            {
+              "name": "Runway",
+              "url": "https://app.runwayml.com/video-tools/teams/guest/ai-tools/generate?mode=apps",
+              "logo": "assets/images/logos/Runway.png",
+              "desc": "Gen系列文生视频"
+            },
+            {
+              "name": "白日梦AI",
+              "url": "https://aibrm.com",
+              "logo": "assets/images/logos/brmai.jpg",
+              "desc": "国产AI长视频创作"
+            },
+            {
+              "name": "wula.ai",
+              "url": "https://wula.ai",
+              "logo": "assets/images/logos/wula.png",
+              "desc": "海外轻量短视频AI"
+            },
+            {
+              "name": "GeminiGen AI",
+              "url": "https://geminigen.ai",
+              "logo": "assets/images/logos/geminigenai.png",
+              "desc": "多模态内容生成"
+            },
+            {
+              "name": "Vocal Remover",
+              "url": "https://vocalremover.org",
+              "logo": "assets/images/logos/Vocal Remover.jpg",
+              "desc": "免费人声消除隔离"
+            },
+            {
+              "name": "Remove-Vocals",
+              "url": "https://www.remove-vocals.com/en",
+              "logo": "assets/images/logos/remove-vocals.png",
+              "desc": "伴奏人声一键分离"
+            },
+            {
+              "name": "UVR AI",
+              "url": "https://uvrvocalremover.com",
+              "logo": "assets/images/logos/uvr.png",
+              "desc": "多模型高质量人声分离"
+            },
+            {
+              "name": "MusicLab",
+              "url": "https://vocalremover.easeus.com",
+              "logo": "assets/images/logos/ease.png",
+              "desc": "音视频人声分离"
+            },
+            {
+              "name": "Anyvoice",
+              "url": "https://anyvoice.net",
+              "logo": "assets/images/logos/anyvoice .jpg",
+              "desc": "TTS语音&声音克隆"
+            },
+            {
+              "name": "Text2Voice",
+              "url": "https://text2voice.cc/",
+              "logo": "assets/images/logos/ProcessOn.png",
+              "desc": "在线文本转语音"
+            }
+          ]
+        },
+        {
+          "id": "19cb9b648dba4efc58a205ea413b6b04",
+          "name": "AI图片工具",
+          "sites": [
+            {
+              "name": "GPT-image",
+              "url": "https://chatgpt.com",
+              "logo": "assets/images/logos/chatgpt.jpg",
+              "desc": "内置在ChatGPT里的文生图/图生图/AI绘图工具"
+            },
+            {
+              "name": "即梦(seedream)",
+              "url": "https://jimeng.jianying.com/ai-tool/home",
+              "logo": "assets/images/logos/jimeng.png",
+              "desc": "一站式多模态AI-让灵感即刻成片"
+            },
+            {
+              "name": "Nano Banana(Gemini-image)",
+              "url": "https://gemini.google.com/app",
+              "logo": "assets/images/logos/Nano Banana.jpg",
+              "desc": "谷歌DeepMind 旗下推出的图像生成/编辑模型"
+            },
+            {
+              "name": "Whisk",
+              "url": "https://labs.google/fx/tools/whisk/project",
+              "logo": "assets/images/logos/Whisk.png",
+              "desc": "Google Labs 推出的AI图片创作实验工具"
+            },
+            {
+              "name": "nano-banana.ai",
+              "url": "https://www.nano-banana.ai/zh-TW/ai_generator",
+              "logo": "assets/images/logos/l4.jpg",
+              "desc": "nano-banana第三方网站"
+            },
+            {
+              "name": "nanobanana.io",
+              "url": "https://nanobanana.io/zh/ai-image-generator",
+              "logo": "assets/images/logos/l4.jpg",
+              "desc": "AI图像生成/编辑聚合平台"
+            },
+            {
+              "name": "Luma AI",
+              "url": "https://app.lumalabs.ai/boards",
+              "logo": "assets/images/logos/luma.png",
+              "desc": "主流图片生成聚合平台Nano Banana、GPT-image、seedream、Uni-1"
+            },
+            {
+              "name": "Grok",
+              "url": "https://grok.com/imagine",
+              "logo": "assets/images/logos/Grok.png",
+              "desc": "xAI马斯克旗下文生图"
+            },
+            {
+              "name": "Flux",
+              "url": "https://playground.bfl.ai/image/generate",
+              "logo": "assets/images/logos/Flux.png",
+              "desc": "支持文生图、图生图、角色一致性、图像编辑"
+            },
+            {
+              "name": "可灵AI(Kling)",
+              "url": "https://klingai.com/app/image/new?ac=7",
+              "logo": "assets/images/logos/keling.png",
+              "desc": "可灵AI图像生成模型"
+            },
+            {
+              "name": "通义万相(Ｗan)",
+              "url": "https://tongyi.aliyun.com/wan/generate/image/generate?model=wan2.7-pro",
+              "logo": "assets/images/logos/wan.jpg",
+              "desc": "阿里系图像生成模型"
+            },
+            {
+              "name": "Midjourney",
+              "url": "https://www.midjourney.com/home",
+              "logo": "assets/images/logos/Midjourney.png",
+              "desc": "艺术感最强、画质顶级、社区活跃的闭源 AI 绘图工具，适合插画、海报、概念设计、动漫创作，创意与美感首选"
+            },
+            {
+              "name": "百度文心助手",
+              "url": "https://chat.baidu.com",
+              "logo": "assets/images/logos/wenxin.png",
+              "desc": "全能 AI 助手，覆盖视频图片、办公学习、代码编程、语音交互等多元场景"
+            },
+            {
+              "name": "Raphael AI",
+              "url": "https://raphael.app/zh",
+              "logo": "assets/images/logos/rahael.png",
+              "desc": "无限免费AI图像生成器/AI图像扩展器及去背"
+            },
+            {
+              "name": "Morisot",
+              "url": "https://morisot.ai/zh",
+              "logo": "assets/images/logos/morisotai.jpg",
+              "desc": "无提示词AI绘画，一句含糊想法，长出一墙好图"
+            },
+            {
+              "name": "YouMind",
+              "url": "https://youmind.com/zh-CN",
+              "logo": "assets/images/logos/YouMind.png",
+              "desc": "高质量预设提示词库和优化Skill"
+            },
+            {
+              "name": "Image to Prompt",
+              "url": "https://imagetoprompt.org/zh",
+              "logo": "assets/images/logos/imageprompt.png",
+              "desc": "还原图片提示词"
+            },
+            {
+              "name": "Prompt123",
+              "url": "https://prompt123.cn",
+              "logo": "assets/images/logos/prompt123.jpg",
+              "desc": "完全免费的中文AI提示词"
+            }
+          ]
+        },
+        {
+          "id": "19cb9b648dba4efc58a205ea413b6b05",
+          "name": "AI编程工具",
+          "sites": [
+            {
+              "name": "TRAE",
+              "url": "https://www.trae.cn/plugin",
+              "logo": "assets/images/logos/TRAE.png",
+              "desc": "字节跳动旗下AI编程助手，高效编码"
+            },
+            {
+              "name": "通义灵码",
+              "url": "https://lingma.aliyun.com/lingma",
+              "logo": "assets/images/logos/wan.jpg",
+              "desc": "灵动指间，快码加编，你的智能编码助手"
+            },
+            {
+              "name": "文心快码",
+              "url": "https://comate.baidu.com",
+              "logo": "assets/images/logos/wxyy.jpg",
+              "desc": "码随心动，快人一步，更懂你的智能代码助手"
+            },
+            {
+              "name": "CodeBuddy",
+              "url": "https://copilot.tencent.com/",
+              "logo": "assets/images/logos/CodeBuddy.png",
+              "desc": "腾讯云AI编程助手，全栈开发协作平台"
+            },
+            {
+              "name": "CodeArts Snap",
+              "url": "https://www.huaweicloud.com/product/codeartside/snap.html",
+              "logo": "assets/images/logos/CodeArts Snap.jpg",
+              "desc": "华为 - CodeArts Doer 智能助手"
+            },
+            {
+              "name": "Claude",
+              "url": "https://claude.com/product/claude-code",
+              "logo": "assets/images/logos/claude-ai.jpg",
+              "desc": "Claude Code - 专为开发者设计的代理式编程工具"
+            },
+            {
+              "name": "Qoder",
+              "url": "https://qoder.com",
+              "logo": "assets/images/logos/Qoder.png",
+              "desc": "The Agentic Coding Platform"
+            }
+          ]
+        }
+      ],
+      "expanded": false
+    },
+    {
+      "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
+      "name": "金融理财",
+      "icon": "fas fa-coins fa-lg",
+      "sites": [
+        {
+          "name": "通达信",
+          "url": "https://www.tdx.com.cn",
+          "logo": "assets/images/logos/tdx.png",
+          "desc": ""
+        },
+        {
+          "name": "同花顺",
+          "url": "https://www.10jqka.com.cn",
+          "logo": "assets/images/logos/ths.png",
+          "desc": ""
+        },
+        {
+          "name": "益盟操盘手",
+          "url": "https://www.emoney.cn",
+          "logo": "assets/images/logos/ymcps.png",
+          "desc": ""
+        },
+        {
+          "name": "天狼50",
+          "url": "https://www.tl50.com",
+          "logo": "assets/images/logos/tl50.png",
+          "desc": ""
+        },
+        {
+          "name": "新华网",
+          "url": "https://www.xinhuanet.com",
+          "logo": "assets/images/logos/xhw.jpg",
+          "desc": ""
+        },
+        {
+          "name": "财新网",
+          "url": "https://www.caixin.com",
+          "logo": "assets/images/logos/cxw.png",
+          "desc": ""
+        },
+        {
+          "name": "界面新闻",
+          "url": "https://www.jiemian.com",
+          "logo": "assets/images/logos/jmxw.png",
+          "desc": ""
+        },
+        {
+          "name": "东方财富",
+          "url": "https://www.eastmoney.com",
+          "logo": "assets/images/logos/dfcf.png",
+          "#desc": "",
+          "desc": ""
+        },
+        {
+          "name": "新浪财经",
+          "url": "https://finance.sina.com.cn",
+          "logo": "assets/images/logos/sina.jpg",
+          "desc": ""
+        },
+        {
+          "name": "财联社",
+          "url": "https://www.cls.cn",
+          "logo": "assets/images/logos/cls.webp",
+          "desc": ""
+        },
+        {
+          "name": "金十数据",
+          "url": "https://www.jin10.com",
+          "logo": "assets/images/logos/jin10.jpg",
+          "desc": ""
+        },
+        {
+          "name": "雪球",
+          "url": "https://xueqiu.com",
+          "logo": "assets/images/logos/xqw.jpg",
+          "desc": ""
+        },
+        {
+          "name": "TradingView",
+          "url": "https://cn.tradingview.com/chart/WFU3r7QC",
+          "logo": "assets/images/logos/tradingview.png",
+          "desc": ""
+        },
+        {
+          "name": "乌龟量化",
+          "url": "https://wglh.com",
+          "logo": "assets/images/logos/wglh.jpg",
+          "desc": ""
+        }
+      ],
+      "expanded": false
+    },
+    {
+      "name": "视频教程",
+      "icon": "fas fa-link fa-lg",
+      "sites": [
+        {
+          "logo": "assets/images/logos/YouTube.png",
+          "name": "dgetunnel部署教程",
+          "url": "https://www.youtube.com/watch?v=okjTFMiUCYA",
+          "desc": "免费VPN节点！Cloudflare 10分钟搭建｜永久免费｜全球高速节点"
+        },
+        {
+          "logo": "assets/images/logos/YouTube.png",
+          "name": "dgetunnel高手模式",
+          "url": "https://www.youtube.com/watch?v=trMEL4iQkks",
+          "desc": "Cloudflare 免费 VPN 节点｜优选订阅｜代理指定国家IP"
+        }
+      ],
+      "subCategories": [],
+      "expanded": true,
+      "id": "blddhqb94fvi6ij2xlrfyvkh6nmha901"
+    }
+  ]
 }
