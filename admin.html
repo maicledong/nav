@@ -271,10 +271,31 @@ function render() {
     return id;
   }
 
-  navConfig.categories.forEach((cat) => {
-    if (!cat.id || cat.id.length !== 32) cat.id = generateRandom30() + '01';
-    if (typeof cat.expanded === 'undefined') cat.expanded = false;
-  });
+// 强制保持你自定义的字段顺序：无sub分类则不显示，有则放在sites前面
+navConfig.categories = navConfig.categories.map((cat) => {
+  const hasSub = cat.subCategories && cat.subCategories.length > 0;
+
+  // 规则1：有子分类 → subCategories 在 sites 前面
+  if (hasSub) {
+    return {
+      id: cat.id || generateRandom30() + '01',
+      name: cat.name || '新分类',
+      icon: cat.icon || 'far fa-star fa-lg',
+      subCategories: cat.subCategories,
+      sites: cat.sites || [],
+      expanded: cat.expanded ?? false
+    };
+  }
+
+  // 规则2：无子分类 → 不输出 subCategories，顺序干净
+  return {
+    id: cat.id || generateRandom30() + '01',
+    name: cat.name || '新分类',
+    icon: cat.icon || 'far fa-star fa-lg',
+    sites: cat.sites || [],
+    expanded: cat.expanded ?? false
+  };
+});
 
   const idSet = new Set();
   navConfig.categories.forEach(cat => {
