@@ -197,6 +197,20 @@ var pendingLogoInputEl = null;
 
 let hasSubmitted = false;
 
+// ====================== 【防空提交核心】 ======================
+function isNavConfigValid(config) {
+  if (!config || !config.categories || !Array.isArray(config.categories)) return false;
+  if (config.categories.length === 0) return false;
+
+  for (const cat of config.categories) {
+    if (!cat.id || !cat.name || cat.name.trim() === '') return false;
+    const hasSites = cat.sites && Array.isArray(cat.sites) && cat.sites.length > 0;
+    const hasSub = cat.subCategories && Array.isArray(cat.subCategories) && cat.subCategories.length > 0;
+    if (!hasSites && !hasSub) return false;
+  }
+  return true;
+}
+
 function importPEM() {
   const file = document.getElementById('pemFile').files[0];
   if (!file) return alert('请选择 pem 文件');
@@ -668,15 +682,27 @@ async function uploadLogo() {
   closeUploadModal();
 }
 
+// ====================== 【带防空保护的提交】 ======================
 async function saveToGitHub() {
   if (!privateKey) return alert('请先导入私钥！');
+
+  // 🛡️ 核心防空：配置无效直接拒绝提交
+  if (!isNavConfigValid(navConfig)) {
+    showStatus('❌ 配置无效/为空，已禁止提交到 GitHub！');
+    alert('提交失败：导航配置为空或无效，已保护数据不被清空');
+    return;
+  }
+
   showStatus('⌛ 保存中...');
+
   try {
     const jwt = getJWT();
     const installId = await getInstallationId(jwt);
     const token = await getInstallToken(jwt, installId);
+
     const path = 'nav-config.json';
     let sha = null;
+
     try {
       const r = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}?ref=${GITHUB_CONFIG.BRANCH}`, {
         headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' }
@@ -686,6 +712,7 @@ async function saveToGitHub() {
         sha = data.sha;
       }
     } catch (e) {}
+
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(navConfig, null, 2))));
     const body = {
       message: 'Update nav config',
@@ -693,20 +720,25 @@ async function saveToGitHub() {
       branch: GITHUB_CONFIG.BRANCH
     };
     if (sha) body.sha = sha;
+
+    // 🛡️ 网络异常/提交失败 → 绝不覆盖
     const res = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.OWNER}/${GITHUB_CONFIG.REPO}/contents/${path}`, {
       method: 'PUT',
       headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' },
       body: JSON.stringify(body)
     });
+
     if (res.ok) {
       hasSubmitted = true;
       showStatus('✅ 保存成功！页面无需刷新，数据已最新！');
     } else {
-      showStatus('❌ 保存失败');
+      throw new Error('GitHub API 提交失败');
     }
+
   } catch (e) {
-    showStatus('❌ 保存异常');
-    console.error(e);
+    // 🛡️ 网络失败 → 禁止提交
+    showStatus('❌ 网络/提交异常，已终止，不会覆盖数据');
+    console.error('提交异常：', e);
   }
 }
 
