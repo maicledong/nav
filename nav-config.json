@@ -1962,7 +1962,7 @@
           "desc": ""
         }
       ],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "zekr23s5cyd390hg6lktzih87o5d6001",
@@ -1980,9 +1980,15 @@
           "name": "Dgetunnel高手模式",
           "url": "https://www.youtube.com/watch?v=trMEL4iQkks",
           "desc": "Cloudflare 免费 VPN 节点｜优选订阅｜代理指定国家IP"
+        },
+        {
+          "logo": "assets/images/logos/YouTube.png",
+          "name": "直播",
+          "url": "https://www.youtube.com/watch?v=IzQybHQSwGI",
+          "desc": "Cloudflare Workers IPTV重大更新"
         }
       ],
-      "expanded": true
+      "expanded": false
     }
   ]
 }
