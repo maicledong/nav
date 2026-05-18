@@ -408,20 +408,62 @@ if (window.location.host === 'nav-8v9.pages.dev') {
 </div>
 
 
-<!-- 只加这一层，让缩进和其他分类完全一致 -->
 <div class="content-site customize-site">
     <h4 class="text-gray text-lg mb-4">
-        <i class="iconfont icon-book-mark-line icon-lg mr-2" id="friendlink"></i>科学上网
+        <i class="iconfont icon-book-mark-line icon-lg mr-2"></i>
+        <span id="friendlink-title">科学上网</span>
     </h4>
     <div class="friendlink text-xs card">
-        <div class="card-body">
-            <a href="https://maicle.ccwu.cc" title="反代优选IP" target="_blank">免费节点</a>
-            <a href="https://wd.maicle.ccwu.cc/0697039a-847c-49c5-92d8-1d7b93ed02f2" title="节点订阅中心" target="_blank">节点订阅中心</a>
-            <a href="https://juejin.im" title="掘金社区" target="_blank">掘金社区</a>
-            <a href="https://github.com/2dust/v2rayN" title="v2rayN" target="_blank">v2rayN</a>
+        <div class="card-body" id="friendlink-links">
+            <!-- 链接会从配置文件自动渲染在这里 -->
         </div>
     </div>
 </div>
+
+<script>
+// 友情链接动态渲染（只执行这一段，不影响其他功能）
+async function renderFriendLinks() {
+  try {
+    // 读取配置文件
+    const res = await fetch('/nav-config.json');
+    const config = await res.json();
+    
+    // 找到我们添加的友情链接分类
+    const friendLinkCat = config.categories.find(cat => cat.id === 'friendlink');
+    
+    if (friendLinkCat) {
+      // 更新标题
+      document.getElementById('friendlink-title').textContent = friendLinkCat.name;
+      
+      // 更新链接
+      const linkContainer = document.getElementById('friendlink-links');
+      linkContainer.innerHTML = ''; // 清空旧链接
+      
+      friendLinkCat.sites.forEach((site, index) => {
+        const a = document.createElement('a');
+        a.href = site.url;
+        a.title = site.desc;
+        a.target = '_blank';
+        a.textContent = site.name;
+        
+        linkContainer.appendChild(a);
+        
+        // 链接之间用 · 分隔
+        if (index < friendLinkCat.sites.length - 1) {
+          const separator = document.createTextNode(' · ');
+          linkContainer.appendChild(separator);
+        }
+      });
+    }
+  } catch (err) {
+    // 如果加载失败，什么也不显示，不影响页面其他部分
+    console.error('友情链接加载失败', err);
+  }
+}
+
+// 页面加载完成后执行
+renderFriendLinks();
+</script>
 
         <footer class="main-footer footer-type-1 text-xs">
             <div id="footer-tools" class="d-flex flex-column">
