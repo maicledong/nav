@@ -882,6 +882,12 @@
           "name": "文档办公",
           "sites": [
             {
+              "logo": "assets/images/logos/PDF24.png",
+              "name": "PDF24 Tools",
+              "url": "https://tools.pdf24.org/zh/all-tools",
+              "desc": "免费全能在线PDF工具箱"
+            },
+            {
               "name": "WPS在线",
               "url": "https://www.wps.cn",
               "logo": "assets/images/logos/WPSzx.jpg",
@@ -1053,7 +1059,7 @@
         }
       ],
       "sites": [],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "9c2232288caaa8ec40948cef6a786a01",
