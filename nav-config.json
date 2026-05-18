@@ -1998,29 +1998,29 @@
     },
     {
       "id": "friendlink",
-      "name": "科学上网",
+      "name": "梯子",
       "icon": "fas fa-link fa-lg",
       "sites": [
         {
-          "name": "免费节点",
+          "name": "EdgeTunnel反代/优选IP",
           "url": "https://wdjd.mdblog.cc.cd",
           "logo": "",
-          "desc": "EdgeTunnel反代优选IP"
+          "desc": ""
         },
         {
           "name": "节点订阅中心",
           "url": "https://wd.maicle.ccwu.cc/0697039a-847c-49c5-92d8-1d7b93ed02f2",
           "logo": "",
-          "desc": "节点订阅中心"
+          "desc": ""
         },
         {
           "name": "v2rayN",
           "url": "https://github.com/2dust/v2rayN",
           "logo": "",
-          "desc": "v2rayN"
+          "desc": ""
         }
       ],
-      "expanded": true
+      "expanded": false
     }
   ]
 }
