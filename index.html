@@ -723,6 +723,15 @@ function clearSiteSearch() {
 }
 </script>
 
+
+
+
+
+
+
+
+	
+
 <script>
 let navConfig = {};
 async function initNav(){
@@ -768,10 +777,14 @@ function renderSidebar(){
     document.getElementById("sidebarMenuWrap").innerHTML = html;
 }
 
-// ✅ 动态渲染内容区：1:1还原原版卡片样式
+
+// ✅ 动态渲染内容区：1:1还原原版卡片样式（跳过friendlink分类）
 function renderContent(){
     let html = "";
     navConfig.categories.forEach(cat=>{
+        // 关键修改：跳过id为friendlink的分类，避免生成卡片
+        if (cat.id === 'friendlink') return;
+
         if(cat.sites && cat.sites.length>0){
             html += renderBlock(cat);
         }
@@ -785,6 +798,7 @@ function renderContent(){
     });
     document.getElementById("content").innerHTML = document.getElementById("site-search-empty").outerHTML + html;
 }
+
 
 // ✅ 还原原版区块标题 + 卡片布局
 function renderBlock(item){
