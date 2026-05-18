@@ -1059,7 +1059,7 @@
         }
       ],
       "sites": [],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "9c2232288caaa8ec40948cef6a786a01",
@@ -2003,21 +2003,15 @@
       "sites": [
         {
           "name": "免费节点",
-          "url": "https://maicle.ccwu.cc",
+          "url": "https://wdjd.mdblog.cc.cd",
           "logo": "",
-          "desc": "反代优选IP"
+          "desc": "EdgeTunnel反代优选IP"
         },
         {
           "name": "节点订阅中心",
           "url": "https://wd.maicle.ccwu.cc/0697039a-847c-49c5-92d8-1d7b93ed02f2",
           "logo": "",
           "desc": "节点订阅中心"
-        },
-        {
-          "name": "掘金社区",
-          "url": "https://juejin.im",
-          "logo": "",
-          "desc": "掘金社区"
         },
         {
           "name": "v2rayN",
@@ -2027,6 +2021,6 @@
         }
       ],
       "expanded": true
-    }    
+    }
   ]
 }
