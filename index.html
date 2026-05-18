@@ -407,11 +407,6 @@ if (window.location.host === 'nav-8v9.pages.dev') {
 </div>
 </div>
 
-
-
-	
-
-
 <div class="content-site customize-site">
     <h4 class="text-gray text-lg mb-4">
         <i class="iconfont icon-book-mark-line icon-lg mr-2"></i>
@@ -425,62 +420,53 @@ if (window.location.host === 'nav-8v9.pages.dev') {
 </div>
 
 <script>
-// 友情链接动态渲染（增强版，带错误提示）
+// 友情链接：无小点 + 强制渲染版
 async function renderFriendLinks() {
   const linkContainer = document.getElementById('friendlink-links');
   const titleEl = document.getElementById('friendlink-title');
 
   try {
-    // 1. 读取配置文件（先尝试相对路径，再试根路径）
-    let res;
-    try {
-      res = await fetch('./nav-config.json');
-    } catch (e) {
-      res = await fetch('/nav-config.json');
-    }
-
-    if (!res.ok) throw new Error('配置文件加载失败：' + res.status);
-
+    // 1. 读取配置
+    const res = await fetch('./nav-config.json');
+    if (!res.ok) throw new Error('配置文件加载失败');
     const config = await res.json();
 
     // 2. 找到友情链接分类
     const friendLinkCat = config.categories.find(cat => cat.id === 'friendlink');
+    if (!friendLinkCat) throw new Error('未找到friendlink分类');
 
-    if (!friendLinkCat) throw new Error('未找到 id="friendlink" 的分类');
-
-    // 3. 更新标题
+    // 3. 设置标题
     titleEl.textContent = friendLinkCat.name;
 
-    // 4. 渲染链接
+    // 4. 清空容器
     linkContainer.innerHTML = '';
+
+    // 5. 没有链接的提示
     if (!friendLinkCat.sites || friendLinkCat.sites.length === 0) {
       linkContainer.innerHTML = '<span class="text-muted">暂无链接</span>';
       return;
     }
 
-    friendLinkCat.sites.forEach((site, index) => {
+    // 6. 渲染链接（完全不加任何符号，只用CSS控制间距）
+    friendLinkCat.sites.forEach((site) => {
       const a = document.createElement('a');
       a.href = site.url;
-      a.title = site.desc || '';
       a.target = '_blank';
       a.textContent = site.name;
-      a.style.marginRight = '10px';
+      a.style.display = 'inline-block';
+      a.style.marginRight = '15px'; // 用右边距做间隔，不会有任何字符
       linkContainer.appendChild(a);
-
+    });
 
   } catch (err) {
-    // 出错时在页面上显示错误信息，方便排查
-    linkContainer.innerHTML = `<span class="text-danger">加载失败：${err.message}</span>`;
-    console.error('友情链接渲染错误:', err);
+    // 出错时显示错误信息，方便排查
+    linkContainer.innerHTML = `<span class="text-danger">渲染失败：${err.message}</span>`;
+    console.error('友情链接错误:', err);
   }
 }
 
-// 确保页面加载完成后执行
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', renderFriendLinks);
-} else {
-  renderFriendLinks();
-}
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', renderFriendLinks);
 </script>
 
         <footer class="main-footer footer-type-1 text-xs">
