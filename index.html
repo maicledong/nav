@@ -467,10 +467,10 @@ async function renderFriendLinks() {
 
       linkContainer.appendChild(a);
 
-      if (index < friendLinkCat.sites.length - 1) {
-        linkContainer.appendChild(document.createTextNode(' · '));
-      }
-    });
+  if (index !== friendLinkCat.sites.length - 1) {
+    linkContainer.appendChild(document.createTextNode(' · '));
+  }
+});
 
   } catch (err) {
     // 出错时在页面上显示错误信息，方便排查
@@ -486,10 +486,6 @@ if (document.readyState === 'loading') {
   renderFriendLinks();
 }
 </script>
-
-
-
-	
 
         <footer class="main-footer footer-type-1 text-xs">
             <div id="footer-tools" class="d-flex flex-column">
@@ -745,8 +741,10 @@ async function initNav(){
 function renderSidebar(){
     let html = "";
     navConfig.categories.forEach(cat=>{
+        // 跳过科学上网，侧边栏不显示
+        if (cat.id === 'friendlink') return;
+
         if(!cat.subCategories){
-            // 无下级分类
             html += `
             <li class="sidebar-item">
                 <a href="#${cat.id}" class="smooth">
@@ -756,7 +754,6 @@ function renderSidebar(){
             </li>
             `;
         }else{
-            // 有下级分类：保留原版 change‑href + 箭头图标
             html += `
             <li class="sidebar-item">
                 <a href="#${cat.id}" class="smooth change-href" data-change="#${cat.id}">
