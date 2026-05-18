@@ -1998,8 +1998,8 @@
     },
     {
       "id": "friendlink",
-      "name": "梯子",
-      "icon": "fas fa-link fa-lg",
+      "name": "科学上网",
+      "icon": "fas fa-globe fa-lg",
       "sites": [
         {
           "name": "EdgeTunnel反代/优选IP",
