@@ -464,13 +464,9 @@ async function renderFriendLinks() {
       a.title = site.desc || '';
       a.target = '_blank';
       a.textContent = site.name;
-
+      a.style.marginRight = '10px';
       linkContainer.appendChild(a);
 
-  if (index !== friendLinkCat.sites.length - 1) {
-    linkContainer.appendChild(document.createTextNode(' · '));
-  }
-});
 
   } catch (err) {
     // 出错时在页面上显示错误信息，方便排查
