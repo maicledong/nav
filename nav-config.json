@@ -934,6 +934,12 @@
               "url": "https://www.yinxiang.com",
               "logo": "assets/images/logos/yxbj.jpg",
               "desc": "经典笔记/知识沉淀"
+            },
+            {
+              "logo": "assets/images/logos/Monica.png",
+              "name": "Monica",
+              "url": "https://monica.im/zh_CN/features/youtube-summary-with-chatgpt",
+              "desc": "YouTube 视频摘要总结工具"
             }
           ]
         },
@@ -1059,7 +1065,7 @@
         }
       ],
       "sites": [],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "9c2232288caaa8ec40948cef6a786a01",
