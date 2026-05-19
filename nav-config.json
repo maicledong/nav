@@ -837,6 +837,24 @@
       "subCategories": [
         {
           "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
+          "name": "办公神器",
+          "sites": [
+            {
+              "logo": "assets/images/logos/PDF24.png",
+              "name": "PDF24 Tools",
+              "url": "https://tools.pdf24.org/zh/all-tools",
+              "desc": "免费全能在线PDF工具箱"
+            },
+            {
+              "logo": "assets/images/logos/Monica.png",
+              "name": "Monica",
+              "url": "https://monica.im/zh_CN/features/youtube-summary-with-chatgpt",
+              "desc": "YouTube 视频摘要总结工具"
+            }
+          ]
+        },
+        {
+          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e02",
           "name": "翻译词典",
           "sites": [
             {
@@ -874,72 +892,6 @@
               "url": "https://translate.google.cn/",
               "logo": "assets/images/logos/gugefanyi.png",
               "desc": "全球普及度最高的多语种翻译"
-            }
-          ]
-        },
-        {
-          "id": "5e6e1089ffbc5d7819c0d0f1f7b31e02",
-          "name": "文档办公",
-          "sites": [
-            {
-              "logo": "assets/images/logos/PDF24.png",
-              "name": "PDF24 Tools",
-              "url": "https://tools.pdf24.org/zh/all-tools",
-              "desc": "免费全能在线PDF工具箱"
-            },
-            {
-              "name": "WPS在线",
-              "url": "https://www.wps.cn",
-              "logo": "assets/images/logos/WPSzx.jpg",
-              "desc": "全能Office/AI强兼容"
-            },
-            {
-              "name": "金山文档",
-              "url": "https://www.kdocs.cn",
-              "logo": "assets/images/logos/jswd.jpg",
-              "desc": "WPS网页版，免装即用"
-            },
-            {
-              "name": "腾讯文档",
-              "url": "https://docs.qq.com",
-              "logo": "assets/images/logos/txwd.jpg",
-              "desc": "微信生态/轻巧分享"
-            },
-            {
-              "name": "石墨文档",
-              "url": "https://shimo.im",
-              "logo": "assets/images/logos/smwd.jpg",
-              "desc": "企业协同/安全流畅"
-            },
-            {
-              "name": "语雀",
-              "url": "https://www.yuque.com",
-              "logo": "assets/images/logos/yuque.jpg",
-              "desc": "文档协同/专业云端结构化知识库"
-            },
-            {
-              "name": "飞书文档",
-              "url": "https://www.feishu.cn/product/docs",
-              "logo": "assets/images/logos/fswd.jpg",
-              "desc": "飞书生态/高效共创"
-            },
-            {
-              "name": "钉钉文档",
-              "url": "https://alidocs.dingtalk.com",
-              "logo": "assets/images/logos/ddwd.jpg",
-              "desc": "钉钉原生/企业强管控"
-            },
-            {
-              "name": "印象笔记",
-              "url": "https://www.yinxiang.com",
-              "logo": "assets/images/logos/yxbj.jpg",
-              "desc": "经典笔记/知识沉淀"
-            },
-            {
-              "logo": "assets/images/logos/Monica.png",
-              "name": "Monica",
-              "url": "https://monica.im/zh_CN/features/youtube-summary-with-chatgpt",
-              "desc": "YouTube 视频摘要总结工具"
             }
           ]
         },
