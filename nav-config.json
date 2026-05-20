@@ -1017,7 +1017,7 @@
         }
       ],
       "sites": [],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "9c2232288caaa8ec40948cef6a786a01",
@@ -1966,8 +1966,8 @@
           "desc": ""
         },
         {
-          "name": "节点订阅中心",
-          "url": "https://wd.maicle.ccwu.cc/0697039a-847c-49c5-92d8-1d7b93ed02f2",
+          "name": "cfnew",
+          "url": "https://wdcfnew.maicle.ccwu.cc/3040a7a8-ff5a-4614-8af2-66e10ee3c6b0",
           "logo": "",
           "desc": ""
         },
