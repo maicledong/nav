@@ -1967,7 +1967,7 @@
         },
         {
           "name": "cfnew",
-          "url": "https://wdcfnew.maicle.ccwu.cc/3040a7a8-ff5a-4614-8af2-66e10ee3c6b0",
+          "url": "https://cfnew.maicle.ccwu.cc/3040a7a8-ff5a-4614-8af2-66e10ee3c6b0",
           "logo": "",
           "desc": ""
         },
@@ -1978,7 +1978,7 @@
           "desc": ""
         }
       ],
-      "expanded": false
+      "expanded": true
     }
   ]
 }
