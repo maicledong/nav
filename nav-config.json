@@ -1347,6 +1347,12 @@
               "desc": "查看您的IP地址"
             },
             {
+              "logo": "assets/images/logos/whatismyip.png",
+              "name": "What is My IP Address",
+              "url": "https://whatismyipaddress.com/",
+              "desc": "快速查看本机公网 IP 及归属地、运营商等信息"
+            },
+            {
               "name": "Tcptest",
               "url": "https://tcptest.cn",
               "logo": "assets/images/logos/tcptest.png",
@@ -1978,7 +1984,7 @@
           "desc": ""
         }
       ],
-      "expanded": true
+      "expanded": false
     }
   ]
 }
