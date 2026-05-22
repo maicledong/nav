@@ -106,6 +106,12 @@
           "url": "https://www.freeconvert.com/zh",
           "logo": "assets/images/logos/FreeConvert.png",
           "desc": "音视图文免费在线转换与压缩工具"
+        },
+        {
+          "logo": "assets/images/logos/PDF24.png",
+          "name": "PDF24 Tools",
+          "url": "https://tools.pdf24.org/zh/all-tools",
+          "desc": "免费全能在线PDF工具箱"
         }
       ],
       "expanded": false
@@ -823,6 +829,12 @@
               "url": "https://www.cloudns.net",
               "logo": "assets/images/logos/cloudns.png",
               "desc": "全球托管DNS与域名服务提供商"
+            },
+            {
+              "logo": "",
+              "name": "Check ProxyIP",
+              "url": "https://check.proxyip.cmliussss.net/",
+              "desc": "基于 Cloudflare 的 ProxyIP 检测工具，支持单个或批量目标解析、可用性验证与出口信息查看"
             }
           ]
         }
