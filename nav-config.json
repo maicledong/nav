@@ -18,6 +18,12 @@
           "desc": "DeepSeek-深度求索"
         },
         {
+          "logo": "",
+          "name": "Kimi",
+          "url": "https://www.kimi.com/",
+          "desc": "专为智能体编程与知识工作打造"
+        },
+        {
           "name": "ChatGPT",
           "url": "https://chatgpt.com",
           "logo": "assets/images/logos/chatgpt.jpg",
@@ -114,7 +120,7 @@
           "desc": "免费全能在线PDF工具箱"
         }
       ],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "a4d417d7850fde0cd00e4af576621a01",
