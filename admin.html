@@ -405,7 +405,7 @@ function renderAllSites() {
     list.forEach((s, j) => {
       h += `
       <div class="site-row" data-idx="${j}">
-        <input value="${s.logo}" oninput="updateSite(${cat},${sub},${j},'logo',this.value)" id="logo-${cat}-${sub}-${j}">
+        <input value="${s.logo}" oninput="updateSite(${cat},${sub},${j},'logo',this.value)" id="logo-${cat}-${sub}-${j}" data-cat="${cat}" data-sub="${sub}" data-idx="${j}">
         <button class="btn btn-upload" onclick="openUploadModal('logo-${cat}-${sub}-${j}')">上传</button>
         <input value="${s.name}" oninput="updateSite(${cat},${sub},${j},'name',this.value)">
         <input value="${s.url}" oninput="updateSite(${cat},${sub},${j},'url',this.value)">
@@ -682,9 +682,9 @@ async function uploadLogo() {
       showStatus(`✅ Logo 上传成功！路径：${filePath}`);
       if (pendingLogoInputEl) {
         pendingLogoInputEl.value = filePath;
-        const cat = pendingLogoInputEl.id.split('-')[1];
-        const sub = pendingLogoInputEl.id.split('-')[2];
-        const idx = pendingLogoInputEl.id.split('-')[3];
+        const cat = parseInt(pendingLogoInputEl.dataset.cat);
+        const sub = parseInt(pendingLogoInputEl.dataset.sub);
+        const idx = parseInt(pendingLogoInputEl.dataset.idx);
         updateSite(cat, sub, idx, 'logo', filePath);
       }
     } else {
