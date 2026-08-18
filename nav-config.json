@@ -120,7 +120,7 @@
           "desc": "免费全能在线PDF工具箱"
         }
       ],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "a4d417d7850fde0cd00e4af576621a01",
@@ -1857,7 +1857,7 @@
         }
       ],
       "sites": [],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
@@ -2000,9 +2000,15 @@
           "url": "https://github.com/2dust/v2rayN",
           "logo": "",
           "desc": ""
+        },
+        {
+          "logo": "",
+          "name": "99CDN",
+          "url": "https://www.youtube.com/watch?v=Z-gQcZNoW2k",
+          "desc": "99CDN 自建 CDN 教程"
         }
       ],
-      "expanded": false
+      "expanded": true
     }
   ]
 }
