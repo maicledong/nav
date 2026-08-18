@@ -60,6 +60,12 @@
           "desc": "全球领先的前端云平台"
         },
         {
+          "logo": "",
+          "name": "Oracle Cloud",
+          "url": "https://www.oracle.com/cn/cloud/free/",
+          "desc": "甲骨文VPS服务器"
+        },
+        {
           "name": "YouTube",
           "url": "https://www.youtube.com",
           "logo": "assets/images/logos/YouTube.png",
@@ -120,7 +126,7 @@
           "desc": "免费全能在线PDF工具箱"
         }
       ],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "a4d417d7850fde0cd00e4af576621a01",
