@@ -884,7 +884,7 @@
             {
               "name": "有道翻译",
               "url": "http://fanyi.youdao.com/",
-              "logo": "assets/images/logos/有道翻译.png",
+              "logo": "assets/images/logos/youdao.png",
               "desc": "有道翻译"
             },
             {
@@ -1041,7 +1041,7 @@
         }
       ],
       "sites": [],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "9c2232288caaa8ec40948cef6a786a01",
