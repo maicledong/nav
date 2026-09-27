@@ -60,7 +60,7 @@
           "desc": "全球领先的前端云平台"
         },
         {
-          "logo": "",
+          "logo": "assets/images/logos/oracle.png",
           "name": "Oracle Cloud",
           "url": "https://www.oracle.com/cn/cloud/free/",
           "desc": "甲骨文VPS服务器"
