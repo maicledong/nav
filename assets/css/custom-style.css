@@ -112,10 +112,11 @@ footer.main-footer .footer-text a:hover {
 }
 
 .header-big {
-    background-image: url("assets/images/bg-dna.jpg");
+    background-image: url("../images/bg-dna.jpg");
     /* 关键：把背景色改成 rgba，最后一位 0.3 就是透明度（0~1可调） */
     background-color: rgba(220, 232, 221, 0.4); 
     background-blend-mode: overlay;
+    }
 
 
 
