@@ -427,7 +427,7 @@ async function renderFriendLinks() {
 
   try {
     // 1. 读取配置
-    const res = await fetch('./nav-config.json');
+	const res = await fetch('./nav-config.json?t=' + Date.now());
     if (!res.ok) throw new Error('配置文件加载失败');
     const config = await res.json();
 
@@ -705,7 +705,7 @@ function clearSiteSearch() {
 <script>
 let navConfig = {};
 async function initNav(){
-    const res = await fetch("./nav-config.json");
+	const res = await fetch('./nav-config.json?t=' + Date.now());
     navConfig = await res.json();
     renderSidebar();
     renderContent();
