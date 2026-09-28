@@ -1728,18 +1728,6 @@
               "desc": "Google Labs 推出的AI图片创作实验工具"
             },
             {
-              "name": "nano-banana.ai",
-              "url": "https://www.nano-banana.ai/zh-TW/ai_generator",
-              "logo": "assets/images/logos/l4.jpg",
-              "desc": "nano-banana第三方网站"
-            },
-            {
-              "name": "nanobanana.io",
-              "url": "https://nanobanana.io/zh/ai-image-generator",
-              "logo": "assets/images/logos/l4.jpg",
-              "desc": "AI图像生成/编辑聚合平台"
-            },
-            {
               "name": "Luma AI",
               "url": "https://app.lumalabs.ai/boards",
               "logo": "assets/images/logos/luma.png",
@@ -1863,7 +1851,7 @@
         }
       ],
       "sites": [],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
