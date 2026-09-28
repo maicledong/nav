@@ -1036,12 +1036,18 @@
               "url": "https://mail.proton.me",
               "logo": "assets/images/logos/proton.jpg",
               "desc": "https://mail.proton.me"
+            },
+            {
+              "logo": "assets/images/logos/favicon.ico",
+              "name": "TDM Fast",
+              "url": "https://www.tdmfast.com/",
+              "desc": "高速多线程下载器"
             }
           ]
         }
       ],
       "sites": [],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "9c2232288caaa8ec40948cef6a786a01",
@@ -1857,7 +1863,7 @@
         }
       ],
       "sites": [],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "ucfy7g8zsamgyfchoeri4uvszqlgjn01",
