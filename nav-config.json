@@ -924,6 +924,12 @@
           "name": "网盘资源",
           "sites": [
             {
+              "logo": "assets/images/logos/favicon.ico",
+              "name": "TDM Fast",
+              "url": "https://www.tdmfast.com/",
+              "desc": "高速多线程下载器"
+            },
+            {
               "name": "百度网盘",
               "url": "http://pan.baidu.com/",
               "logo": "assets/images/logos/百度网盘.jpg",
@@ -1036,12 +1042,6 @@
               "url": "https://mail.proton.me",
               "logo": "assets/images/logos/proton.jpg",
               "desc": "https://mail.proton.me"
-            },
-            {
-              "logo": "assets/images/logos/favicon.ico",
-              "name": "TDM Fast",
-              "url": "https://www.tdmfast.com/",
-              "desc": "高速多线程下载器"
             }
           ]
         }
