@@ -847,12 +847,18 @@
               "name": "Check ProxyIP",
               "url": "https://check.proxyip.cmliussss.net/",
               "desc": "基于 Cloudflare 的 ProxyIP 检测工具，支持单个或批量目标解析、可用性验证与出口信息查看"
+            },
+            {
+              "logo": "assets/images/logos/Prettier.png",
+              "name": "Prettier",
+              "url": "https://prettier.io/playground",
+              "desc": "一个“有态度”的代码格式化工具"
             }
           ]
         }
       ],
       "sites": [],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
@@ -1047,7 +1053,7 @@
         }
       ],
       "sites": [],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "9c2232288caaa8ec40948cef6a786a01",
