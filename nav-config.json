@@ -1989,6 +1989,12 @@
         },
         {
           "logo": "assets/images/logos/YouTube.png",
+          "name": "WARP分流2",
+          "url": "https://www.youtube.com/watch?v=x_stkjecP1k",
+          "desc": "https://github.com/KJGX66F/usque-custom-pro"
+        },
+        {
+          "logo": "assets/images/logos/YouTube.png",
           "name": "直播",
           "url": "https://www.youtube.com/watch?v=IzQybHQSwGI",
           "desc": "Cloudflare Workers IPTV重大更新"
@@ -2010,12 +2016,6 @@
           "name": "FreeIDX论坛",
           "url": "https://www.youtube.com/watch?v=1Hp3UHe7zAc",
           "desc": "https://github.com/FreeIDX/FreeIDX"
-        },
-        {
-          "logo": "assets/images/logos/YouTube.png",
-          "name": "WARP分流2",
-          "url": "https://www.youtube.com/watch?v=x_stkjecP1k",
-          "desc": "https://github.com/KJGX66F/usque-custom-pro"
         }
       ],
       "expanded": true
