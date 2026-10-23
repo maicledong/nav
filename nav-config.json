@@ -2018,9 +2018,21 @@
           "name": "99CDN",
           "url": "https://www.youtube.com/watch?v=Z-gQcZNoW2k",
           "desc": "99CDN 自建 CDN 教程"
+        },
+        {
+          "logo": "",
+          "name": "musicfree",
+          "url": "https://www.youtube.com/watch?v=eVKE4xOldXs",
+          "desc": "https://github.com/maotoumao/MusicFreeDesktop"
+        },
+        {
+          "logo": "",
+          "name": "FFmpegFreeUI",
+          "url": "https://www.youtube.com/watch?v=kOoYf32AHx8",
+          "desc": "https://github.com/Lake1059/FFmpegFreeUI"
         }
       ],
-      "expanded": false
+      "expanded": true
     }
   ]
 }
