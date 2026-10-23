@@ -1983,6 +1983,24 @@
         },
         {
           "logo": "assets/images/logos/YouTube.png",
+          "name": "cfnew",
+          "url": "https://www.youtube.com/watch?v=EfhHV62CuEU",
+          "desc": "https://github.com/byJoey/cfnew/blob/core-only/_worker.js"
+        },
+        {
+          "logo": "assets/images/logos/YouTube.png",
+          "name": "cfnew",
+          "url": "https://www.youtube.com/watch?v=9rn4OP0sEEA&t=42s",
+          "desc": " https://joeyblog.net/cfnew-panel-vercel-deploy.html"
+        },
+        {
+          "logo": "assets/images/logos/YouTube.png",
+          "name": "cfnext",
+          "url": "https://www.youtube.com/watch?v=iu-GaFdWc9g",
+          "desc": "https://github.com/PAICNI/CFNext"
+        },
+        {
+          "logo": "assets/images/logos/YouTube.png",
           "name": "WARP分流1",
           "url": "https://www.youtube.com/watch?v=kEEgAvVbsno",
           "desc": "https://github.com/byJoey/warp-masque-actions         https://github.com/clash-verge-rev/clash-verge-rev"
@@ -1992,12 +2010,6 @@
           "name": "WARP分流2",
           "url": "https://www.youtube.com/watch?v=x_stkjecP1k",
           "desc": "https://github.com/KJGX66F/usque-custom-pro"
-        },
-        {
-          "logo": "assets/images/logos/YouTube.png",
-          "name": "cfnext",
-          "url": "https://www.youtube.com/watch?v=iu-GaFdWc9g",
-          "desc": "https://github.com/PAICNI/CFNext"
         },
         {
           "logo": "assets/images/logos/YouTube.png",
@@ -2044,6 +2056,12 @@
           "desc": ""
         },
         {
+          "logo": "",
+          "name": "cfnext",
+          "url": "https://cfnext.maicle.ccwu.cc/",
+          "desc": ""
+        },
+        {
           "name": "v2rayN",
           "url": "https://github.com/2dust/v2rayN",
           "logo": "",
@@ -2054,12 +2072,6 @@
           "name": "99CDN",
           "url": "https://www.youtube.com/watch?v=Z-gQcZNoW2k",
           "desc": "99CDN 自建 CDN 教程"
-        },
-        {
-          "logo": "",
-          "name": "cfnext",
-          "url": "https://cfnext.maicle.ccwu.cc/",
-          "desc": ""
         }
       ],
       "expanded": true
