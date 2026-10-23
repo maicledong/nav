@@ -1995,6 +1995,12 @@
         },
         {
           "logo": "assets/images/logos/YouTube.png",
+          "name": "cfnext",
+          "url": "https://www.youtube.com/watch?v=iu-GaFdWc9g",
+          "desc": "https://github.com/PAICNI/CFNext"
+        },
+        {
+          "logo": "assets/images/logos/YouTube.png",
           "name": "直播",
           "url": "https://www.youtube.com/watch?v=IzQybHQSwGI",
           "desc": "Cloudflare Workers IPTV重大更新"
@@ -2048,6 +2054,12 @@
           "name": "99CDN",
           "url": "https://www.youtube.com/watch?v=Z-gQcZNoW2k",
           "desc": "99CDN 自建 CDN 教程"
+        },
+        {
+          "logo": "",
+          "name": "cfnext",
+          "url": "https://cfnext.maicle.ccwu.cc/",
+          "desc": ""
         }
       ],
       "expanded": true
