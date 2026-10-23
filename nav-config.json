@@ -858,7 +858,7 @@
         }
       ],
       "sites": [],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
@@ -1986,9 +1986,27 @@
           "name": "直播",
           "url": "https://www.youtube.com/watch?v=IzQybHQSwGI",
           "desc": "Cloudflare Workers IPTV重大更新"
+        },
+        {
+          "logo": "",
+          "name": "musicfree",
+          "url": "https://www.youtube.com/watch?v=eVKE4xOldXs",
+          "desc": "https://github.com/maotoumao/MusicFreeDesktop"
+        },
+        {
+          "logo": "",
+          "name": "FFmpegFreeUI",
+          "url": "https://www.youtube.com/watch?v=kOoYf32AHx8",
+          "desc": "https://github.com/Lake1059/FFmpegFreeUI"
+        },
+        {
+          "logo": "",
+          "name": "FreeIDX论坛",
+          "url": "https://www.youtube.com/watch?v=1Hp3UHe7zAc",
+          "desc": "https://github.com/FreeIDX/FreeIDX"
         }
       ],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "friendlink",
@@ -2018,21 +2036,9 @@
           "name": "99CDN",
           "url": "https://www.youtube.com/watch?v=Z-gQcZNoW2k",
           "desc": "99CDN 自建 CDN 教程"
-        },
-        {
-          "logo": "",
-          "name": "musicfree",
-          "url": "https://www.youtube.com/watch?v=eVKE4xOldXs",
-          "desc": "https://github.com/maotoumao/MusicFreeDesktop"
-        },
-        {
-          "logo": "",
-          "name": "FFmpegFreeUI",
-          "url": "https://www.youtube.com/watch?v=kOoYf32AHx8",
-          "desc": "https://github.com/Lake1059/FFmpegFreeUI"
         }
       ],
-      "expanded": true
+      "expanded": false
     }
   ]
 }
