@@ -849,6 +849,12 @@
               "desc": "基于 Cloudflare 的 ProxyIP 检测工具，支持单个或批量目标解析、可用性验证与出口信息查看"
             },
             {
+              "logo": "",
+              "name": "IP纯净度检测",
+              "url": "https://ippure.com/",
+              "desc": ""
+            },
+            {
               "logo": "assets/images/logos/Prettier.png",
               "name": "Prettier",
               "url": "https://prettier.io/playground",
@@ -858,7 +864,7 @@
         }
       ],
       "sites": [],
-      "expanded": false
+      "expanded": true
     },
     {
       "id": "5e6e1089ffbc5d7819c0d0f1f7b31e01",
@@ -2036,7 +2042,7 @@
           "desc": "https://github.com/FreeIDX/FreeIDX"
         }
       ],
-      "expanded": true
+      "expanded": false
     },
     {
       "id": "friendlink",
